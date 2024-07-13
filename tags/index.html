@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>tags | cy的博客</title>
+    <title>Tag | cy的博客</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -37,13 +37,6 @@
 
 
 <script src="/js/lib/preview.js"></script>
-
-
-
-
-
-<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
 
 
 
@@ -157,34 +150,23 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>tags</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
+            <div id="archives">
+    
+    <div class="categories-tags">
+        
+        
+        
+        <span>
+            <a href="/tags/Chatgpt-%E6%95%99%E7%A8%8B/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Chatgpt 教程
+            </a>
         </span>
         
         
     </div>
-    
-    <div class="content" v-pre>
-        
-    </div>
-    
-    
-    
-    <div id="comment">
-        <div id="gitalk-container"></div>
-    </div>
-    
-    
-    
-    
     
 </div>
 
@@ -216,26 +198,6 @@
         
     </div>
     <script src="/js/main.js"></script>
-    
-    
-
-<script>
-    const gitalk = new Gitalk({
-        clientID: "Ov23liA160ZcBhZU3E6h",
-        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
-        repo: "666cy666.github.io",
-        owner: "666cy666",
-        admin: "666cy666".split(","),
-        language: "zh-CN",
-        id: location.pathname,
-        
-    })
-    gitalk.render("gitalk-container");
-</script>
-
-
-
-
     
 </body>
 </html>
