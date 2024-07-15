@@ -181,7 +181,7 @@
         
 
 <div class="post">
-    <a href="/2024/07/15/001%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/">
+    <a href="/2024/07/15/001-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/">
         <h2 class="post-title">解决hexo搭建博客批量修改图片路径问题.md</h2>
     </a>
     <div class="category-and-date">
@@ -341,16 +341,18 @@ def Rename_md(index_len = 3, sort_desc = True):
     for index, file in enumerate(md_files, start=1):
         file_path = os.path.join(md_directory, file)
 
-        # 检查文件名是否已经有序号, 这里我留了个空格，以后如果突破3位数大关可以修改
-        match = re.match(r&#39;^(\d+) -&#39;, file)
+        # 检查文件名是否已经有序号
+        match = re.match(r&#39;^(\d+)-&#39;, file)
         match_len = len(match.group(0)) if match else 0
-        if re.match(r&#39;^(\d+) -&#39;, file):
+        if re.match(r&#39;^(\d+)-&#39;, file):
             # 如果已有序号，则去掉原有的序号
-            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file[match_len+1:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file[match_len:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
         else:
             # 如果没有序号，直接添加新序号
-            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file&#125;&quot;
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file&#125;&quot;
         print(new_file_name)
+        # 消除空格
+        new_file_name = new_file_name.replace(&#39; &#39;, &#39;&#39;)
         new_file_path = os.path.join(md_directory, new_file_name)
         os.rename(file_path, new_file_path)  # 重命名文件
 
@@ -409,15 +411,15 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #ff7d73">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">杂</a>
         </span>
         
     </div>
-    <a href="/2024/07/15/001%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+    <a href="/2024/07/15/001-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/07/15/002%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/">
+    <a href="/2024/07/15/002-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/">
         <h2 class="post-title">解决hexo搭建博客代码块异常问题备份</h2>
     </a>
     <div class="category-and-date">
@@ -464,15 +466,15 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #03a9f4">杂</a>
         </span>
         
     </div>
-    <a href="/2024/07/15/002%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/" class="go-post">阅读全文</a>
+    <a href="/2024/07/15/002-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
+    <a href="/2024/07/15/003-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
         <h2 class="post-title">解决hexo搭建博客图片相对路径上传异常问题</h2>
     </a>
     <div class="category-and-date">
@@ -551,15 +553,15 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #ff7d73">杂</a>
         </span>
         
     </div>
-    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+    <a href="/2024/07/15/003-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/07/15/004%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
+    <a href="/2024/07/15/004-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
         <h2 class="post-title">解决hexo搭建博客代码块异常问题</h2>
     </a>
     <div class="category-and-date">
@@ -593,7 +595,7 @@ if __name__ == &quot;__main__&quot;:
 <p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
 <p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
 <p>npm uninstall -g hexo-cli</p>
-<p>npm install -i <a href="mailto:&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;">&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;</a></p>
+<p>npm install -i <a href="mailto:&#x68;&#101;&#x78;&#x6f;&#64;&#54;&#x2e;&#x33;&#46;&#x30;">&#x68;&#101;&#x78;&#x6f;&#64;&#54;&#x2e;&#x33;&#46;&#x30;</a></p>
 <p>hexo clean</p>
 <p>hexo g</p>
 <p>hexo s</p>
@@ -611,15 +613,15 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #00a596">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">杂</a>
         </span>
         
     </div>
-    <a href="/2024/07/15/004%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+    <a href="/2024/07/15/004-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2024/07/13/005%20-%20%20github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20cdn%E5%8A%A0%E9%80%9F/">
+    <a href="/2024/07/13/005-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94cdn%E5%8A%A0%E9%80%9F/">
         <h2 class="post-title">github博客搭建（六）—— cdn加速</h2>
     </a>
     <div class="category-and-date">
@@ -659,7 +661,7 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">博客</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">博客</a>
         </span>
         
         <span class="tag">
@@ -668,7 +670,7 @@ if __name__ == &quot;__main__&quot;:
         </span>
         
     </div>
-    <a href="/2024/07/13/005%20-%20%20github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20cdn%E5%8A%A0%E9%80%9F/" class="go-post">阅读全文</a>
+    <a href="/2024/07/13/005-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94cdn%E5%8A%A0%E9%80%9F/" class="go-post">阅读全文</a>
 </div>
 
 

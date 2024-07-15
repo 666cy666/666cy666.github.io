@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>github博客搭建（四）——  基于GitTalk添加评论功能 | cy的博客</title>
+    <title>github博客搭建（三）——链接github | cy的博客</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -159,7 +159,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>github博客搭建（四）——  基于GitTalk添加评论功能</h1>
+        <h1>github博客搭建（三）——链接github</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -194,15 +194,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E8%AF%84%E8%AE%BA/" style="color: #00bcd4">
+                <a href="/tags/%E8%AF%84%E8%AE%BA/" style="color: #03a9f4">
                     评论
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/gittalk/" style="color: #03a9f4">
-                    gittalk
+                <a href="/tags/GitTalk/" style="color: #00bcd4">
+                    GitTalk
                 </a>
             </span>
             
@@ -211,23 +211,30 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="github博客搭建（四）——-基于GitTalk添加评论功能"><a href="#github博客搭建（四）——-基于GitTalk添加评论功能" class="headerlink" title="github博客搭建（四）——  基于GitTalk添加评论功能"></a>github博客搭建（四）——  基于GitTalk添加评论功能</h1><h2 id="开启github评论应用"><a href="#开启github评论应用" class="headerlink" title="开启github评论应用"></a>开启github评论应用</h2><p><img src="/images/image-20240715155415494.png" alt="image-20240715155415494"></p>
-<p>首先在<a target="_blank" rel="noopener" href="https://github.com/settings/developers">Developer applications (github.com)</a>网址下，点击OAuth Apps，然后点击new OAuth App，这里是我已经创建好的apps。</p>
-<p><img src="/images/image-20240715155600502.png" alt="image-20240715155600502"></p>
-<p> Application name 是应用名称</p>
-<p>Homepage URL 是主页地址，这里填io地址</p>
-<p>description 是描述</p>
-<p>callback url 是回调地址，这里也填io地址</p>
-<p>像我上面那样填写就行</p>
-<p><img src="/images/image-20240715155857997.png" alt="image-20240715155857997"></p>
-<p>创建好之后复制clientid 和secrets</p>
-<h2 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h2><p><img src="/images/image-20240715160158896.png" alt="image-20240715160158896"></p>
-<p>在该主题的config目录下有个gittalk，将上面复制好的id和secrets填写，并将相应信息填写完毕重新编译启动</p>
-<p><img src="/images/image-20240715160319781.png" alt="image-20240715160319781"></p>
-<p>这时在博文下面会有相应的评论区，需要登录github之后再评论，评论会以issue的形式保留</p>
-<p><img src="/images/image-20240713181249763.png" alt="image-20240713181249763"></p>
-<p><img src="/images/image-20240715160458795.png" alt="image-20240715160458795"></p>
-<p>评论以及回复测试效果如上图所示，至此，恭喜你，以及完成了60%！！！</p>
+        <h1 id="github博客搭建（三）——链接github"><a href="#github博客搭建（三）——链接github" class="headerlink" title="github博客搭建（三）——链接github"></a>github博客搭建（三）——链接github</h1><p>如果你跟上了之前的教程，那么现在应该能够在本地访问博客了，那么如何才能让其他人也能看到你的博客呢？如果想用云服务器的可以另找教程自己搭建，后续都是用github来搭，云服务器我怕到时候到期了我就懒得再去配了，github我相信应该不会跑路。</p>
+<h2 id="配置git密钥"><a href="#配置git密钥" class="headerlink" title="配置git密钥"></a>配置git密钥</h2><p>按道理你们应该在第一步就已经配好了密钥，但是老规矩，上教程<a target="_blank" rel="noopener" href="https://blog.csdn.net/I_loveCong/article/details/139862670">Git的环境配置（GitHub的SSH密钥的配置超详细）_gitshezhi github 帐户设置 ssh 密钥并运行 ssh 代理-CSDN博客</a></p>
+<p>配置好密钥了之后，点击 Start project 或者下面的 new repository 建立一个新的仓库，注意Github 仅能使用一个同名仓库的代码托管一个静态站点，这里注意仓库名一定要是： 用户名.github.io。</p>
+<p><img src="/images/image-20240715152921389.png" alt="image-20240715152921389"></p>
+<p>例如我们这里是666cy666.github.io，由于我们已经创建过了，因此不能再创建了，到这一步，恭喜你，已经完成了45%！！！</p>
+<h2 id="上传至github"><a href="#上传至github" class="headerlink" title="上传至github"></a>上传至github</h2><p>在这一步要安装一个部署插件 hexo-deployer-git，打开cmd，输如以下指令：</p>
+<pre><code class="bash">npm install hexo-deployer-git --save
+</code></pre>
+<p>然后修改配置和安装部署插件，根目录下的config，拉到文件末尾，填上以下配置</p>
+<pre><code class="yaml">deploy:
+  type: git
+  repo: https://github.com/666cy666/666cy666.github.io.git
+  branch: master
+</code></pre>
+<p>这里repo修改为你的github.io的仓库地址，注意后面是带.git的，用于推送，后面那个branch有人说是main，我这里写的master也没问题，大家根据自己的仓库改。</p>
+<p>最后执行如下两条命令就能够部署上传啦。</p>
+<pre><code class="bash"># generate，生成博客
+hexo g
+# deploy，部署到Github上
+hexo d 
+</code></pre>
+<p><img src="/images/image-20240715153626750.png" alt="image-20240715153626750"></p>
+<p>出现Deploy done的时候说明已经可以通过<code>用户名.github.io</code>访问了，恭喜你，已经完成了50%！！！</p>
+<p>这里由于我已经绑定了域名，所以说就不演示了，事实上到这里博客基本功能已经全部实现了，快夸一夸你自己把，后续的内容都是一些让自己更加舒服的写博客，以及让别人更加舒服的看博客的内容。</p>
 
     </div>
     

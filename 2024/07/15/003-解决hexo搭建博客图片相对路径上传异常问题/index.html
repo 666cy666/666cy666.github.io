@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>解决hexo搭建博客代码块异常问题 | cy的博客</title>
+    <title>解决hexo搭建博客图片相对路径上传异常问题 | cy的博客</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -159,7 +159,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>解决hexo搭建博客代码块异常问题</h1>
+        <h1>解决hexo搭建博客图片相对路径上传异常问题</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -197,18 +197,45 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="解决hexo搭建博客代码块异常问题"><a href="#解决hexo搭建博客代码块异常问题" class="headerlink" title="解决hexo搭建博客代码块异常问题"></a>解决hexo搭建博客代码块异常问题</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
-<p>1.行号出现问题</p>
-<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
-<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
-<h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
-<p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
-<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
-<p>npm uninstall -g hexo-cli</p>
-<p>npm install -i <a href="mailto:&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;">&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;</a></p>
-<p>hexo clean</p>
-<p>hexo g</p>
-<p>hexo s</p>
+        <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
+<p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
+<pre><code class="txt">images/image-20240715161150570.png
+</code></pre>
+<p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
+<p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
+<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/images/image-20240715212159937.png" alt="image-20240715212159937"></p>
+<p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
+<p><img src="/images/image-20240715212543384.png" alt="image-20240715212543384"></p>
+<p>此时我们的目录结构</p>
+<pre><code class="txt">-source
+  -_posts
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>而此时我们的地址路径</p>
+<pre><code class="txt">images/image-20240715193810731.png
+</code></pre>
+<p>而我们本地的markdown文档正常读取需要下面的地址路径，此时如果是上面的路径就会造成typora无法读取图片的问题</p>
+<pre><code class="txt">../images/image-20240715193810731.png
+</code></pre>
+<p>但是改为上面的路径之后又会出现下面的问题</p>
+<p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
+<p>在上传到github的时候可以发现前面带有&#x2F;..&#x2F;,中间还有%5C这样的转义文字，正常路径应该是&#x2F;images&#x2F;图片名称，浏览器网页就无法读取了，前面说到hexo会将public文件夹上传至git，而images在根目录，故不能访问图片。所以说经过上面的分析，最简单的办法无非就是再复制一份images到_posts下面嘛</p>
+<pre><code class="txt">-source
+  -_posts
+    -images
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>如上面所示，再复制一份，这样本地markdown也能正常预览了</p>
+<p>而关于转义的路径这里是因为我在本地拼接路径的时候应该是用了.\，网络链接中为了防止读取的时候与”\“冲突，通常会将”\“转义，然后前面的&#x2F;..&#x2F;是因为在拼接路径的时候前面加了.&#x2F;，正常不用加就行</p>
+<pre><code class="错误写法">.\images\image-20240715161150570.png
+</code></pre>
+<pre><code class="正常写法">images/image-20240715161150570.png
+</code></pre>
+<h2 id="批量处理图片路径"><a href="#批量处理图片路径" class="headerlink" title="批量处理图片路径"></a>批量处理图片路径</h2><p>那么一个一个添加图片很麻烦，有没有什么简单的办法呢，请移步我另外的博客（套娃是吧，你隔这隔这呢！）</p>
+<p>[解决hexo搭建博客批量修改图片路径问题.md | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/001">https://666cy666.top/2024/07/15/001</a> - 解决hexo搭建博客批量修改图片路径问题&#x2F;)</p>
+<p>[github博客搭建（五）—— 上传图片 | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/13/006">https://666cy666.top/2024/07/13/006</a> -  github博客搭建（五）—— 上传图片&#x2F;)</p>
 
     </div>
     

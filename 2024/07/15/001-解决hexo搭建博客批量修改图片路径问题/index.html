@@ -187,7 +187,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%9D%82/" style="color: #00bcd4">
+                <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">
                     杂
                 </a>
             </span>
@@ -331,16 +331,18 @@ def Rename_md(index_len = 3, sort_desc = True):
     for index, file in enumerate(md_files, start=1):
         file_path = os.path.join(md_directory, file)
 
-        # 检查文件名是否已经有序号, 这里我留了个空格，以后如果突破3位数大关可以修改
-        match = re.match(r&#39;^(\d+) -&#39;, file)
+        # 检查文件名是否已经有序号
+        match = re.match(r&#39;^(\d+)-&#39;, file)
         match_len = len(match.group(0)) if match else 0
-        if re.match(r&#39;^(\d+) -&#39;, file):
+        if re.match(r&#39;^(\d+)-&#39;, file):
             # 如果已有序号，则去掉原有的序号
-            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file[match_len+1:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file[match_len:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
         else:
             # 如果没有序号，直接添加新序号
-            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file&#125;&quot;
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file&#125;&quot;
         print(new_file_name)
+        # 消除空格
+        new_file_name = new_file_name.replace(&#39; &#39;, &#39;&#39;)
         new_file_path = os.path.join(md_directory, new_file_name)
         os.rename(file_path, new_file_path)  # 重命名文件
 
