@@ -187,7 +187,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%9D%82/" style="color: #00a596">
+                <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">
                     杂
                 </a>
             </span>
@@ -197,20 +197,15 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p>众所周知，使用Typora写markdown文档复制图片的时候一般都会生成在下面的目录中(修改目录的当我没说)</p>
-<pre><code class="txt">![image-20240715162346052](images/image-20240715162346052.png)
-</code></pre>
-<p><img src="/images/image-20240715162921197.png" alt="image-20240715162921197"></p>
-<p>在typora中本地看肯定没问题，可以看到编译之后用浏览器本地访问就读取不到这个路径了，更别说上传github了，那么只能采取相对路径解决</p>
-<p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
+        <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
 <p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
 <pre><code class="txt">images/image-20240715161150570.png
 </code></pre>
 <p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
 <p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
-<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212159937.png" alt="image-20240715212159937"></p>
+<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/images/image-20240715212159937.png" alt="image-20240715212159937"></p>
 <p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
-<p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212543384.png" alt="image-20240715212543384"></p>
+<p><img src="/images/image-20240715212543384.png" alt="image-20240715212543384"></p>
 <p>此时我们的目录结构</p>
 <pre><code class="txt">-source
   -_posts
@@ -238,6 +233,9 @@
 </code></pre>
 <pre><code class="正常写法">images/image-20240715161150570.png
 </code></pre>
+<h2 id="批量处理图片路径"><a href="#批量处理图片路径" class="headerlink" title="批量处理图片路径"></a>批量处理图片路径</h2><p>那么一个一个添加图片很麻烦，有没有什么简单的办法呢，请移步我另外的博客（套娃是吧，你隔这隔这呢！）</p>
+<p>[解决hexo搭建博客批量修改图片路径问题.md | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/001">https://666cy666.top/2024/07/15/001</a> - 解决hexo搭建博客批量修改图片路径问题&#x2F;)</p>
+<p>[github博客搭建（五）—— 上传图片 | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/13/006">https://666cy666.top/2024/07/13/006</a> -  github博客搭建（五）—— 上传图片&#x2F;)</p>
 
     </div>
     

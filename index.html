@@ -409,100 +409,11 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #ff7d73">杂</a>
         </span>
         
     </div>
     <a href="/2024/07/15/001%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
-        <h2 class="post-title">解决hexo搭建博客图片相对路径上传异常问题</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E6%9D%82/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                杂
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/15
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p>众所周知，使用Typora写markdown文档复制图片的时候一般都会生成在下面的目录中(修改目录的当我没说)</p>
-<pre><code class="txt">![image-20240715162346052](images/image-20240715162346052.png)
-</code></pre>
-<p><img src="/images/image-20240715162921197.png" alt="image-20240715162921197"></p>
-<p>在typora中本地看肯定没问题，可以看到编译之后用浏览器本地访问就读取不到这个路径了，更别说上传github了，那么只能采取相对路径解决</p>
-<p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
-<p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
-<pre><code class="txt">images/image-20240715161150570.png
-</code></pre>
-<p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
-<p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
-<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212159937.png" alt="image-20240715212159937"></p>
-<p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
-<p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212543384.png" alt="image-20240715212543384"></p>
-<p>此时我们的目录结构</p>
-<pre><code class="txt">-source
-  -_posts
-    -001 - 解决hexo搭建博客批量修改图片路径问题.md
-  -images
-</code></pre>
-<p>而此时我们的地址路径</p>
-<pre><code class="txt">images/image-20240715193810731.png
-</code></pre>
-<p>而我们本地的markdown文档正常读取需要下面的地址路径，此时如果是上面的路径就会造成typora无法读取图片的问题</p>
-<pre><code class="txt">../images/image-20240715193810731.png
-</code></pre>
-<p>但是改为上面的路径之后又会出现下面的问题</p>
-<p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
-<p>在上传到github的时候可以发现前面带有&#x2F;..&#x2F;,中间还有%5C这样的转义文字，正常路径应该是&#x2F;images&#x2F;图片名称，浏览器网页就无法读取了，前面说到hexo会将public文件夹上传至git，而images在根目录，故不能访问图片。所以说经过上面的分析，最简单的办法无非就是再复制一份images到_posts下面嘛</p>
-<pre><code class="txt">-source
-  -_posts
-    -images
-    -001 - 解决hexo搭建博客批量修改图片路径问题.md
-  -images
-</code></pre>
-<p>如上面所示，再复制一份，这样本地markdown也能正常预览了</p>
-<p>而关于转义的路径这里是因为我在本地拼接路径的时候应该是用了.\，网络链接中为了防止读取的时候与”\“冲突，通常会将”\“转义，然后前面的&#x2F;..&#x2F;是因为在拼接路径的时候前面加了.&#x2F;，正常不用加就行</p>
-<pre><code class="错误写法">.\images\image-20240715161150570.png
-</code></pre>
-<pre><code class="正常写法">images/image-20240715161150570.png
-</code></pre>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">杂</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -553,11 +464,98 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #ff7d73">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
         </span>
         
     </div>
     <a href="/2024/07/15/002%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">解决hexo搭建博客图片相对路径上传异常问题</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
+<p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
+<pre><code class="txt">images/image-20240715161150570.png
+</code></pre>
+<p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
+<p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
+<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/images/image-20240715212159937.png" alt="image-20240715212159937"></p>
+<p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
+<p><img src="/images/image-20240715212543384.png" alt="image-20240715212543384"></p>
+<p>此时我们的目录结构</p>
+<pre><code class="txt">-source
+  -_posts
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>而此时我们的地址路径</p>
+<pre><code class="txt">images/image-20240715193810731.png
+</code></pre>
+<p>而我们本地的markdown文档正常读取需要下面的地址路径，此时如果是上面的路径就会造成typora无法读取图片的问题</p>
+<pre><code class="txt">../images/image-20240715193810731.png
+</code></pre>
+<p>但是改为上面的路径之后又会出现下面的问题</p>
+<p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
+<p>在上传到github的时候可以发现前面带有&#x2F;..&#x2F;,中间还有%5C这样的转义文字，正常路径应该是&#x2F;images&#x2F;图片名称，浏览器网页就无法读取了，前面说到hexo会将public文件夹上传至git，而images在根目录，故不能访问图片。所以说经过上面的分析，最简单的办法无非就是再复制一份images到_posts下面嘛</p>
+<pre><code class="txt">-source
+  -_posts
+    -images
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>如上面所示，再复制一份，这样本地markdown也能正常预览了</p>
+<p>而关于转义的路径这里是因为我在本地拼接路径的时候应该是用了.\，网络链接中为了防止读取的时候与”\“冲突，通常会将”\“转义，然后前面的&#x2F;..&#x2F;是因为在拼接路径的时候前面加了.&#x2F;，正常不用加就行</p>
+<pre><code class="错误写法">.\images\image-20240715161150570.png
+</code></pre>
+<pre><code class="正常写法">images/image-20240715161150570.png
+</code></pre>
+<h2 id="批量处理图片路径"><a href="#批量处理图片路径" class="headerlink" title="批量处理图片路径"></a>批量处理图片路径</h2><p>那么一个一个添加图片很麻烦，有没有什么简单的办法呢，请移步我另外的博客（套娃是吧，你隔这隔这呢！）</p>
+<p>[解决hexo搭建博客批量修改图片路径问题.md | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/001">https://666cy666.top/2024/07/15/001</a> - 解决hexo搭建博客批量修改图片路径问题&#x2F;)</p>
+<p>[github博客搭建（五）—— 上传图片 | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/13/006">https://666cy666.top/2024/07/13/006</a> -  github博客搭建（五）—— 上传图片&#x2F;)</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+        </span>
+        
+    </div>
+    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -594,6 +592,11 @@ if __name__ == &quot;__main__&quot;:
 <h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
 <p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
 <p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
+<p>npm uninstall -g hexo-cli</p>
+<p>npm install -i <a href="mailto:&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;">&#104;&#101;&#120;&#x6f;&#64;&#54;&#x2e;&#51;&#46;&#48;</a></p>
+<p>hexo clean</p>
+<p>hexo g</p>
+<p>hexo s</p>
 
             
         </div>
@@ -608,7 +611,7 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+            <a href="/tags/%E6%9D%82/" style="color: #00a596">杂</a>
         </span>
         
     </div>
@@ -656,12 +659,12 @@ if __name__ == &quot;__main__&quot;:
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">博客</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">博客</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/cnd/" style="color: #ff7d73">cnd</a>
+            <a href="/tags/cnd/" style="color: #ffa2c4">cnd</a>
         </span>
         
     </div>
