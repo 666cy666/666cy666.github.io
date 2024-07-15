@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <title>cy的博客</title>
@@ -46,7 +46,7 @@
 
 <link rel="stylesheet" href="/css/main.css" />
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <div id="layout">
         <transition name="fade">
@@ -166,7 +166,7 @@
         <span class="info">
             <div class="wrap">
                 <h1>cy的博客</h1>
-                <h3></h3>
+                <h3>战战兢兢被生存驾驭，安安静静看自己过期</h3>
                 <h5></h5>
             </div>
         </span>
@@ -181,8 +181,443 @@
         
 
 <div class="post">
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/">
-        <h2 class="post-title">github博客搭建（五）—— 统计功能</h2>
+    <a href="/2024/07/15/001%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">解决hexo搭建博客批量修改图片路径问题.md</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="解决hexo搭建博客批量修改图片路径问题-md"><a href="#解决hexo搭建博客批量修改图片路径问题-md" class="headerlink" title="解决hexo搭建博客批量修改图片路径问题.md"></a>解决hexo搭建博客批量修改图片路径问题.md</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我不想用图床，但是一个一个修改处理图片路径太麻烦了，有这时间我都可以去搞个图床了，因此我想用python帮我批量处理一下，同时还有初始化，废话不多说，直接上代码</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><pre><code class="python">import os
+import re
+import shutil
+from datetime import datetime
+
+# 定义当前目录和 images 目录
+current_directory = os.getcwd()
+md_directory = os.path.join(current_directory, &quot;source&quot;, &quot;_posts&quot;).replace(&quot;\\&quot;, &#39;/&#39;)
+local_images_directory = os.path.join(md_directory, &quot;images&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+github_images_directory = os.path.join(current_directory, &quot;source&quot;, &quot;images&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+backup_directory = os.path.join(current_directory, &quot;source&quot;, &quot;_posts_backup&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+
+print(&quot;保存图片路径：&quot;, local_images_directory)
+print(&quot;Markdown 文件路径：&quot;, md_directory)
+print(&quot;备份路径：&quot;, backup_directory)
+
+# 如果 images 目录不存在，则创建
+if not os.path.exists(local_images_directory):
+    os.makedirs(local_images_directory)
+
+# 如果备份目录不存在，则创建
+if not os.path.exists(backup_directory):
+    os.makedirs(backup_directory)
+
+# 若github_images_directory目录存在，则删除
+if os.path.exists(github_images_directory):
+    shutil.rmtree(github_images_directory)
+
+# 生成以当前时间命名的备份文件夹
+current_time_str = datetime.now().strftime(&quot;%Y%m%d%H%M%S&quot;)
+backup_subdir = os.path.join(backup_directory, current_time_str, &quot;_posts&quot;)
+# 备份 _posts 目录到以当前时间命名的文件夹
+shutil.copytree(md_directory, backup_subdir)
+print(f&quot;已备份 _posts 目录到 &#123;backup_subdir&#125;&quot;)
+
+# 获取当前日期和时间
+current_datetime = datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)
+
+# 定义模板字符串
+template = &#39;&#39;&#39;---
+title: &#123;title&#125;
+date: &#123;date&#125;
+tags: 
+  - &#123;tags&#125;
+  - &#123;tags&#125;
+categories: &#123;categories&#125;
+---
+&#39;&#39;&#39;
+
+# 定义匹配图片路径的正则表达式
+image_pattern = re.compile(r&#39;!\[(.*?)\]\((.*?)\)&#39;)
+
+def InitTitle_and_UpdateImageurl():
+    # 遍历md_directory目录下的所有 Markdown 文件
+    for root, _, files in os.walk(md_directory):
+        for file in files:
+            if file.endswith(&quot;.md&quot;):
+                print(&quot;正在处理文件: &quot;, file)
+                file_path = os.path.join(root, file)
+                with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:
+                    content = f.read()
+
+                # 检查文件是否包含模板
+                if not content.startswith(&#39;---&#39;):
+                    # 添加模板
+                    title = os.path.splitext(file)[0]
+                    new_content = template.format(
+                        title=title,
+                        date=current_datetime,
+                        tags=&quot;杂&quot;,
+                        categories=&quot;杂&quot;
+                    ) + content
+                else:
+                    new_content = content
+
+                # 查找并替换本地图片路径
+                def replace_image_path(match):
+                    alt_text = match.group(1)
+                    old_path = match.group(2)
+                    filename = os.path.basename(old_path)
+                    if old_path.startswith(&#39;http&#39;):
+                        # 网络图片保持原样
+                        return match.group(0)
+                    elif &#39;../images&#39; not in old_path:
+                        try:
+                            shutil.copy2(old_path, local_images_directory)
+                            # images / image - 20240715163648965.png
+                            md_image_path = f&#39;![&#123;alt_text&#125;](images/&#123;filename&#125;)&#39;
+                            return md_image_path
+                        except FileNotFoundError:
+                            print(f&quot;Local image not found: &#123;old_path&#125;&quot;)
+                            return match.group(0)
+                        except shutil.SameFileError:
+                            md_image_path = f&#39;![&#123;alt_text&#125;](images/&#123;filename&#125;)&#39;
+                            print(md_image_path)
+                            return md_image_path
+                    else:
+                        return match.group(0)
+                updated_content = re.sub(image_pattern, replace_image_path, new_content)
+                # 将修改后的内容写回文件
+                with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:
+                    f.write(updated_content)
+
+    # 将本地访问图片路径复制到github访问图片路径
+    shutil.copytree(local_images_directory, github_images_directory)
+
+def Rename_md(index_len = 3, sort_desc = True):
+    # 定义提取日期的正则表达式
+    date_pattern = re.compile(r&#39;date: (\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125; \d&#123;2&#125;:\d&#123;2&#125;:\d&#123;2&#125;)&#39;)
+
+    # 获取所有 Markdown 文件
+    md_files = [file for file in os.listdir(md_directory) if file.endswith(&quot;.md&quot;)]
+
+    # 函数以提取日期并根据需要返回适合排序的值
+    def extract_date(file_path, sort_desc=False):
+        with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:
+            content = f.read()
+        match = date_pattern.search(content)
+        if match:
+            date = datetime.strptime(match.group(1), &#39;%Y-%m-%d %H:%M:%S&#39;)
+        else:
+            date = datetime.now()  # 如果没有日期，则使用当前日期
+        return -date.timestamp() if sort_desc else date.timestamp()
+
+    # 用户指定排序方向，True 为降序，False 为升序
+      # 修改这里来控制排序方向
+    # 对文件进行排序
+    md_files.sort(key=lambda file: extract_date(os.path.join(md_directory, file), sort_desc))
+
+    # 遍历排序后的文件，并重命名
+    for index, file in enumerate(md_files, start=1):
+        file_path = os.path.join(md_directory, file)
+
+        # 检查文件名是否已经有序号, 这里我留了个空格，以后如果突破3位数大关可以修改
+        match = re.match(r&#39;^(\d+) -&#39;, file)
+        match_len = len(match.group(0)) if match else 0
+        if re.match(r&#39;^(\d+) -&#39;, file):
+            # 如果已有序号，则去掉原有的序号
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file[match_len+1:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
+        else:
+            # 如果没有序号，直接添加新序号
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125; - &#123;file&#125;&quot;
+        print(new_file_name)
+        new_file_path = os.path.join(md_directory, new_file_name)
+        os.rename(file_path, new_file_path)  # 重命名文件
+
+if __name__ == &quot;__main__&quot;:
+    InitTitle_and_UpdateImageurl()
+    # index_len为序号长度例如3为001，4为0001, sort_desc为排序，默认为True降序
+    Rename_md(index_len=3 , sort_desc = True)
+</code></pre>
+<p>gpt对上面代码的解释，我觉得反正比我写的好：</p>
+<h3 id="1-InitTitle-and-UpdateImageurl-函数"><a href="#1-InitTitle-and-UpdateImageurl-函数" class="headerlink" title="1.InitTitle_and_UpdateImageurl 函数"></a>1.<strong><code>InitTitle_and_UpdateImageurl</code> 函数</strong></h3><p>这个函数负责初始化Markdown文件的标题和更新文件中的图片路径。</p>
+<ul>
+<li><strong>功能</strong>：<ul>
+<li>遍历指定目录下的所有Markdown文件。</li>
+<li>检查每个文件是否包含YAML头部模板，如果不存在则添加一个标准模板。</li>
+<li>检查并更新文件中的本地图片路径，确保图片链接指向正确的位置，并处理网络图片和本地图片的不同情况。</li>
+<li>复制图片到GitHub可访问的目录，支持在线预览。</li>
+</ul>
+</li>
+<li><strong>图片处理</strong>：<ul>
+<li>如果图片是本地存储的，会尝试将图片复制到一个统一的目录下，并更新Markdown文件中的引用路径。</li>
+<li>对于网络图片，保持原有的URL不变。</li>
+<li>使用正则表达式来匹配Markdown中的图片链接。</li>
+</ul>
+</li>
+<li><strong>异常处理</strong>：<ul>
+<li>处理文件找不到的情况和尝试复制相同文件的问题（<code>shutil.SameFileError</code>）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Rename-md-函数"><a href="#2-Rename-md-函数" class="headerlink" title="2. Rename_md 函数"></a>2. <strong><code>Rename_md</code> 函数</strong></h3><p>这个函数负责根据文件中的日期信息对Markdown文件进行排序并重命名，支持按日期升序或降序。</p>
+<ul>
+<li><strong>功能</strong>：<ul>
+<li>提取每个Markdown文件的日期信息，并根据这些日期对文件进行排序。</li>
+<li>根据排序结果，重命名文件，文件名包括一个序号，这个序号根据排序结果动态生成。</li>
+<li>序号的长度可以动态指定，支持未来的扩展（例如，从三位数到四位数）。</li>
+</ul>
+</li>
+<li><strong>日期提取</strong>：<ul>
+<li>使用正则表达式从Markdown文件的YAML头部提取日期。</li>
+<li>如果没有找到日期，则假定为当前日期。</li>
+</ul>
+</li>
+</ul>
+<p>当然还有备份功能，在_posts同级目录下会创建一个_posts_backup的备份文件夹，每启动运行一次脚本就会获取当前时间戳同时以该时间戳命名，再把_posts备份到这里</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+        </span>
+        
+    </div>
+    <a href="/2024/07/15/001%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">解决hexo搭建博客图片相对路径上传异常问题</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="解决hexo搭建博客图片相对路径上传异常问题"><a href="#解决hexo搭建博客图片相对路径上传异常问题" class="headerlink" title="解决hexo搭建博客图片相对路径上传异常问题"></a>解决hexo搭建博客图片相对路径上传异常问题</h1><h2 id="本地无法读取"><a href="#本地无法读取" class="headerlink" title="本地无法读取"></a>本地无法读取</h2><p>众所周知，使用Typora写markdown文档复制图片的时候一般都会生成在下面的目录中(修改目录的当我没说)</p>
+<pre><code class="txt">![image-20240715162346052](images/image-20240715162346052.png)
+</code></pre>
+<p><img src="/images/image-20240715162921197.png" alt="image-20240715162921197"></p>
+<p>在typora中本地看肯定没问题，可以看到编译之后用浏览器本地访问就读取不到这个路径了，更别说上传github了，那么只能采取相对路径解决</p>
+<p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
+<p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
+<pre><code class="txt">images/image-20240715161150570.png
+</code></pre>
+<p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
+<p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
+<h2 id="网络无法读取"><a href="#网络无法读取" class="headerlink" title="网络无法读取"></a>网络无法读取</h2><p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212159937.png" alt="image-20240715212159937"></p>
+<p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
+<p><img src="/.com//Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715212543384.png" alt="image-20240715212543384"></p>
+<p>此时我们的目录结构</p>
+<pre><code class="txt">-source
+  -_posts
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>而此时我们的地址路径</p>
+<pre><code class="txt">images/image-20240715193810731.png
+</code></pre>
+<p>而我们本地的markdown文档正常读取需要下面的地址路径，此时如果是上面的路径就会造成typora无法读取图片的问题</p>
+<pre><code class="txt">../images/image-20240715193810731.png
+</code></pre>
+<p>但是改为上面的路径之后又会出现下面的问题</p>
+<p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
+<p>在上传到github的时候可以发现前面带有&#x2F;..&#x2F;,中间还有%5C这样的转义文字，正常路径应该是&#x2F;images&#x2F;图片名称，浏览器网页就无法读取了，前面说到hexo会将public文件夹上传至git，而images在根目录，故不能访问图片。所以说经过上面的分析，最简单的办法无非就是再复制一份images到_posts下面嘛</p>
+<pre><code class="txt">-source
+  -_posts
+    -images
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
+</code></pre>
+<p>如上面所示，再复制一份，这样本地markdown也能正常预览了</p>
+<p>而关于转义的路径这里是因为我在本地拼接路径的时候应该是用了.\，网络链接中为了防止读取的时候与”\“冲突，通常会将”\“转义，然后前面的&#x2F;..&#x2F;是因为在拼接路径的时候前面加了.&#x2F;，正常不用加就行</p>
+<pre><code class="错误写法">.\images\image-20240715161150570.png
+</code></pre>
+<pre><code class="正常写法">images/image-20240715161150570.png
+</code></pre>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">杂</a>
+        </span>
+        
+    </div>
+    <a href="/2024/07/15/003%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/07/15/002%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/">
+        <h2 class="post-title">解决hexo搭建博客代码块异常问题备份</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="解决hexo搭建博客代码块异常问题"><a href="#解决hexo搭建博客代码块异常问题" class="headerlink" title="解决hexo搭建博客代码块异常问题"></a>解决hexo搭建博客代码块异常问题</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
+<p>1.行号出现问题</p>
+<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
+<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
+<h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
+<p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
+<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%9D%82/" style="color: #ff7d73">杂</a>
+        </span>
+        
+    </div>
+    <a href="/2024/07/15/002%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/07/15/004%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">解决hexo搭建博客代码块异常问题</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="解决hexo搭建博客代码块异常问题"><a href="#解决hexo搭建博客代码块异常问题" class="headerlink" title="解决hexo搭建博客代码块异常问题"></a>解决hexo搭建博客代码块异常问题</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
+<p>1.行号出现问题</p>
+<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
+<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
+<h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
+<p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
+<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E6%9D%82/" style="color: #00bcd4">杂</a>
+        </span>
+        
+    </div>
+    <a href="/2024/07/15/004%20-%20%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%BB%A3%E7%A0%81%E5%9D%97%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2024/07/13/005%20-%20%20github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20cdn%E5%8A%A0%E9%80%9F/">
+        <h2 class="post-title">github博客搭建（六）—— cdn加速</h2>
     </a>
     <div class="category-and-date">
         
@@ -207,7 +642,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="github博客搭建（五）——-统计功能"><a href="#github博客搭建（五）——-统计功能" class="headerlink" title="github博客搭建（五）—— 统计功能"></a>github博客搭建（五）—— 统计功能</h1>
+            <h1 id="github博客搭建（六）——-cdn加速"><a href="#github博客搭建（六）——-cdn加速" class="headerlink" title="github博客搭建（六）—— cdn加速"></a>github博客搭建（六）—— cdn加速</h1>
             
         </div>
     </div>
@@ -221,426 +656,16 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">博客</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">博客</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/github/" style="color: #03a9f4">github</a>
+            <a href="/tags/cnd/" style="color: #ff7d73">cnd</a>
         </span>
         
     </div>
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87/">
-        <h2 class="post-title">github博客搭建（四）—— 上传图片</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                博客
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="github博客搭建（四）——-上传图片"><a href="#github博客搭建（四）——-上传图片" class="headerlink" title="github博客搭建（四）—— 上传图片"></a>github博客搭建（四）—— 上传图片</h1><p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">博客</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%9B%BE%E7%89%87/" style="color: #03a9f4">图片</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8EGitTalk%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/">
-        <h2 class="post-title">github博客搭建（三）——基于GitTalk添加评论功能</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                博客
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="github博客搭建（三）——基于GitTalk添加评论功能"><a href="#github博客搭建（三）——基于GitTalk添加评论功能" class="headerlink" title="github博客搭建（三）——基于GitTalk添加评论功能"></a>github博客搭建（三）——基于GitTalk添加评论功能</h1><h2 id="插入gittalk"><a href="#插入gittalk" class="headerlink" title="插入gittalk"></a>插入gittalk</h2><p><img src="/images/image-20240713172959285.png" alt="image-20240713172959285"></p>
-<p><img src="/images/image-20240713174347581.png" alt="image-20240713174347581"></p>
-<p><img src="/images/image-20240713181249763.png" alt="image-20240713181249763"></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%8D%9A%E5%AE%A2-GitTalk-%E8%AF%84%E8%AE%BA-GitTalk-%E5%8D%9A%E5%AE%A2-%E8%AF%84%E8%AE%BA/" style="color: #ff7d73">博客,GitTalk,评论 - GitTalk - 博客 - 评论</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8EGitTalk%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
-        <h2 class="post-title">github博客搭建（一）—— 环境配置</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                博客
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="github博客搭建（一）——-环境配置"><a href="#github博客搭建（一）——-环境配置" class="headerlink" title="github博客搭建（一）—— 环境配置"></a>github博客搭建（一）—— 环境配置</h1><h2 id="node环境搭建"><a href="#node环境搭建" class="headerlink" title="node环境搭建"></a>node环境搭建</h2><h2 id="git环境搭建"><a href="#git环境搭建" class="headerlink" title="git环境搭建"></a>git环境搭建</h2>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E7%8E%AF%E5%A2%83/" style="color: #03a9f4">环境</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">博客</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20%20%E5%8D%9A%E5%AE%A2%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E7%BB%91%E5%AE%9Agithub%E8%B4%A6%E5%8F%B7/">
-        <h2 class="post-title">github博客搭建（二）——  博客初始化与绑定github账号</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                博客
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="github博客搭建（二）——-博客初始化与绑定github账号"><a href="#github博客搭建（二）——-博客初始化与绑定github账号" class="headerlink" title="github博客搭建（二）——  博客初始化与绑定github账号"></a>github博客搭建（二）——  博客初始化与绑定github账号</h1><h2 id="hexo初始化"><a href="#hexo初始化" class="headerlink" title="hexo初始化"></a>hexo初始化</h2><h2 id="绑定github账号"><a href="#绑定github账号" class="headerlink" title="绑定github账号"></a>绑定github账号</h2>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">博客</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/github/" style="color: #00a596">github</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/13/github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20%20%E5%8D%9A%E5%AE%A2%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E7%BB%91%E5%AE%9Agithub%E8%B4%A6%E5%8F%B7/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/07/13/chatgpt%E6%B3%A8%E5%86%8C2024%E6%B5%81%E7%A8%8B/">
-        <h2 class="post-title">chatgpt注册2024流程</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E6%95%99%E7%A8%8B/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                教程
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/7/13
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="chatgpt注册2024流程"><a href="#chatgpt注册2024流程" class="headerlink" title="chatgpt注册2024流程"></a>chatgpt注册2024流程</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>2022年我注册gpt的时候QQ邮箱还可以——我用qq邮箱绑定的那个账号充值的gpt4账号分享给很多人用，他们应该是用了不干净的梯子就被封号了，这也是为什么我又来注册gpt的原因，但是qq邮箱23年初就被ban了，后面23年我又用网易163邮箱也能注册，现在网易好像也被ban了。</p>
-<p>网上看了很多教程感觉都不太方便，我按照我的方法这个注册了四五个账号，因为gpt4o普通用户好像几个小时才10条，我多注册几个以备又出现封号的情况，谁知道到时候封号又是什么情况，还有就是可以白嫖额度（额度用完我直接换其他账号，就是有点难换号）</p>
-<h2 id="注册proton邮箱（国内邮箱实测均被ban，-qq、163、weibo-com等等）"><a href="#注册proton邮箱（国内邮箱实测均被ban，-qq、163、weibo-com等等）" class="headerlink" title="注册proton邮箱（国内邮箱实测均被ban，@qq、163、weibo.com等等）"></a>注册proton邮箱（国内邮箱实测均被ban，@qq、163、weibo.com等等）</h2><p><img src="/images/image-20240514183139741.png" alt="image-20240514183139741"></p>
-<h2 id="免费注册"><a href="#免费注册" class="headerlink" title="免费注册"></a>免费注册</h2><p><img src="/images/image-20240514183157110.png" alt="image-20240514183157110"></p>
-<h2 id="填写手机和邮箱地址"><a href="#填写手机和邮箱地址" class="headerlink" title="填写手机和邮箱地址"></a>填写手机和邮箱地址</h2><p><img src="/images/image-20240514183406443.png" alt="image-20240514183406443"></p>
-<p>说明一下，这个proton邮箱多个账号是可以只绑定一个手机号的，到时候验证用邮箱验证就行</p>
-<h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p><img src="/images/image-20240514183537350.png" alt="image-20240514183537350"></p>
-<p><img src="/images/image-20240514183647219.png" alt="image-20240514183647219"></p>
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p><img src="/images/image-20240514183710667.png" alt="image-20240514183710667"></p>
-<p>出现这个的时候要去proton邮箱下：<br>设置-&gt;恢复-&gt;验证邮箱（注意不要去验证手机号）</p>
-<p><img src="/images/image-20240514183759851.png" alt="image-20240514183759851"></p>
-<p>这个验证只要能验证邮箱就能通过，这里我用的网易邮箱，网易邮箱一个手机号也可以创建很多个，一个网易邮箱绑定到一个proton邮箱，就是密码和账号得用个小本本记下来，不过注册完估计也不会再打开了。</p>
-<h2 id="重新发送验证"><a href="#重新发送验证" class="headerlink" title="重新发送验证"></a>重新发送验证</h2><p><img src="/images/image-20240514184033340.png" alt="image-20240514184033340"></p>
-<p><img src="/images/image-20240514183952588.png" alt="image-20240514183952588"></p>
-<h2 id="验证openai"><a href="#验证openai" class="headerlink" title="验证openai"></a>验证openai</h2><p><img src="/images/image-20240514184109249.png" alt="image-20240514184109249"></p>
-<h2 id="填写个人信息"><a href="#填写个人信息" class="headerlink" title="填写个人信息"></a>填写个人信息</h2><p><img src="/images/image-20240514184158326.png" alt="image-20240514184158326"></p>
-<h2 id="注册成功"><a href="#注册成功" class="headerlink" title="注册成功"></a>注册成功</h2><p><img src="/images/image-20240514184336185.png" alt="image-20240514184336185"></p>
-<p>可能很多人没有上面的选项，这个是因为gpt默认就是4o了，用完额度之后再换回3.5</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/chatgpt/" style="color: #ff7d73">chatgpt</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%95%99%E7%A8%8B/" style="color: #00bcd4">教程</a>
-        </span>
-        
-    </div>
-    <a href="/2024/07/13/chatgpt%E6%B3%A8%E5%86%8C2024%E6%B5%81%E7%A8%8B/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2020/12/05/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E4%BA%8C%E4%B8%AD%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20%E9%9D%A2%E9%9D%A2%E4%BF%B1%E5%88%B0/">
-        <h2 class="post-title">舌尖上的二中（二）—— 面面俱到</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%91%A8%E8%AE%B0/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                周记
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2020/12/5
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="舌尖上的二中（二）——-“面面”俱到"><a href="#舌尖上的二中（二）——-“面面”俱到" class="headerlink" title="舌尖上的二中（二）—— “面面”俱到"></a>舌尖上的二中（二）—— “面面”俱到</h1><p>​		“快快快,别买早餐了要迟到了…”</p>
-<p>​		班上总有那么一两个同学,亦或家离学校太近,亦或冬日的被窝太温暖，总能看见他们在教室钟的最后通碟下,踩点气喘吁吁地来到教室,开始了一天的学习。清晨一二节课往往是学生“钓鱼执法”的最好时机，但对于这位早上差点迟到长大后却励志想当太空人的同学来说,星期六的早上,是他精神最好的时候，有着第二节课下课30分钟的吃饭时间，上课怎么能不兴奋起来呢?</p>
-<p>​		随着下课铃响，萋靡不振的空腹学生赴奔早餐战场,各家早餐店也在紧张准备着。“老板，大碗粉打包但在这里吃。”</p>
-<p>​		“……”</p>
-<p>​		邵阳米粉不同于桂林米粉与其它米粉,它是由陈米与新米按照一定比例碾压制作出来的。口感较硬,不同于桂林米粉,桂林米粉丝滑柔顺，汤汁附着在上一带吃下。而那阳粉因其特殊的制作工艺,表面较粗糙，正宗的邵阳粉,每一根粉都能与每家特色的汤底融入其中,做到真正的入味。二中学姐刘乙如在参加《十三亿分见》时用邵阳话将邵阳米粉融入歌曲中：“脾酒哈打开;胃夜放肆呷,邵阳粉我爱,mylife is beauty. 木耳肉丝生炒牛肉生炒排骨大片牛肉酸辣肉末三鲜蛋饺还要加杂煎蛋.朝天椒,小米栋,剁辣椒干辣椒通通里面放！”</p>
-<p>​		豆腐木耳是各大粉店最畅销的系列了，豆腐吸收汤汁过后饱满而爽口，木耳与辣椒油混合一起,木耳便有了灵魂,清香清脆之中略带有一丝辣意。大片牛肉屈居第二,牛肉煮过的汤底和牛油,更让粉具有了神韵,吃牛肉粉,不在于牛肉，而在于粉，粉中夹杂着车油的味道。牛肉之中混着米香的味道，好不过瘾。酸辣肉丝是最近几年才大规模流行的，一碗真正的酸辣肉丝面,要能吃每一口面都有酸辣的味道，猪瘦肉配合着酸豆角,一唱一和一主一配，让人感受到来自面的味蕾冲击。</p>
-<p>​		细数二中周边各大粉店,因其各家店面,调味品,汤底,制法不同,相同的米粉在不同的店家不同的厨师的手里,绽放出不同的色彩与灵魂内涵。二中对面的苏记回民店最址人上瘾的,还是酸辣肉丝面,与北方不同，南方土地偏酸性且气候较温热，醒面过程中难免会有发酵变酸的现象，因此碱面成了不二之选，它的吃法也是最多的。眼镜粉面店因为面的独特口感以及菜品臊子的多样性,吸引了不同年龄段的顾客；老邵阳粉店开在十字路口,来来往住的人群和伏越地理区位以及时间的冲刷，让这家老字号店仍然屹立于此…</p>
-<p>​		南方碱面,北方宽面,西北手工面也是一道不可多得的美食，油泼面是灵魂,酸汤面是招牌，干拌面是精华。宽面的杰出代表就是油泼面，手工柔制，手工拉画，拉出来的面除面头以外宽窄粗细都差不多，以沸水烹饪,意制过程中将植物油放至电磁炉上温热,同时不断搅拌水中的宽面，待面煮至透明时，加以小青菜,约半分钟后出锅,晾干水分,装碗,加以葱蒜，辣椒,白菜,将温热好的油浇在上面。“嗞啦”一声，这是生命的碰撞,它们的声音就是灵魂的喜悦，面上跳动的辣椒粉便是生命的舞蹈，灵魂与生命交织,便构造出了一碗油泼面。在吃时也有讲究，先将面均匀搅拌过后可选择将油倒出来避免太腻，第一口下去,先是丝滑柔顺,与想象的粗糙大相径庭,再然后是葱蒜的油爆香,最后竟是辣椒的甜。一口下去,回味无穷。</p>
-<p>​		中国的美食，仅一个邵阳米粉与手工面便有十几种做法,南咸北甜,南碱北宽。可以说,每家店铺一点点调味的不同,便可造成舌尖上的味蕾上的感受千差万别,正因为这种差异,才造就了中华美食文化博大精深。</p>
-<p>​		吃粉前，我是邵阳的<br>​		吃粉后，邵阳是我的</p>
-<p>特别鸣谢罗泽南大佬</p>
-<p><img src="/images/image-20240714132230755.png" alt="image-20240714132230755"></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%AB%98%E4%B8%AD/" style="color: #00bcd4">高中</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%91%A8%E8%AE%B0/" style="color: #ffa2c4">周记</a>
-        </span>
-        
-    </div>
-    <a href="/2020/12/05/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E4%BA%8C%E4%B8%AD%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20%E9%9D%A2%E9%9D%A2%E4%BF%B1%E5%88%B0/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2020/11/27/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E4%BA%8C%E4%B8%AD%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E9%9A%94%E5%A3%81%E5%B0%8F%E5%AD%A9%E9%83%BD%E9%A6%8B%E5%93%AD%E4%BA%86/">
-        <h2 class="post-title">舌尖上的二中（一）—— 隔壁小孩都馋哭了</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%91%A8%E8%AE%B0/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                周记
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2020/11/27
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="舌尖上的二中（一）——-隔壁小孩都馋哭了"><a href="#舌尖上的二中（一）——-隔壁小孩都馋哭了" class="headerlink" title="舌尖上的二中（一）—— 隔壁小孩都馋哭了"></a>舌尖上的二中（一）—— 隔壁小孩都馋哭了</h1><p>​		(作为一个资深吃货，我觉得我有必要为一些美食正名了)</p>
-<p>​		下午5:40，随着下课铃声响起，原本冷清的街道因为学生下课放学的到来而热闹起来，各家晚餐店，小吃店也跟着老板一声吆喝：“吃什么？”而忙碌起来。</p>
-<p>​		新奥尔良烤肉饭位于热闹与冷墙店铺的友界处。但这依旧阻止不了学生对它的喜爱。店主张大妈自开店以来一直兼承质量第一，口感第一为原则，这也勾起了毕业生坐在他乡的思念”每每回到二中总要来一口烤肉饭，吃完便说：”还是当年的味道。”</p>
-<p>​		“大碗招牌烤肉拌饭。” “这里……” 与其它店面不同，这里上菜的却是店主张大妈两个双胞胎女儿。在等待期间，最大的亮点便是张大妈在靠近就树的江边的地方修膳了一些座位。可供食客在临近夕阳西下时观看夕阳与邵水河水天一色的独特视觉美景。</p>
-<p>​		张大妈为了使米饭具有更好的口感，通常提前煮好饭而温热，这样，食客在吃时不致于感到太烫而无从下口， 赶时间的学生也能尽快吃完饭。李大妈的烤肉饭不同于白米饭，在制作烤肉时，将剩下的汤汁与白米饭充分混合，吸收，手工搅拌。出来的半成品米饭届时便具有了一丝神韵，它既保留了南方大米特有的米香，又混入了让人食欲大开的肉香。再将烤肉手撕下来均匀混合在米饭之中，看似无肉，一口下去实则满嘴是肉，香而不赋。配以土豆丝，胡萝人丝调味，生菜配相。番茄沙拉平分秋色，黑胡椒照烧此各有所爱，招牌孜然奇特经典，还有免费的紫菜蛋汤供狼吞虎咽或是细嚼慢咽的食客开胃，解腻，顺肠——烤肉拌饭是情感的升温，紫菜蛋汤是情感的蜜意。</p>
-<p>​		相比于李大妈的四年老店，小巷里新开的脆皮鸡类饭是一家后起之秀的店，刚一开张不到一周便悉数好评。店主张大哥李大哥是两位三十多岁的年轻人，因为年轻，思想紧跟潮流，店内装饰与色调更符合年轻人的口味，店外的节日小彩灯与店内暖色调朝相辉映，给人在寒冷的冬夜一种温暖的感觉。最让人眼前一亮的还是张大哥免费提供的汤水一以大块排骨熬汤，将萝卜，小块瘦肉放入高汤之中，辅以葱，姜为佐，悉数慢炖，提前两小时将高汤温热，待食客来时温度刚刚好，不烫不冷，萝卜入口即化，甜而丝滑有余味，汤中有骨头的精华，生姜调味，小葱配相，让人在寒冷的冬夜里在入店即可感受到美食的温暖。</p>
-<p>​		李大哥店内独特的饭前招特更是这家店的成功秘诀之一，桌旁的开胃菜如腌黄瓜，萝卜条之类的让食客在等待之余不略显单调，免费的萝卜汤将店主对美食的理解与对食客的尊重携着香气飘扬在冬夜的街道上，播洒在人们的心头，这家店印证了“酒香不怕巷子案”的俗语。</p>
-<p>​		无论是张大妈还是李大哥，或许正是因为他们这种精神，对美食精益求精的态度，了解食客真正所需。我们高中生活为时不长的体息时间才不单调，或许多年以后重走二中，看到店铺依旧趟立在那儿，我们会说:”看，那家店我读书时经常吃，老板都认得我呢!(本文人名纯属虚构，但故事情节真真切切实实)</p>
-<p>特别鸣谢:罗泽南大佬</p>
-<p><img src="/images/image-20240714115904872.png" alt="image-20240714115904872"></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%AB%98%E4%B8%AD/" style="color: #00a596">高中</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%91%A8%E8%AE%B0/" style="color: #03a9f4">周记</a>
-        </span>
-        
-    </div>
-    <a href="/2020/11/27/%E8%88%8C%E5%B0%96%E4%B8%8A%E7%9A%84%E4%BA%8C%E4%B8%AD%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E9%9A%94%E5%A3%81%E5%B0%8F%E5%AD%A9%E9%83%BD%E9%A6%8B%E5%93%AD%E4%BA%86/" class="go-post">阅读全文</a>
+    <a href="/2024/07/13/005%20-%20%20github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20cdn%E5%8A%A0%E9%80%9F/" class="go-post">阅读全文</a>
 </div>
 
 
@@ -648,8 +673,20 @@
     
     <span class="current">1</span>
     
+    <a class="page-num" href="/page/2">
+        2
+    </a>
     
     
+    <a class="page-num" href="/page/3">
+        3
+    </a>
+    
+    
+    
+    <a class="page-num" href="/page/2/">
+        <i class="fa-solid fa-caret-right fa-fw"></i>
+    </a>
     
 </div>
 
