@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>解决hexo搭建博客代码块异常问题备份 | cy的博客</title>
+    <title>解决hexo_command_not_found环境问题 | cy的博客</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -159,7 +159,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>解决hexo搭建博客代码块异常问题备份</h1>
+        <h1>解决hexo_command_not_found环境问题</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -170,11 +170,11 @@
         </span>
         
         <span class="category">
-            <a href="/categories/%E6%9D%82/">
+            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                杂
+                hexo__bug解决
             </a>
         </span>
         
@@ -187,8 +187,22 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%9D%82/" style="color: #03a9f4">
-                    杂
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
+                    博客
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/hexo-bug/" style="color: #00bcd4">
+                    hexo__bug
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #03a9f4">
+                    已解决bug
                 </a>
             </span>
             
@@ -197,13 +211,27 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="解决hexo搭建博客代码块异常问题"><a href="#解决hexo搭建博客代码块异常问题" class="headerlink" title="解决hexo搭建博客代码块异常问题"></a>解决hexo搭建博客代码块异常问题</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
-<p>1.行号出现问题</p>
-<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
-<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
-<h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
-<p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
-<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
+        <h1 id="解决hexo-command-not-found环境问题"><a href="#解决hexo-command-not-found环境问题" class="headerlink" title="解决hexo: command not found环境问题"></a>解决hexo: command not found环境问题</h1><pre><code class="bash">cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
+$ npm install -g hexo-cli
+npm WARN config global --global, --local are deprecated. Use --location=global instead.
+npm WARN config global --global, --local are deprecated. Use --location=global instead.
+
+changed 53 packages in 3s
+
+14 packages are looking for funding
+  run npm fund for details
+
+cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
+$ hexo init myblog
+bash: hexo: command not found
+</code></pre>
+<p>当我们使用 <code>npm install -g hexo-cli</code> 命令时，由于使用了 <code>-g</code>（全局）参数，包会被安装到全局包目录下。这意味着一旦安装完成，任何项目都可以直接使用它，而无需再次进行安装。这对于频繁需要使用的工具特别有用，因为你可以在任何地方运行它们而不需要重复安装。</p>
+<p>相比之下，使用 <code>-i</code> 参数或不使用任何参数安装包（如 <code>npm install hexo-cli</code>），将只会在当前项目目录下安装该包。这意味着如果你在另一个项目中也需要同样的包，你需要在那个项目的目录下再次执行安装命令。</p>
+<p>如果在安装 <code>hexo-cli</code> 后出现 <code>hexo: command not found</code> 的错误，这通常意味着 npm 的全局安装路径没有被正确添加到你的系统环境变量中，或者在配置过程中存在其他问题。可以先通过运行 <code>npm config get prefix</code>来查看全局安装路径。同时运行<code>npm list -g --depth=0</code> 来检查是否正确安装了 <code>hexo-cli</code> 并且位于预期的目录中。如果不是，可能需要调整环境变量或重新安装。</p>
+<pre><code class="bash">npm config get prefix
+</code></pre>
+<pre><code class="bash">npm list -g --depth=0
+</code></pre>
 
     </div>
     

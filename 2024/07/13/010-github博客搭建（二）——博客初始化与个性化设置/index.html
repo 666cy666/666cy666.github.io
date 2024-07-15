@@ -187,15 +187,22 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/github/" style="color: #00a596">
+                <a href="/tags/github/" style="color: #03a9f4">
                     github
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E4%B8%AA%E6%80%A7%E5%8C%96/" style="color: #00a596">
+                    个性化
                 </a>
             </span>
             
@@ -226,30 +233,12 @@ npm install
 <h3 id="hexo-s-server"><a href="#hexo-s-server" class="headerlink" title="hexo s(server)"></a>hexo s(server)</h3><p>这个命令会启动一个本地服务器，通常监听在 <code>http://localhost:4000</code>。你可以在本地预览你的博客，而无需先生成静态文件。这个命令还会监听文件变化，并自动重新加载页面，方便开发调试。</p>
 <h3 id="hexo-d-depoly"><a href="#hexo-d-depoly" class="headerlink" title="hexo d(depoly)"></a>hexo d(depoly)</h3><p>这个命令会根据你在 <code>_config.yml</code> 中的配置，将生成的静态文件部署到远程服务器上。常用的部署目标包括 GitHub Pages、FTP 服务器等。你需要先配置好部署选项，然后运行这个命令将网站发布到指定位置。</p>
 <h3 id="hexo-new-page-标签名字"><a href="#hexo-new-page-标签名字" class="headerlink" title="hexo new page 标签名字"></a>hexo new page 标签名字</h3><p>这个命令会在 <code>source</code> 目录下新建一个独立页面目录，并生成相应的 <code>index.md</code> 文件。例如，运行 <code>hexo new page about</code> 会在 <code>source</code> 目录下创建一个 <code>about</code> 文件夹，里面有一个 <code>index.md</code> 文件，你可以在其中编写“关于”页面的内容。</p>
+<h2 id="尝试运行"><a href="#尝试运行" class="headerlink" title="尝试运行"></a>尝试运行</h2><pre><code class="bash">hexo g
+hexo s
+</code></pre>
 <p><img src="/images/image-20240714155806409.png" alt="image-20240714155806409"></p>
 <p><img src="/images/image-20240714155828042.png" alt="image-20240714155828042"></p>
-<p>若能成功在本地访问，恭喜你，已经成功11.4514%了！！！</p>
-<h3 id="解决hexo-command-not-found环境问题"><a href="#解决hexo-command-not-found环境问题" class="headerlink" title="解决hexo: command not found环境问题"></a>解决hexo: command not found环境问题</h3><pre><code class="bash">cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ npm install -g hexo-cli
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-
-changed 53 packages in 3s
-
-14 packages are looking for funding
-  run npm fund for details
-
-cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ hexo init myblog
-bash: hexo: command not found
-</code></pre>
-<p>当我们使用 <code>npm install -g hexo-cli</code> 命令时，由于使用了 <code>-g</code>（全局）参数，包会被安装到全局包目录下。这意味着一旦安装完成，任何项目都可以直接使用它，而无需再次进行安装。这对于频繁需要使用的工具特别有用，因为你可以在任何地方运行它们而不需要重复安装。</p>
-<p>相比之下，使用 <code>-i</code> 参数或不使用任何参数安装包（如 <code>npm install hexo-cli</code>），将只会在当前项目目录下安装该包。这意味着如果你在另一个项目中也需要同样的包，你需要在那个项目的目录下再次执行安装命令。</p>
-<p>如果在安装 <code>hexo-cli</code> 后出现 <code>hexo: command not found</code> 的错误，这通常意味着 npm 的全局安装路径没有被正确添加到你的系统环境变量中，或者在配置过程中存在其他问题。可以先通过运行 <code>npm config get prefix</code>来查看全局安装路径。同时运行<code>npm list -g --depth=0</code> 来检查是否正确安装了 <code>hexo-cli</code> 并且位于预期的目录中。如果不是，可能需要调整环境变量或重新安装。</p>
-<pre><code class="bash">npm config get prefix
-</code></pre>
-<pre><code class="bash">npm list -g --depth=0
-</code></pre>
+<p>执行完上面的指令后，若能成功在本地:4000端口访问，恭喜你，已经成功11.4514%了！！！</p>
 <h2 id="博客个性化设置"><a href="#博客个性化设置" class="headerlink" title="博客个性化设置"></a>博客个性化设置</h2><h3 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h3><p>大家可以去官网上找自己喜欢的主题下载<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a> ，我采用的主题是<a target="_blank" rel="noopener" href="https://github.com/D-Sketon/hexo-theme-reimu"><a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">theme-particlex&#x2F;hexo-theme-particlex: A concise Hexo theme, based on Particle. (github.com)</a> </a>，这款二次元浓度有点高，果断选择这款，后续修改也是按照这款主题来配置，不同主题配置不同，但大同小异，可以参考我的来做。</p>
 <p><img src="/images/image-20240715121024186.png" alt="image-20240715121024186"></p>
 <p><img src="/images/image-20240715115300567.png" alt="image-20240715115300567"></p>

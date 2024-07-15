@@ -211,10 +211,11 @@
 <p>众所周知，使用Typora写markdown文档复制图片的时候一般都会生成在下面的目录中(修改目录的当我没说)</p>
 <pre><code class="txt">C:\Users\cy\AppData\Roaming\Typora\typora-user-images\image-20240715161150570.png
 </code></pre>
-<p>本地看肯定没问题，在上传到github的时候肯定是不能读取到这个路径的，那么只能采取相对路径解决，具体细节请移步我的另一篇博客：<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/003%20-%20%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">解决hexo搭建博客图片相对路径上传异常问题 | cy的博客</a></p>
+<p>本地看肯定没问题，在上传到github的时候肯定是不能读取到这个路径的，那么只能采取相对路径解决，具体细节请移步我的另一篇博客：<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/003-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">解决hexo搭建博客图片相对路径上传异常问题 | cy的博客 (666cy666.top)</a></p>
 <p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
 <p>解决掉异常之后就能在本地浏览器访问成功啦！</p>
-<h2 id="批量化处理"><a href="#批量化处理" class="headerlink" title="批量化处理"></a>批量化处理</h2><p>我不想但是一个一个处理图片太麻烦了，有这时间我都可以去搞个图床了，因此我想用python帮我批量处理一下，废话不多说，具体操作和代码请看我另一篇博客，代码有点长。</p>
+<p>恭喜你，已经完成了70%啦！！！</p>
+<h2 id="批量化处理"><a href="#批量化处理" class="headerlink" title="批量化处理"></a>批量化处理</h2><p>我不想搞图床，但是一个一个处理图片太麻烦了，有这时间我还不如搞图床呢，因此我想用python帮我批量处理一下，废话不多说，具体操作和代码请看我另一篇博客：<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/001-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/">解决hexo搭建博客批量修改图片路径问题.md | cy的博客 (666cy666.top)</a>代码有点长。</p>
 <h3 id="运行说明"><a href="#运行说明" class="headerlink" title="运行说明"></a>运行说明</h3><p><img src="/images/image-20240715203404627.png" alt="image-20240715203404627"></p>
 <p>在<em><strong>根目录</strong></em>下新建一个python文件，我这里命名为Update_Imgurl.py</p>
 <p><img src="/images/image-20240715203546773.png" alt="image-20240715203546773"></p>
@@ -231,7 +232,7 @@
 <p>上面是我的初始化模板，包含了文章标题，时间，标签和分类，这里我默认把标签设置为”杂”</p>
 <p><img src="/images/image-20240715203913518.png" alt="image-20240715203913518"></p>
 <p>在执行了上面的操作后会默认在没有抬头的文章中创建如上图所示的抬头，后面标签和分类自己改就行</p>
-<h3 id="图片路径修改"><a href="#图片路径修改" class="headerlink" title="图片路径修改"></a>图片路径修改</h3><p>执行上面的操作后，首先会在sources下创建一个images，然后把所有的路径的图片复制到该文件夹，然后再复制一份images到sources&#x2F;_posts下，不要问为什么，问就看另一篇文档：[解决hexo搭建博客图片相对路径上传异常问题 | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/003">https://666cy666.top/2024/07/15/003</a> -  解决hexo搭建博客图片相对路径上传异常问题&#x2F;)。此时我们的目录结构应该是这样的</p>
+<h3 id="图片路径修改"><a href="#图片路径修改" class="headerlink" title="图片路径修改"></a>图片路径修改</h3><p>执行上面的操作后，首先会在sources下创建一个images，然后把所有的路径的图片复制到该文件夹，然后再复制一份images到sources&#x2F;_posts下，不要问为什么，问就看另一篇文档：<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/003-%E8%A7%A3%E5%86%B3hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8A%E4%BC%A0%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/">解决hexo搭建博客图片相对路径上传异常问题 | cy的博客 (666cy666.top)</a>。此时我们的目录结构应该是这样的</p>
 <pre><code class="yaml">-source
   -_posts
     -images
@@ -242,8 +243,8 @@
 <h3 id="批量修改文件名称"><a href="#批量修改文件名称" class="headerlink" title="批量修改文件名称"></a>批量修改文件名称</h3><p><img src="/images/image-20240715193810731.png" alt="image-20240715193810731"></p>
 <p>我们每次创建一个之后它这个是按照时间顺序来排的，我就想按照博客里面写的时间顺序来，执行完上面的操作后</p>
 <p><img src="/images/image-20240715214237932.png" alt="image-20240715214237932"></p>
-<p>文章会在前面加上序号，排序是按照博客抬头的时间顺序来的，所以说我们只需要把抬头里面的时间修改就行了</p>
-<p>恭喜你，已经完成了70%！！！</p>
+<p>文章会在前面加上序号，看起来舒服多了——排序是按照博客抬头的时间顺序来的，所以说我们只需要把抬头里面的时间修改就行了</p>
+<p>恭喜你，已经完成了80%啦！！！</p>
 
             
         </div>
@@ -259,11 +260,6 @@
         <span class="tag">
             
             <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">博客</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E5%9B%BE%E7%89%87/" style="color: #03a9f4">图片</a>
         </span>
         
     </div>
@@ -328,17 +324,12 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">博客</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">博客</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E8%AF%84%E8%AE%BA/" style="color: #00a596">评论</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/gittalk/" style="color: #00bcd4">gittalk</a>
+            <a href="/tags/gittalk/" style="color: #03a9f4">gittalk</a>
         </span>
         
     </div>
@@ -410,17 +401,12 @@ hexo d
         
         <span class="tag">
             
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">博客</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">博客</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E8%AF%84%E8%AE%BA/" style="color: #ffa2c4">评论</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/GitTalk/" style="color: #03a9f4">GitTalk</a>
+            <a href="/tags/github/" style="color: #00bcd4">github</a>
         </span>
         
     </div>
@@ -428,17 +414,17 @@ hexo d
 </div>
 
 <div class="post">
-    <a href="/2024/07/13/009-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9D%A4%EF%BC%89%E2%80%94%E2%80%94%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E9%93%BE%E6%8E%A5github%E8%B4%A6%E5%8F%B7/">
-        <h2 class="post-title">github博客搭建（坤）——文章分类及链接github账号</h2>
+    <a href="/2024/07/13/009-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9D%A4%EF%BC%89%E2%80%94%E2%80%94%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/">
+        <h2 class="post-title">github博客搭建（坤）——文章分类</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E6%9D%82/">
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                杂
+                博客
             </a>
         </span>
         
@@ -454,7 +440,7 @@ hexo d
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="github博客搭建（坤）——文章分类及链接github账号"><a href="#github博客搭建（坤）——文章分类及链接github账号" class="headerlink" title="github博客搭建（坤）——文章分类及链接github账号"></a>github博客搭建（坤）——文章分类及链接github账号</h1><h2 id="添加文章分类"><a href="#添加文章分类" class="headerlink" title="添加文章分类"></a>添加文章分类</h2><h3 id="创建分类信息"><a href="#创建分类信息" class="headerlink" title="创建分类信息"></a>创建分类信息</h3><p><img src="/images/image-20240715143625726.png" alt="image-20240715143625726"></p>
+            <h1 id="github博客搭建（坤）——文章分类"><a href="#github博客搭建（坤）——文章分类" class="headerlink" title="github博客搭建（坤）——文章分类"></a>github博客搭建（坤）——文章分类</h1><h2 id="添加文章分类"><a href="#添加文章分类" class="headerlink" title="添加文章分类"></a>添加文章分类</h2><h3 id="创建分类信息"><a href="#创建分类信息" class="headerlink" title="创建分类信息"></a>创建分类信息</h3><p><img src="/images/image-20240715143625726.png" alt="image-20240715143625726"></p>
 <p>在themes下的config中，找到menu下的路由信息，前面的可以改为中文，而后面的就是路由信息,我们要利用下面的指令去创建对应的key</p>
 <pre><code class="bash">hexo new page about
 </code></pre>
@@ -533,11 +519,11 @@ categories: blog1
         
         <span class="tag">
             
-            <a href="/tags/%E6%9D%82/" style="color: #03a9f4">杂</a>
+            <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">博客</a>
         </span>
         
     </div>
-    <a href="/2024/07/13/009-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9D%A4%EF%BC%89%E2%80%94%E2%80%94%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E9%93%BE%E6%8E%A5github%E8%B4%A6%E5%8F%B7/" class="go-post">阅读全文</a>
+    <a href="/2024/07/13/009-github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%EF%BC%88%E5%9D%A4%EF%BC%89%E2%80%94%E2%80%94%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -589,30 +575,12 @@ npm install
 <h3 id="hexo-s-server"><a href="#hexo-s-server" class="headerlink" title="hexo s(server)"></a>hexo s(server)</h3><p>这个命令会启动一个本地服务器，通常监听在 <code>http://localhost:4000</code>。你可以在本地预览你的博客，而无需先生成静态文件。这个命令还会监听文件变化，并自动重新加载页面，方便开发调试。</p>
 <h3 id="hexo-d-depoly"><a href="#hexo-d-depoly" class="headerlink" title="hexo d(depoly)"></a>hexo d(depoly)</h3><p>这个命令会根据你在 <code>_config.yml</code> 中的配置，将生成的静态文件部署到远程服务器上。常用的部署目标包括 GitHub Pages、FTP 服务器等。你需要先配置好部署选项，然后运行这个命令将网站发布到指定位置。</p>
 <h3 id="hexo-new-page-标签名字"><a href="#hexo-new-page-标签名字" class="headerlink" title="hexo new page 标签名字"></a>hexo new page 标签名字</h3><p>这个命令会在 <code>source</code> 目录下新建一个独立页面目录，并生成相应的 <code>index.md</code> 文件。例如，运行 <code>hexo new page about</code> 会在 <code>source</code> 目录下创建一个 <code>about</code> 文件夹，里面有一个 <code>index.md</code> 文件，你可以在其中编写“关于”页面的内容。</p>
+<h2 id="尝试运行"><a href="#尝试运行" class="headerlink" title="尝试运行"></a>尝试运行</h2><pre><code class="bash">hexo g
+hexo s
+</code></pre>
 <p><img src="/images/image-20240714155806409.png" alt="image-20240714155806409"></p>
 <p><img src="/images/image-20240714155828042.png" alt="image-20240714155828042"></p>
-<p>若能成功在本地访问，恭喜你，已经成功11.4514%了！！！</p>
-<h3 id="解决hexo-command-not-found环境问题"><a href="#解决hexo-command-not-found环境问题" class="headerlink" title="解决hexo: command not found环境问题"></a>解决hexo: command not found环境问题</h3><pre><code class="bash">cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ npm install -g hexo-cli
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-
-changed 53 packages in 3s
-
-14 packages are looking for funding
-  run npm fund for details
-
-cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ hexo init myblog
-bash: hexo: command not found
-</code></pre>
-<p>当我们使用 <code>npm install -g hexo-cli</code> 命令时，由于使用了 <code>-g</code>（全局）参数，包会被安装到全局包目录下。这意味着一旦安装完成，任何项目都可以直接使用它，而无需再次进行安装。这对于频繁需要使用的工具特别有用，因为你可以在任何地方运行它们而不需要重复安装。</p>
-<p>相比之下，使用 <code>-i</code> 参数或不使用任何参数安装包（如 <code>npm install hexo-cli</code>），将只会在当前项目目录下安装该包。这意味着如果你在另一个项目中也需要同样的包，你需要在那个项目的目录下再次执行安装命令。</p>
-<p>如果在安装 <code>hexo-cli</code> 后出现 <code>hexo: command not found</code> 的错误，这通常意味着 npm 的全局安装路径没有被正确添加到你的系统环境变量中，或者在配置过程中存在其他问题。可以先通过运行 <code>npm config get prefix</code>来查看全局安装路径。同时运行<code>npm list -g --depth=0</code> 来检查是否正确安装了 <code>hexo-cli</code> 并且位于预期的目录中。如果不是，可能需要调整环境变量或重新安装。</p>
-<pre><code class="bash">npm config get prefix
-</code></pre>
-<pre><code class="bash">npm list -g --depth=0
-</code></pre>
+<p>执行完上面的指令后，若能成功在本地:4000端口访问，恭喜你，已经成功11.4514%了！！！</p>
 <h2 id="博客个性化设置"><a href="#博客个性化设置" class="headerlink" title="博客个性化设置"></a>博客个性化设置</h2><h3 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h3><p>大家可以去官网上找自己喜欢的主题下载<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a> ，我采用的主题是<a target="_blank" rel="noopener" href="https://github.com/D-Sketon/hexo-theme-reimu"><a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">theme-particlex&#x2F;hexo-theme-particlex: A concise Hexo theme, based on Particle. (github.com)</a> </a>，这款二次元浓度有点高，果断选择这款，后续修改也是按照这款主题来配置，不同主题配置不同，但大同小异，可以参考我的来做。</p>
 <p><img src="/images/image-20240715121024186.png" alt="image-20240715121024186"></p>
 <p><img src="/images/image-20240715115300567.png" alt="image-20240715115300567"></p>
@@ -654,7 +622,12 @@ hexo s
         
         <span class="tag">
             
-            <a href="/tags/github/" style="color: #00bcd4">github</a>
+            <a href="/tags/github/" style="color: #ff7d73">github</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E4%B8%AA%E6%80%A7%E5%8C%96/" style="color: #03a9f4">个性化</a>
         </span>
         
     </div>
