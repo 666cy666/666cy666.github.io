@@ -187,15 +187,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/cnd/" style="color: #00bcd4">
-                    cnd
+                <a href="/tags/cdn/" style="color: #ffa2c4">
+                    cdn
                 </a>
             </span>
             
@@ -204,7 +204,54 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="github博客搭建（六）——-cdn加速"><a href="#github博客搭建（六）——-cdn加速" class="headerlink" title="github博客搭建（六）—— cdn加速"></a>github博客搭建（六）—— cdn加速</h1>
+        <h1 id="github博客搭建（六）——-cdn加速"><a href="#github博客搭建（六）——-cdn加速" class="headerlink" title="github博客搭建（六）—— cdn加速"></a>github博客搭建（六）—— cdn加速</h1><p>经过前面的步骤，相信你已经能够挂访问github.io了，但是分享链接给别人的时候，访问起来很慢，这个时候就得利用cdn加速，cdn具体原理我就不具体阐述了。</p>
+<h2 id="域名准备"><a href="#域名准备" class="headerlink" title="域名准备"></a>域名准备</h2><p>首先你得准备一个域名，这里推荐腾讯云阿里云都行，不需要备案，审核信息模板认证估计得要一两个小时，后面就可以买域名了，我这里是12块一年，还行吧</p>
+<p><img src="/images/image-20240716094202166.png" alt="image-20240716094202166"></p>
+<p>在拥有域名之后去该仓库-&gt;Settings-&gt;Pages-&gt;Custom domain，把域名填上</p>
+<p><img src="/images/image-20240716094327689.png" alt="image-20240716094327689"></p>
+<p><img src="/images/image-20240716094427949.png" alt="image-20240716094427949"></p>
+<p>之后github会自动创建一个cname文件，把它下载下来放到source目录下面，注意，这个文件不带后缀，不要用txt。由于hexo打包上传之后会覆盖掉CNAME文件，所以说需要在该目录下把CANME也打包进去。</p>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p><img src="/images/image-20240716094853964.png" alt="image-20240716094853964"></p>
+<p><img src="/images/image-20240716094758299.png" alt="image-20240716094758299"></p>
+<p>这里我用的是阿里云的域名，通过 A 记录分别解析到以下 4 个 IP：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<p>上面的这四个ip地址是github的ip地址，然后执行下面的命令</p>
+<pre><code class="bash">$ dig 666cy666.top +noall +answer
+&gt; 666cy666.top     3600    IN A     185.199.108.153
+&gt; 666cy666.top     3600    IN A     185.199.109.153
+&gt; 666cy666.top     3600    IN A     185.199.110.153
+&gt; 666cy666.top     3600    IN A     185.199.111.153
+</code></pre>
+<p>这里注意这个命令是linux命令，我本地有虚拟机，开个虚拟机输入就行，如果没有的话可以去在线网站查询dns解析，这里推荐一个网站：<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>。</p>
+<p>恭喜你，已经完成了90%！！！</p>
+<h2 id="利用cloudflare进行cdn加速"><a href="#利用cloudflare进行cdn加速" class="headerlink" title="利用cloudflare进行cdn加速"></a>利用cloudflare进行cdn加速</h2><p>首先进入cloudflare官网注册：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloudflare | Web Performance &amp; Security</a></p>
+<p><img src="/images/image-20240716101518033.png" alt="image-20240716101518033"></p>
+<p>点击添加站点将域名添加进去</p>
+<p><img src="/images/image-20240716101611361.png" alt="image-20240716101611361"></p>
+<p>选免费的</p>
+<p><img src="/images/image-20240716101715981.png" alt="image-20240716101715981"></p>
+<p>通过域名的运营商修改对应的 NS 记录，这里每个运营商的修改方式都不一样，我这里是用的阿里云的</p>
+<p><img src="/images/image-20240716102131911.png" alt="image-20240716102131911"></p>
+<p>这里可以参考阿里云官方文档操作：<a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dns/change-the-dns-server/?spm=a2c1d.8251892.help.dexternal.30a75b76t02QI3">如何修改DNS服务器及解析生效时间_云解析DNS(DNS)-阿里云帮助中心 (aliyun.com)</a></p>
+<p><img src="/images/image-20240716102337357.png" alt="image-20240716102337357"></p>
+<pre><code class="bash">cy@cy-virtual-machine:~/Desktop$ dig 666cy666.top +noall +answer
+666cy666.top.		5	IN	A	104.21.56.138
+666cy666.top.		5	IN	A	172.67.152.122
+</code></pre>
+<p>修改好了之后可以去浏览器<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>访问运行，也可以在虚拟机上进行解析。</p>
+<h2 id="后续问题解决"><a href="#后续问题解决" class="headerlink" title="后续问题解决"></a>后续问题解决</h2><h3 id="ssl证书问题"><a href="#ssl证书问题" class="headerlink" title="ssl证书问题"></a>ssl证书问题</h3><p><img src="/images/image-20240716103648632.png" alt="image-20240716103648632"></p>
+<p>https访问的时候如果说没有ssl证书拒绝访问，还是那个页面把这enforce https勾上，勾上之后会颁发ssl证书</p>
+<h3 id="重定向次数过多问题"><a href="#重定向次数过多问题" class="headerlink" title="重定向次数过多问题"></a>重定向次数过多问题</h3><p><img src="/images/image-20240716103847098.png" alt="image-20240716103847098"></p>
+<p>在cloudflare中ssl概述，将Flexible（灵活）修改为Full（完全）</p>
+<p>好了，现在恭喜你，已经完成了全部的博客教程，快将你的第一篇博客链接发给小伙伴吧！</p>
+<h2 id="本文参考链接"><a href="#本文参考链接" class="headerlink" title="本文参考链接"></a>本文参考链接</h2><p><a target="_blank" rel="noopener" href="https://monkeywie.cn/2020/08/20/fast-github-page-with-cloudflare/">使用cloudflare免费加速github page | MonkeyWie’s Blog</a></p>
+<p>【cloudflare如何解决https报错太多重定向的问题】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?spm_id_from=333.337.search-card.all.click&vd_source=9f79f0aa531775705e272c4b4a946dcc">cloudflare如何解决https报错太多重定向的问题_哔哩哔哩_bilibili</a></p>
+
     </div>
     
     

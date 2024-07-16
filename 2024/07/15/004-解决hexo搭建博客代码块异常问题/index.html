@@ -187,15 +187,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">
-                    博客
+                <a href="/tags/hexo-bug/" style="color: #00a596">
+                    hexo__bug
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/hexo-bug/" style="color: #ffa2c4">
-                    hexo__bug
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">
+                    博客
                 </a>
             </span>
             
@@ -215,14 +215,24 @@
 <p>1.行号出现问题</p>
 <p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
 <p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
-<h3 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h3><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
-<p><img src="/images/image-20240714161853826.png" alt="image-20240714161853826"></p>
+<h2 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h2><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
+<p>当时找了好久的bug，后面发现是hexo版本的原因，hexo7是两个分界线，7以上的版本可能与老主题不兼容，所以只需要将hexo降版本就行。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><pre><code class="bash"># 首先卸载hexo-cli脚手架
+npm uninstall -g hexo-cli
+# 重新安装
+npm install -g hexo-cli
+# 重点是这个，下载依赖时指定hexo版本
+npm install -i hexo@6.3.0
+</code></pre>
+<p>在项目根目录用cmd打开，输入上面指令</p>
+<p><img src="/images/image-20240716090812045.png" alt="image-20240716090812045"></p>
+<p>然后再去这根目录中的package.json中查看，hexo版本确实改了，然后</p>
+<pre><code class="bash">hexo clean
+hexo g
+hexo s
+</code></pre>
 <p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
-<p>npm uninstall -g hexo-cli</p>
-<p>npm install -i <a href="mailto:&#104;&#x65;&#x78;&#111;&#64;&#x36;&#x2e;&#51;&#x2e;&#48;">&#104;&#x65;&#x78;&#111;&#64;&#x36;&#x2e;&#51;&#x2e;&#48;</a></p>
-<p>hexo clean</p>
-<p>hexo g</p>
-<p>hexo s</p>
+<p>完美解决！</p>
 
     </div>
     
