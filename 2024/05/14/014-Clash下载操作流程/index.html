@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>Clash 下载操作流程 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+<script src="/js/lib/crypto.js"></script>
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Clash 下载操作流程</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                科学上网
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/clash/" style="color: #00bcd4">
+                    clash
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="color: #03a9f4">
+                    科学上网
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    
+    
+    <input
+        id="crypto"
+        :class="['input', cryptoStatus]"
+        :disabled="cryptoStatus === 'success'"
+        ref="crypto"
+        placeholder="文章被加密，请输入密码"
+        data-encrypted="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"
+        data-shasum="bc24d5ce4c1d8af41622816360852b098ec71e48f7bc0348cec957d163f2eb94"
+        v-model="crypto"
+    />
+    <transition name="fade">
+        <div class="content" ref="content" v-show="cryptoStatus === 'success'"></div>
+    </transition>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
