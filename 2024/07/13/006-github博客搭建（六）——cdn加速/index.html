@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>github博客搭建（一）—— 环境配置 | cy’s Blog</title>
+    <title>github博客搭建（六）—— cdn加速 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,7 +169,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>github博客搭建（一）—— 环境配置</h1>
+        <h1>github博客搭建（六）—— cdn加速</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -197,15 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%8E%AF%E5%A2%83/" style="color: #03a9f4">
-                    环境
+                <a href="/tags/cdn/" style="color: #ff7d73">
+                    cdn
                 </a>
             </span>
             
@@ -217,56 +217,53 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="github博客搭建（一）——-环境配置"><a href="#github博客搭建（一）——-环境配置" class="headerlink" title="github博客搭建（一）—— 环境配置"></a>github博客搭建（一）—— 环境配置</h1><p>大一的时候在csdn上写博客，后面发现就我那写的小教程竟然也有人盗，后面就把账号注销了，虽然说csdn上好教程确实不少，但是史里淘金的过程真得很难评，痛定思痛，大二大三就一直在本地写markdown文档了，现在大三暑假我的电脑终于撑不住了，正好准备重装系统，干脆把之前踩坑写的md整理一下搞个博客算了。</p>
-<p>原先准备是在云服务器上搭个动态博客的，后面想想动态的无非多了个统计还有动态修改功能，我个人不是很在意这些，反正在本地写已经习惯了，大不了修改了再上传呗，多大点事。</p>
-<p>于是从头跟着b站还有一些网站教学搞了一个下午终于搞定了，搞完之后真的成就满满，那些教程有些都是几年前的了，虽然说避免了很多坑，但是也踩了不少新坑，感觉还是有必要写一下博客的。</p>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
-<li><strong>Node.js</strong>：JavaScript 运行时环境，用于构建和运行博客相关的应用程序。</li>
-<li><strong>Git</strong>：版本控制工具，用来上传和管理博客文件。</li>
-<li><strong>Typora</strong>：Markdown 编辑器，用于书写和编辑博客内容。</li>
-<li><strong>一个域名</strong>：为你的博客提供一个独立的访问地址。</li>
-<li><strong>Python 环境</strong>：用于批量处理 Markdown 图片格式。如果没有 Python 环境，后续的步骤中我会提供一个可执行文件（exe），但不同主题模板可能需要自行调试。</li>
-<li><strong>CDN 加速（Cloudflare）</strong>：由于 GitHub 的服务器位于国外，直接访问可能会比较慢。我们可以使用 Cloudflare 提供的免费 CDN 服务来加速博客的访问速度。前往 Cloudflare 官网注册账号并添加你的域名，按照提示完成设置</li>
-</ul>
-<h2 id="node环境搭建"><a href="#node环境搭建" class="headerlink" title="node环境搭建"></a>node环境搭建</h2><p>由于前人已经讲的非常详细了，这里我就不多谈了，我在这里给大家放几个链接大家去配环境就行，y1s1，csdn上这种主流框架的基本用法还是非常详细了，遇到再难一点的问题就很难找到解答了。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nicolecocol/article/details/136788200">Node.js安装及环境配置超详细教程【Windows系统】_windows 安装nodejs-CSDN博客</a></p>
-<p>【Node.js安装及环境变量配置】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
-<p>安装完成后可以用下面的指令测试一下环境</p>
-<pre><code class="bash">#测试node版本
-node -v
-#测试npm版本
-npm -v
-#测试node镜像源，建议换为淘宝
-npm config get registry
-#查看全局安装目录，建议不要装在c盘，实在装c盘也没关系
-npm config get prefix
-#将镜像源换为国内镜像源
-npm config set registry https://registry.npmmirror.com
+        <h1 id="github博客搭建（六）——-cdn加速"><a href="#github博客搭建（六）——-cdn加速" class="headerlink" title="github博客搭建（六）—— cdn加速"></a>github博客搭建（六）—— cdn加速</h1><p>经过前面的步骤，相信你已经能够挂访问github.io了，但是分享链接给别人的时候，访问起来很慢，这个时候就得利用cdn加速，cdn具体原理我就不具体阐述了。</p>
+<h2 id="域名准备"><a href="#域名准备" class="headerlink" title="域名准备"></a>域名准备</h2><p>首先你得准备一个域名，这里推荐腾讯云阿里云都行，不需要备案，审核信息模板认证估计得要一两个小时，后面就可以买域名了，我这里是12块一年，还行吧</p>
+<p><img src="/images/image-20240716094202166.png" alt="image-20240716094202166"></p>
+<p>在拥有域名之后去该仓库-&gt;Settings-&gt;Pages-&gt;Custom domain，把域名填上</p>
+<p><img src="/images/image-20240716094327689.png" alt="image-20240716094327689"></p>
+<p><img src="/images/image-20240716094427949.png" alt="image-20240716094427949"></p>
+<p>之后github会自动创建一个cname文件，把它下载下来放到source目录下面，注意，这个文件不带后缀，不要用txt。由于hexo打包上传之后会覆盖掉CNAME文件，所以说需要在该目录下把CANME也打包进去。</p>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p><img src="/images/image-20240716094853964.png" alt="image-20240716094853964"></p>
+<p><img src="/images/image-20240716094758299.png" alt="image-20240716094758299"></p>
+<p>这里我用的是阿里云的域名，通过 A 记录分别解析到以下 4 个 IP：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
 </code></pre>
-<p><img src="/images/image-20240714150953068.png" alt="image-20240714150953068"></p>
-<p>没有报错证明node环境配好了，恭喜你，已经成功2%了！</p>
-<h2 id="git环境搭建与github注册"><a href="#git环境搭建与github注册" class="headerlink" title="git环境搭建与github注册"></a>git环境搭建与github注册</h2><p>老规矩，上教程，我不多bb</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/secretstarlyp/article/details/106576882">超详细的Git下载安装、环境变量配置教程_安装好git之后如何配置-CSDN博客</a></p>
-<p>【【GeekHour】一小时Git教程】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HM411377j/?p=2&share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1HM411377j/?p=2&amp;share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a><br>只要看第2，10，11就行，其余的你们有兴趣可以全看完，搭博客看这三集足够了</p>
-<p><img src="/images/image-20240714152456358.png" alt="image-20240714152456358"></p>
-<p>安装完成后在文件夹中对空白区域右键应该有个git bash here如上图，点击后与注册号的GitHub关联之后应该是这样的</p>
-<h3 id="1-查看所有-Git-配置"><a href="#1-查看所有-Git-配置" class="headerlink" title="1. 查看所有 Git 配置"></a>1. 查看所有 Git 配置</h3><p>要查看包括系统级别在内的所有配置，可以使用：</p>
-<pre><code class="bash">git config --list
+<p>上面的这四个ip地址是github的ip地址，然后执行下面的命令</p>
+<pre><code class="bash">$ dig 666cy666.top +noall +answer
+&gt; 666cy666.top     3600    IN A     185.199.108.153
+&gt; 666cy666.top     3600    IN A     185.199.109.153
+&gt; 666cy666.top     3600    IN A     185.199.110.153
+&gt; 666cy666.top     3600    IN A     185.199.111.153
 </code></pre>
-<p>这将展示所有层面上的 Git 配置，包括全局、系统、和本地。</p>
-<h3 id="2-查看特定配置项"><a href="#2-查看特定配置项" class="headerlink" title="2. 查看特定配置项"></a>2. 查看特定配置项</h3><p>如果你只想查看特定的配置项，如用户名，可以使用：</p>
-<pre><code class="bash">git config user.name
+<p>这里注意这个命令是linux命令，我本地有虚拟机，开个虚拟机输入就行，如果没有的话可以去在线网站查询dns解析，这里推荐一个网站：<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>。</p>
+<p>恭喜你，已经完成了90%！！！</p>
+<h2 id="利用cloudflare进行cdn加速"><a href="#利用cloudflare进行cdn加速" class="headerlink" title="利用cloudflare进行cdn加速"></a>利用cloudflare进行cdn加速</h2><p>首先进入cloudflare官网注册：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloudflare | Web Performance &amp; Security</a></p>
+<p><img src="/images/image-20240716101518033.png" alt="image-20240716101518033"></p>
+<p>点击添加站点将域名添加进去</p>
+<p><img src="/images/image-20240716101611361.png" alt="image-20240716101611361"></p>
+<p>选免费的</p>
+<p><img src="/images/image-20240716101715981.png" alt="image-20240716101715981"></p>
+<p>通过域名的运营商修改对应的 NS 记录，这里每个运营商的修改方式都不一样，我这里是用的阿里云的</p>
+<p><img src="/images/image-20240716102131911.png" alt="image-20240716102131911"></p>
+<p>这里可以参考阿里云官方文档操作：<a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dns/change-the-dns-server/?spm=a2c1d.8251892.help.dexternal.30a75b76t02QI3">如何修改DNS服务器及解析生效时间_云解析DNS(DNS)-阿里云帮助中心 (aliyun.com)</a></p>
+<p><img src="/images/image-20240716102337357.png" alt="image-20240716102337357"></p>
+<pre><code class="bash">cy@cy-virtual-machine:~/Desktop$ dig 666cy666.top +noall +answer
+666cy666.top.		5	IN	A	104.21.56.138
+666cy666.top.		5	IN	A	172.67.152.122
 </code></pre>
-<p>或者查看与远程仓库相关的 URL：</p>
-<pre><code class="bash">git config remote.origin.url
-</code></pre>
-<p>这些命令分别显示了用户名和当前仓库的默认远程仓库 URL。</p>
-<h3 id="3-更改-Git-配置"><a href="#3-更改-Git-配置" class="headerlink" title="3. 更改 Git 配置"></a>3. 更改 Git 配置</h3><p>如果你需要修改某项配置，例如改变用户名或邮箱，可以使用：</p>
-<pre><code class="cpp">git config --global user.name &quot;新用户名&quot;
-git config --global user.email &quot;新邮箱地址&quot;
-</code></pre>
-<p><img src="/images/image-20240714153255135.png" alt="image-20240714153255135"></p>
-<p>与github关联后可以使用上面的指令查看是否成功，若看到账号邮箱与注册好的github账号关联成功，恭喜你，已经成功5%了！</p>
+<p>修改好了之后可以去浏览器<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>访问运行，也可以在虚拟机上进行解析。</p>
+<h2 id="后续问题解决"><a href="#后续问题解决" class="headerlink" title="后续问题解决"></a>后续问题解决</h2><h3 id="ssl证书问题"><a href="#ssl证书问题" class="headerlink" title="ssl证书问题"></a>ssl证书问题</h3><p><img src="/images/image-20240716103648632.png" alt="image-20240716103648632"></p>
+<p>https访问的时候如果说没有ssl证书拒绝访问，还是那个页面把这enforce https勾上，勾上之后会颁发ssl证书</p>
+<h3 id="重定向次数过多问题"><a href="#重定向次数过多问题" class="headerlink" title="重定向次数过多问题"></a>重定向次数过多问题</h3><p><img src="/images/image-20240716103847098.png" alt="image-20240716103847098"></p>
+<p>在cloudflare中ssl概述，将Flexible（灵活）修改为Full（完全）</p>
+<p>好了，现在恭喜你，已经完成了全部的博客教程，快将你的第一篇博客链接发给小伙伴吧！</p>
+<h2 id="本文参考链接"><a href="#本文参考链接" class="headerlink" title="本文参考链接"></a>本文参考链接</h2><p><a target="_blank" rel="noopener" href="https://monkeywie.cn/2020/08/20/fast-github-page-with-cloudflare/">使用cloudflare免费加速github page | MonkeyWie’s Blog</a></p>
+<p>【cloudflare如何解决https报错太多重定向的问题】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?spm_id_from=333.337.search-card.all.click&vd_source=9f79f0aa531775705e272c4b4a946dcc">cloudflare如何解决https报错太多重定向的问题_哔哩哔哩_bilibili</a></p>
 
     </div>
     

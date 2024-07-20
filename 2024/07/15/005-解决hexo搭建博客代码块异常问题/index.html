@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>github博客搭建（三）——链接github | cy’s Blog</title>
+    <title>解决hexo搭建博客代码块异常问题 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>github博客搭建（三）——链接github</h1>
+        <h1>解决hexo搭建博客代码块异常问题</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/13
+            2024/7/15
         </span>
         
         <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
+            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                博客
+                hexo__bug解决
             </a>
         </span>
         
@@ -197,15 +197,22 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/github/" style="color: #00bcd4">
-                    github
+                <a href="/tags/hexo-bug/" style="color: #00bcd4">
+                    hexo__bug
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #ff7d73">
+                    已解决bug
                 </a>
             </span>
             
@@ -217,30 +224,28 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="github博客搭建（三）——链接github"><a href="#github博客搭建（三）——链接github" class="headerlink" title="github博客搭建（三）——链接github"></a>github博客搭建（三）——链接github</h1><p>如果你跟上了之前的教程，那么现在应该能够在本地访问博客了，那么如何才能让其他人也能看到你的博客呢？如果想用云服务器的可以另找教程自己搭建，后续都是用github来搭，云服务器我怕到时候到期了我就懒得再去配了，github我相信应该不会跑路。</p>
-<h2 id="配置git密钥"><a href="#配置git密钥" class="headerlink" title="配置git密钥"></a>配置git密钥</h2><p>按道理你们应该在第一步就已经配好了密钥，但是老规矩，上教程<a target="_blank" rel="noopener" href="https://blog.csdn.net/I_loveCong/article/details/139862670">Git的环境配置（GitHub的SSH密钥的配置超详细）_gitshezhi github 帐户设置 ssh 密钥并运行 ssh 代理-CSDN博客</a></p>
-<p>配置好密钥了之后，点击 Start project 或者下面的 new repository 建立一个新的仓库，注意Github 仅能使用一个同名仓库的代码托管一个静态站点，这里注意仓库名一定要是： 用户名.github.io。</p>
-<p><img src="/images/image-20240715152921389.png" alt="image-20240715152921389"></p>
-<p>例如我们这里是666cy666.github.io，由于我们已经创建过了，因此不能再创建了，到这一步，恭喜你，已经完成了45%！！！</p>
-<h2 id="上传至github"><a href="#上传至github" class="headerlink" title="上传至github"></a>上传至github</h2><p>在这一步要安装一个部署插件 hexo-deployer-git，打开cmd，输如以下指令：</p>
-<pre><code class="bash">npm install hexo-deployer-git --save
+        <h1 id="解决hexo搭建博客代码块异常问题"><a href="#解决hexo搭建博客代码块异常问题" class="headerlink" title="解决hexo搭建博客代码块异常问题"></a>解决hexo搭建博客代码块异常问题</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
+<p>1.行号出现问题</p>
+<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
+<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
+<h2 id="代码块行号错误"><a href="#代码块行号错误" class="headerlink" title="代码块行号错误"></a>代码块行号错误</h2><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
+<p>当时找了好久的bug，后面发现是hexo版本的原因，hexo7是两个分界线，7以上的版本可能与老主题不兼容，所以只需要将hexo降版本就行。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><pre><code class="bash"># 首先卸载hexo-cli脚手架
+npm uninstall -g hexo-cli
+# 重新安装
+npm install -g hexo-cli
+# 重点是这个，下载依赖时指定hexo版本
+npm install -i hexo@6.3.0
 </code></pre>
-<p>然后修改配置和安装部署插件，根目录下的config，拉到文件末尾，填上以下配置</p>
-<pre><code class="yaml">deploy:
-  type: git
-  repo: https://github.com/666cy666/666cy666.github.io.git
-  branch: master
-</code></pre>
-<p>这里repo修改为你的github.io的仓库地址，注意后面是带.git的，用于推送，后面那个branch有人说是main，我这里写的master也没问题，大家根据自己的仓库改。</p>
-<p>最后执行如下两条命令就能够部署上传啦。</p>
-<pre><code class="bash"># generate，生成博客
+<p>在项目根目录用cmd打开，输入上面指令</p>
+<p><img src="/images/image-20240716090812045.png" alt="image-20240716090812045"></p>
+<p>然后再去这根目录中的package.json中查看，hexo版本确实改了，然后</p>
+<pre><code class="bash">hexo clean
 hexo g
-# deploy，部署到Github上
-hexo d 
+hexo s
 </code></pre>
-<p><img src="/images/image-20240715153626750.png" alt="image-20240715153626750"></p>
-<p>出现Deploy done的时候说明已经可以通过<code>用户名.github.io</code>访问了，恭喜你，已经完成了50%！！！</p>
-<p>这里由于我已经绑定了域名，所以说就不演示了，事实上到这里博客基本功能已经全部实现了，快夸一夸你自己把，后续的内容都是一些让自己更加舒服的写博客，以及让别人更加舒服的看博客的内容。</p>
+<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
+<p>完美解决！</p>
 
     </div>
     
