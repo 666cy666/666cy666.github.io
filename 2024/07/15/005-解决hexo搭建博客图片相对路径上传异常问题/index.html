@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>github博客搭建（一）—— 环境配置 | cy’s Blog</title>
+    <title>解决hexo搭建博客图片相对路径上传异常问题 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>github博客搭建（一）—— 环境配置</h1>
+        <h1>解决hexo搭建博客图片相对路径上传异常问题</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/13
+            2024/7/15
         </span>
         
         <span class="category">
-            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
+            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                博客
+                hexo__bug解决
             </a>
         </span>
         
@@ -204,8 +204,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E7%8E%AF%E5%A2%83/" style="color: #00a596">
-                    环境
+                <a href="/tags/hexo-bug/" style="color: #00a596">
+                    hexo__bug
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #ffa2c4">
+                    已解决bug
                 </a>
             </span>
             
@@ -216,59 +223,48 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">github博客搭建（一）—— 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">node环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">git环境搭建与github注册</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 查看所有 Git 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 查看特定配置项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 更改 Git 配置</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">解决hexo搭建博客图片相对路径上传异常问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">本地无法读取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">网络无法读取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">批量处理图片路径</span></a></li></ol></li></ol>
     
     <div class="content" v-pre>
-        <h1><span id="github博客搭建一-环境配置">github博客搭建（一）—— 环境配置</span></h1><p>大一的时候在csdn上写博客，后面发现就我那写的小教程竟然也有人盗，后面就把账号注销了，虽然说csdn上好教程确实不少，但是史里淘金的过程真得很难评，痛定思痛，大二大三就一直在本地写markdown文档了，现在大三暑假我的电脑终于撑不住了，正好准备重装系统，干脆把之前踩坑写的md整理一下搞个博客算了。</p>
-<p>原先准备是在云服务器上搭个动态博客的，后面想想动态的无非多了个统计还有动态修改功能，我个人不是很在意这些，反正在本地写已经习惯了，大不了修改了再上传呗，多大点事。</p>
-<p>于是从头跟着b站还有一些网站教学搞了一个下午终于搞定了，搞完之后真的成就满满，那些教程有些都是几年前的了，虽然说避免了很多坑，但是也踩了不少新坑，感觉还是有必要写一下博客的。</p>
-<h2><span id="环境准备">环境准备</span></h2><ul>
-<li><strong>Node.js</strong>：JavaScript 运行时环境，用于构建和运行博客相关的应用程序。</li>
-<li><strong>Git</strong>：版本控制工具，用来上传和管理博客文件。</li>
-<li><strong>Typora</strong>：Markdown 编辑器，用于书写和编辑博客内容。</li>
-<li><strong>一个域名</strong>：为你的博客提供一个独立的访问地址。</li>
-<li><strong>Python 环境</strong>：用于批量处理 Markdown 图片格式。如果没有 Python 环境，后续的步骤中我会提供一个可执行文件（exe），但不同主题模板可能需要自行调试。</li>
-<li><strong>CDN 加速（Cloudflare）</strong>：由于 GitHub 的服务器位于国外，直接访问可能会比较慢。我们可以使用 Cloudflare 提供的免费 CDN 服务来加速博客的访问速度。前往 Cloudflare 官网注册账号并添加你的域名，按照提示完成设置</li>
-</ul>
-<h2><span id="node环境搭建">node环境搭建</span></h2><p>由于前人已经讲的非常详细了，这里我就不多谈了，我在这里给大家放几个链接大家去配环境就行，y1s1，csdn上这种主流框架的基本用法还是非常详细了，遇到再难一点的问题就很难找到解答了。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nicolecocol/article/details/136788200">Node.js安装及环境配置超详细教程【Windows系统】_windows 安装nodejs-CSDN博客</a></p>
-<p>【Node.js安装及环境变量配置】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
-<p>安装完成后可以用下面的指令测试一下环境</p>
-<pre><code class="bash">#测试node版本
-node -v
-#测试npm版本
-npm -v
-#测试node镜像源，建议换为淘宝
-npm config get registry
-#查看全局安装目录，建议不要装在c盘，实在装c盘也没关系
-npm config get prefix
-#将镜像源换为国内镜像源
-npm config set registry https://registry.npmmirror.com
+        <h1><span id="解决hexo搭建博客图片相对路径上传异常问题">解决hexo搭建博客图片相对路径上传异常问题</span></h1><h2><span id="本地无法读取">本地无法读取</span></h2><p><img src="/images/image-20240715163214426.png" alt="image-20240715163214426"></p>
+<p>在利用相对路径读取图片的时候，像这样在本地source目录下新建一个images文件夹，然后在写markdown文档的时候将图片放在该文件夹下，然后将路径修改为</p>
+<pre><code class="txt">images/image-20240715161150570.png
 </code></pre>
-<p><img src="/images/image-20240714150953068.png" alt="image-20240714150953068"></p>
-<p>没有报错证明node环境配好了，恭喜你，已经成功2%了！</p>
-<h2><span id="git环境搭建与github注册">git环境搭建与github注册</span></h2><p>老规矩，上教程，我不多bb</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/secretstarlyp/article/details/106576882">超详细的Git下载安装、环境变量配置教程_安装好git之后如何配置-CSDN博客</a></p>
-<p>【【GeekHour】一小时Git教程】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HM411377j/?p=2&share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1HM411377j/?p=2&amp;share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a><br>只要看第2，10，11就行，其余的你们有兴趣可以全看完，搭博客看这三集足够了</p>
-<p><img src="/images/image-20240714152456358.png" alt="image-20240714152456358"></p>
-<p>安装完成后在文件夹中对空白区域右键应该有个git bash here如上图，点击后与注册号的GitHub关联之后应该是这样的</p>
-<h3><span id="1-查看所有-git-配置">1. 查看所有 Git 配置</span></h3><p>要查看包括系统级别在内的所有配置，可以使用：</p>
-<pre><code class="bash">git config --list
+<p><img src="/images/image-20240715163648965.png" alt="image-20240715163648965"></p>
+<p>这样就能在本地浏览器读取图片预览文章,可以看到已经能够正常访问</p>
+<h2><span id="网络无法读取">网络无法读取</span></h2><p><img src="/images/image-20240715212159937.png" alt="image-20240715212159937"></p>
+<p>先说一下hexo打包机制，在执行hexo g后，它会把相应的文件夹打包到public文件夹，可以看到这个images就是我们在sources下创建的images，执行hexo d后会将public文件夹上传至github，这就是为什么github上传完成后图片的访问地址是</p>
+<p><img src="/images/image-20240715212543384.png" alt="image-20240715212543384"></p>
+<p>此时我们的目录结构</p>
+<pre><code class="txt">-source
+  -_posts
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
 </code></pre>
-<p>这将展示所有层面上的 Git 配置，包括全局、系统、和本地。</p>
-<h3><span id="2-查看特定配置项">2. 查看特定配置项</span></h3><p>如果你只想查看特定的配置项，如用户名，可以使用：</p>
-<pre><code class="bash">git config user.name
+<p>而此时我们的地址路径</p>
+<pre><code class="txt">images/image-20240715193810731.png
 </code></pre>
-<p>或者查看与远程仓库相关的 URL：</p>
-<pre><code class="bash">git config remote.origin.url
+<p>而我们本地的markdown文档正常读取需要下面的地址路径，此时如果是上面的路径就会造成typora无法读取图片的问题</p>
+<pre><code class="txt">../images/image-20240715193810731.png
 </code></pre>
-<p>这些命令分别显示了用户名和当前仓库的默认远程仓库 URL。</p>
-<h3><span id="3-更改-git-配置">3. 更改 Git 配置</span></h3><p>如果你需要修改某项配置，例如改变用户名或邮箱，可以使用：</p>
-<pre><code class="cpp">git config --global user.name &quot;新用户名&quot;
-git config --global user.email &quot;新邮箱地址&quot;
+<p>但是改为上面的路径之后又会出现下面的问题</p>
+<p><img src="/images/image-20240713221435223.png" alt="image-20240713221435223"></p>
+<p>在上传到github的时候可以发现前面带有&#x2F;..&#x2F;,中间还有%5C这样的转义文字，正常路径应该是&#x2F;images&#x2F;图片名称，浏览器网页就无法读取了，前面说到hexo会将public文件夹上传至git，而images在根目录，故不能访问图片。所以说经过上面的分析，最简单的办法无非就是再复制一份images到_posts下面嘛</p>
+<pre><code class="txt">-source
+  -_posts
+    -images
+    -001 - 解决hexo搭建博客批量修改图片路径问题.md
+  -images
 </code></pre>
-<p><img src="/images/image-20240714153255135.png" alt="image-20240714153255135"></p>
-<p>与github关联后可以使用上面的指令查看是否成功，若看到账号邮箱与注册好的github账号关联成功，恭喜你，已经成功5%了！</p>
+<p>如上面所示，再复制一份，这样本地markdown也能正常预览了</p>
+<p>而关于转义的路径这里是因为我在本地拼接路径的时候应该是用了.\，网络链接中为了防止读取的时候与”\“冲突，通常会将”\“转义，然后前面的&#x2F;..&#x2F;是因为在拼接路径的时候前面加了.&#x2F;，正常不用加就行</p>
+<pre><code class="错误写法">.\images\image-20240715161150570.png
+</code></pre>
+<pre><code class="正常写法">images/image-20240715161150570.png
+</code></pre>
+<h2><span id="批量处理图片路径">批量处理图片路径</span></h2><p>那么一个一个添加图片很麻烦，有没有什么简单的办法呢，请移步我另外的博客（套娃是吧，你隔这隔这呢！）</p>
+<p>[解决hexo搭建博客批量修改图片路径问题.md | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/15/001">https://666cy666.top/2024/07/15/001</a> - 解决hexo搭建博客批量修改图片路径问题&#x2F;)</p>
+<p>[github博客搭建（五）—— 上传图片 | cy的博客 (666cy666.top)](<a target="_blank" rel="noopener" href="https://666cy666.top/2024/07/13/006">https://666cy666.top/2024/07/13/006</a> -  github博客搭建（五）—— 上传图片&#x2F;)</p>
 
     </div>
     

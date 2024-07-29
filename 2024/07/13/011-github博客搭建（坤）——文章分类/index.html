@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>不蒜子给网站、博客文章添加阅读次数统计 | cy’s Blog</title>
+    <title>github博客搭建（坤）——文章分类 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,14 +169,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>不蒜子给网站、博客文章添加阅读次数统计</h1>
+        <h1>github博客搭建（坤）——文章分类</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/16
+            2024/7/13
         </span>
         
         <span class="category">
@@ -197,14 +197,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E4%B8%8D%E8%92%9C%E5%AD%90/" style="color: #00bcd4">
-                    不蒜子
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">
                     博客
                 </a>
             </span>
@@ -216,43 +209,74 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">不蒜子-hexo博客文章添加阅读次数统计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">引入js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.3.</span> <span class="toc-text">不蒜子使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">1、显示站点总访问量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">2、显示单页面访问量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">github博客搭建（坤）——文章分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">添加文章分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text">创建分类信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.2.</span> <span class="toc-text">创建分类键值对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.3.</span> <span class="toc-text">创建文章</span></a></li></ol></li></ol></li></ol>
     
     <div class="content" v-pre>
-        <h1><span id="不蒜子-hexo博客文章添加阅读次数统计">不蒜子-hexo博客文章添加阅读次数统计</span></h1><h2><span id="背景">背景</span></h2><p>满足一下小小的虚荣心，想看看有多少人来访问我的博客，一开始用的百度统计，然后发现它…….确实能统计，但是也只能统计，应该是有api给我接入的，但是找了这么多教程没看到，我也没在百度统计的官方文档中找到，可能因为我是免费版吧——第二天发现是有api的，这下尴尬了，但是也不好用。后面看了其他教程发现不蒜子这个库还行，便用这个试了以下，效果还行</p>
-<h2><span id="使用">使用</span></h2><h3><span id="引入js">引入js</span></h3><p><img src="/images/image-20240716220135878.png" alt="image-20240716220135878"></p>
-<p>这里我用的是particlex这个主题，这个博主它把所有引入的资源放在一个文件夹下，我也放在这里了，其他的主题可以放在header或者footer中，最好放上面，回头想删掉容易找到。</p>
-<p>这里上面的部分是百度统计用的，我想看看百度统计和不蒜子最后统计的效果有什么差别。<del>绝对不是因为我懒得删，加都加了，不上白不上</del></p>
-<pre><code class="js">&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+        <h1><span id="github博客搭建坤文章分类">github博客搭建（坤）——文章分类</span></h1><h2><span id="添加文章分类">添加文章分类</span></h2><h3><span id="创建分类信息">创建分类信息</span></h3><p><img src="/images/image-20240715143625726.png" alt="image-20240715143625726"></p>
+<p>在themes下的config中，找到menu下的路由信息，前面的可以改为中文，而后面的就是路由信息,我们要利用下面的指令去创建对应的key</p>
+<pre><code class="bash">hexo new page about
 </code></pre>
-<p>不蒜子js代码，可以直接复制</p>
-<h3><span id="使用">使用</span></h3><p><img src="/images/image-20240716221055331.png" alt="image-20240716221055331"></p>
-<p>之后在themes&#x2F;layout&#x2F;post.ejs中加上下面的代码</p>
-<pre><code class="html">&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-    该文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
-&lt;/span&gt;
+<pre><code class="bash">hexo new page categories
 </code></pre>
-<p>再在themes&#x2F;layout&#x2F;card.ejs中加上下面的代码</p>
-<pre><code class="html">本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
-本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+<pre><code class="bash">hexo new page tags
 </code></pre>
-<p>说明一下：代码中文字是可以修改的，只要保留id正确即可。同时它就是个html代码，是想加哪就加哪，不必要按我这个来，放首页的介绍，放底部都行。</p>
-<h3><span id="不蒜子使用说明">不蒜子使用说明</span></h3><h4><span id="1-显示站点总访问量"><strong>1、显示站点总访问量</strong></span></h4><p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
-<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
-<pre><code class="javascript">本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+<p>说明以下对不同主题创建的指令都不同，要看路由信息，有些主题事Tags，这里是tags，反正要和路由信息一样才行</p>
+<p><img src="/images/image-20240715144615503.png" alt="image-20240715144615503"></p>
+<p><img src="/images/image-20240715144625981.png" alt="image-20240715144625981"></p>
+<p>创建之后是这样的情况，下面我们利用官方给的文档修改一下，在_post目录下有一个叫hello-world.md的文档，我们在前面文章的抬头添加tags和categories</p>
+<p><img src="/images/image-20240715145313292.png" alt="image-20240715145313292"></p>
+<p><img src="/images/image-20240715145700969.png" alt="image-20240715145700969"></p>
+<p>可以从网页正常访问路由看到已经创建成功，恭喜你，已经完成了27%！！！</p>
+<p><img src="/images/image-20240715145726025.png" alt="image-20240715145726025"></p>
+<p>但是在categories和tags路由下面还是没能看到文章，别急</p>
+<h3><span id="创建分类键值对">创建分类键值对</span></h3><p><img src="/images/image-20240715150016792.png" alt="image-20240715150016792"></p>
+<pre><code class="tags">---
+title: Tag
+layout: tags
+date: 2024-07-15 14:45:50
+type: &quot;tags&quot;
+---
 </code></pre>
-<p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
-<pre><code class="javascript">本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+<pre><code class="categories">---
+title: categories
+date: 2024-07-15 14:45:47
+layout: categories
+type: &quot;categories&quot;
+---
 </code></pre>
-<h4><span id="2-显示单页面访问量"><strong>2、显示单页面访问量</strong></span></h4><p>要显示每篇文章的访问量，复制以下代码添加到你需要显示的位置。</p>
-<p>算法：pv的方式，单个用户点击1篇文章，本篇文章记录1次阅读量。</p>
-<pre><code class="javascript">&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;
-    该文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次
-&lt;/span&gt;
+<p>我当时也是碰到这个找了好久的bug，后面用其他主题试了一下才发现还有type这个键值要加，那个layout加不加应该没影响。</p>
+<p>更神奇的是我当时知道要加键值对，但是我当时的type后面没带””，我看的那个主题没带，后面加了个引号就解决了。</p>
+<p><img src="/images/image-20240715150447019.png" alt="image-20240715150447019"></p>
+<p>当看到这个界面的时候，恭喜你，已经完成了30%</p>
+<h3><span id="创建文章">创建文章</span></h3><p>博客大体基本已经搭好了，现在就可以开始写文章了，这里简单介绍一下，详细的文档能够看 hexo 官网。新建文章，输入如下命令便可</p>
+<pre><code class="bash">hexo new &#39;文章标题&#39;
 </code></pre>
-<p><strong>注意：不蒜子为保持极简，暂不支持在站点文章摘要列表中（如首页）逐个显示每篇文章的阅读次数。</strong></p>
-<h2><span id="参考链接">参考链接</span></h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1669144">不蒜子 | 给网站、博客文章添加阅读次数统计，我用两行代码 搞定计数-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://echowinde.github.io/2022/06/08/hexo-diary-1/">Hexo建站日记（一）——访客和阅读数统计 | Echowind’s Blog (echowinde.github.io)</a></p>
+<p>执行完成后能够在 &#x2F;source&#x2F;_posts 下看到一个“文章标题.md”的文章文件啦（说明一下，后面所有写的所有博客都应该放在该目录下）。另外要想比较好的归类和整理文档，需要在文章抬头前面加类似这样的格式</p>
+<pre><code>---
+title: blogTest
+date: 2021-08-20 18:07:21
+tags: Test
+categories: blog1
+---
+</code></pre>
+<p><img src="/images/image-20240715151036784.png" alt="image-20240715151036784"></p>
+<pre><code class="markdown">---
+title: test_blog
+date: 2021-08-20 18:07:21
+tags: Test
+categories: blog1
+---
+### 1. This is a blog Test
+* First
+* Second
+---
+### 2. Show Text
+* **这是加粗**
+&gt; *这是斜体*
+</code></pre>
+<p>这里我们用上面的样例来测试</p>
+<p><img src="/images/image-20240715151649496.png" alt="image-20240715151649496"></p>
+<p>恭喜你，已经完成了35%！！！</p>
 
     </div>
     

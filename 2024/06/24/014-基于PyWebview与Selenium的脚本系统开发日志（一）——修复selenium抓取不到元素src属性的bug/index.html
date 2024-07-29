@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>解决hexo_command_not_found环境问题 | cy’s Blog</title>
+    <title>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>解决hexo_command_not_found环境问题</h1>
+        <h1>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/15
+            2024/6/24
         </span>
         
         <span class="category">
-            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
+            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                hexo__bug解决
+                智慧树脚本
             </a>
         </span>
         
@@ -197,22 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
-                    博客
+                <a href="/tags/selenium/" style="color: #00bcd4">
+                    selenium
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/hexo-bug/" style="color: #00bcd4">
-                    hexo__bug
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #ff7d73">
-                    已解决bug
+                <a href="/tags/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/" style="color: #ff7d73">
+                    智慧树脚本
                 </a>
             </span>
             
@@ -223,30 +216,50 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">解决hexo: command not found环境问题</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">selenium抓取不到元素src属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text">修改xpath解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.1.2.</span> <span class="toc-text">修改等待方案（推荐！）</span></a></li></ol></li></ol></li></ol>
     
     <div class="content" v-pre>
-        <h1><span id="解决hexo-command-not-found环境问题">解决hexo: command not found环境问题</span></h1><pre><code class="bash">cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ npm install -g hexo-cli
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-npm WARN config global --global, --local are deprecated. Use --location=global instead.
-
-changed 53 packages in 3s
-
-14 packages are looking for funding
-  run npm fund for details
-
-cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
-$ hexo init myblog
-bash: hexo: command not found
+        <h2><span id="基于pywebview与selenium的智慧树脚本系统开发日志一-修复selenium抓取不到元素src属性的bug">基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素<em><strong>src</strong></em>属性的bug</span></h2><p>笔者后续的代码为个人封装的selenium工具库，我自己用着挺顺手的，开源在个人仓库中<a target="_blank" rel="noopener" href="https://github.com/666cy666/Selenium_Util">https://github.com/666cy666/Selenium_Util</a></p>
+<h3><span id="selenium抓取不到元素src属性">selenium抓取不到元素<em><strong>src</strong></em>属性</span></h3><p><img src="/images/image-20240623200131933.png" alt="image-20240623200131933"></p>
+<pre><code class="py">yidun_broken_url = edge_driver.get_element_attribute(xpath_kind=By.CLASS_NAME,xpath=&#39;yidun_jigsaw&#39;,attribute=&quot;src&quot;)
+yidun_bg_img_url,yidun_broken_url
 </code></pre>
-<p>当我们使用 <code>npm install -g hexo-cli</code> 命令时，由于使用了 <code>-g</code>（全局）参数，包会被安装到全局包目录下。这意味着一旦安装完成，任何项目都可以直接使用它，而无需再次进行安装。这对于频繁需要使用的工具特别有用，因为你可以在任何地方运行它们而不需要重复安装。</p>
-<p>相比之下，使用 <code>-i</code> 参数或不使用任何参数安装包（如 <code>npm install hexo-cli</code>），将只会在当前项目目录下安装该包。这意味着如果你在另一个项目中也需要同样的包，你需要在那个项目的目录下再次执行安装命令。</p>
-<p>如果在安装 <code>hexo-cli</code> 后出现 <code>hexo: command not found</code> 的错误，这通常意味着 npm 的全局安装路径没有被正确添加到你的系统环境变量中，或者在配置过程中存在其他问题。可以先通过运行 <code>npm config get prefix</code>来查看全局安装路径。同时运行<code>npm list -g --depth=0</code> 来检查是否正确安装了 <code>hexo-cli</code> 并且位于预期的目录中。如果不是，可能需要调整环境变量或重新安装。</p>
-<pre><code class="bash">npm config get prefix
+<p>在使用jupyter测试代码的时候十分顺利，毕竟是从老项目移植过来的，但是移植到pywebview上面抓取元素的时候一直抓不到，元素始终返回None，经多方查证在stackoverflow（<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium">python - Getting src from element using selenium - Stack Overflow</a>）找到详细解决方案：</p>
+<ul>
+<li><p>Using your method, I’ve ran into another problem. It possible to call EC.visibility_of_element_located without the @alt parameter? Can I get the src by just using the class name? </p>
+</li>
+<li><p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
+</li>
+<li><p>I just used the absolute xpath instead of “&#x2F;&#x2F;img[@class&#x3D;’irc_mi’ and @alt&#x3D;’Image result for snowman’]” and it works now. Great! </p>
+<p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium#comment100430421_56930374">CommentedJul 9, 2019 at 4:40</a></p>
+</li>
+</ul>
+<p>通过上面的信息分析，碰到类似的问题多半能经过下面的方法解决</p>
+<p><strong>下面是能成功抓取到的代码</strong></p>
+<pre><code class="py">print(WebDriverWait(edge_driver.driver, 20).until(EC.visibility_of_element_located(
+            (By.XPATH, &quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;]&quot;))).get_attribute(&quot;src&quot;))
 </code></pre>
-<pre><code class="bash">npm list -g --depth=0
+<h4><span id="修改xpath解决方案">修改xpath解决方案</span></h4><p>上面提到修改xpath为：<code>//img[@class=&#39;irc_mi&#39; and @alt=&#39;Image result for snowman&#39;]</code>即可，笔者也按照页面元素调整：</p>
+<pre><code class="py">yidun_bg_img_url=edge_driver.get_element_attribute(xpath=&quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;&quot;,attribute=&quot;src&quot;)
 </code></pre>
+<p>解决方案：<br>只要将xpath改为能够唯一标识此元素路径即可，比如这里的alt属性</p>
+<p>解决完毕！下面是问题可能出现的原因：</p>
+<p><img src="/images/image-20240623201155305.png" alt="image-20240623201155305"></p>
+<p>如上图所示，笔者猜测页面中应该有一个非显示的元素与被抓取元素重名（我在全局搜索中发现在css样式引入的过程中确实有重名的部分），有可能是抓到引入css样式去了（我甚至觉得更有可能是selenium的bug，等日后有机会拆开内核看看）</p>
+<h4><span id="修改等待方案推荐">修改等待方案（推荐！）</span></h4><p><strong>之前的等待方案(presence_of_element_located)</strong></p>
+<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
+                        EC.presence_of_element_located((xpath_kind, xpath))
+                    )
+</code></pre>
+<p>presence_of_element_located是用来确认元素是否已被加载到 DOM 中</p>
+<p><strong>修改后的等待方案(visibility_of_element_located)</strong></p>
+<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
+                        EC.visibility_of_element_located((xpath_kind, xpath))
+                    )
+</code></pre>
+<p> <code>visibility_of_element_located</code> 方法比 <code>presence_of_element_located</code> 更严格，它确保元素不仅存在于 DOM 中，而且必须对用户可见。</p>
+<p>两种方法各有利弊，有时候有些元素对用户不可见的时候就需要用加载dom中的抓取方法，笔者写的工具类中默认使用presence_of_element_located</p>
 
     </div>
     

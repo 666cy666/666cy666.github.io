@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>解决hexo搭建博客代码块异常问题 | cy’s Blog</title>
+    <title>github博客搭建（六）—— cdn加速 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>解决hexo搭建博客代码块异常问题</h1>
+        <h1>github博客搭建（六）—— cdn加速</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/7/15
+            2024/7/13
         </span>
         
         <span class="category">
-            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                hexo__bug解决
+                博客
             </a>
         </span>
         
@@ -197,22 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/hexo-bug/" style="color: #03a9f4">
-                    hexo__bug
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #ff7d73">
-                    已解决bug
+                <a href="/tags/cdn/" style="color: #00a596">
+                    cdn
                 </a>
             </span>
             
@@ -223,31 +216,56 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">解决hexo搭建博客代码块异常问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">代码块行号错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">解决方案</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">github博客搭建（六）—— cdn加速</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">域名准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">利用cloudflare进行cdn加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">后续问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.1.</span> <span class="toc-text">ssl证书问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.2.</span> <span class="toc-text">重定向次数过多问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">本文参考链接</span></a></li></ol></li></ol>
     
     <div class="content" v-pre>
-        <h1><span id="解决hexo搭建博客代码块异常问题">解决hexo搭建博客代码块异常问题</span></h1><h2><span id="背景">背景</span></h2><p>在搭个人博客的时候，一开始没上代码我还不清楚，官方示例只有一行，我也没仔细看，后面上了大段代码后发现有三个问题</p>
-<p>1.行号出现问题</p>
-<p>2.代码无法检测，我在markdown中是说明了这段代码是bash,也就是&#96;&#96;&#96;bash</p>
-<p>3.代码无法高亮（代码语言都无法检测更别说高亮了）</p>
-<h2><span id="代码块行号错误">代码块行号错误</span></h2><p><img src="/images/image-20240714161928287.png" alt="image-20240714161928287"></p>
-<p>当时找了好久的bug，后面发现是hexo版本的原因，hexo7是两个分界线，7以上的版本可能与老主题不兼容，所以只需要将hexo降版本就行。</p>
-<h2><span id="解决方案">解决方案</span></h2><pre><code class="bash"># 首先卸载hexo-cli脚手架
-npm uninstall -g hexo-cli
-# 重新安装
-npm install -g hexo-cli
-# 重点是这个，下载依赖时指定hexo版本
-npm install -i hexo@6.3.0
+        <h1><span id="github博客搭建六-cdn加速">github博客搭建（六）—— cdn加速</span></h1><p>经过前面的步骤，相信你已经能够挂访问github.io了，但是分享链接给别人的时候，访问起来很慢，这个时候就得利用cdn加速，cdn具体原理我就不具体阐述了。</p>
+<h2><span id="域名准备">域名准备</span></h2><p>首先你得准备一个域名，这里推荐腾讯云阿里云都行，不需要备案，审核信息模板认证估计得要一两个小时，后面就可以买域名了，我这里是12块一年，还行吧</p>
+<p><img src="/images/image-20240716094202166.png" alt="image-20240716094202166"></p>
+<p>在拥有域名之后去该仓库-&gt;Settings-&gt;Pages-&gt;Custom domain，把域名填上</p>
+<p><img src="/images/image-20240716094327689.png" alt="image-20240716094327689"></p>
+<p><img src="/images/image-20240716094427949.png" alt="image-20240716094427949"></p>
+<p>之后github会自动创建一个cname文件，把它下载下来放到source目录下面，注意，这个文件不带后缀，不要用txt。由于hexo打包上传之后会覆盖掉CNAME文件，所以说需要在该目录下把CANME也打包进去。</p>
+<h2><span id="域名解析">域名解析</span></h2><p><img src="/images/image-20240716094853964.png" alt="image-20240716094853964"></p>
+<p><img src="/images/image-20240716094758299.png" alt="image-20240716094758299"></p>
+<p>这里我用的是阿里云的域名，通过 A 记录分别解析到以下 4 个 IP：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
 </code></pre>
-<p>在项目根目录用cmd打开，输入上面指令</p>
-<p><img src="/images/image-20240716090812045.png" alt="image-20240716090812045"></p>
-<p>然后再去这根目录中的package.json中查看，hexo版本确实改了，然后</p>
-<pre><code class="bash">hexo clean
-hexo g
-hexo s
+<p>上面的这四个ip地址是github的ip地址，然后执行下面的命令</p>
+<pre><code class="bash">$ dig 666cy666.top +noall +answer
+&gt; 666cy666.top     3600    IN A     185.199.108.153
+&gt; 666cy666.top     3600    IN A     185.199.109.153
+&gt; 666cy666.top     3600    IN A     185.199.110.153
+&gt; 666cy666.top     3600    IN A     185.199.111.153
 </code></pre>
-<p><img src="/images/image-20240715114008395.png" alt="image-20240715114008395"></p>
-<p>完美解决！</p>
+<p>这里注意这个命令是linux命令，我本地有虚拟机，开个虚拟机输入就行，如果没有的话可以去在线网站查询dns解析，这里推荐一个网站：<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>。</p>
+<p>恭喜你，已经完成了90%！！！</p>
+<h2><span id="利用cloudflare进行cdn加速">利用cloudflare进行cdn加速</span></h2><p>首先进入cloudflare官网注册：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloudflare | Web Performance &amp; Security</a></p>
+<p><img src="/images/image-20240716101518033.png" alt="image-20240716101518033"></p>
+<p>点击添加站点将域名添加进去</p>
+<p><img src="/images/image-20240716101611361.png" alt="image-20240716101611361"></p>
+<p>选免费的</p>
+<p><img src="/images/image-20240716101715981.png" alt="image-20240716101715981"></p>
+<p>通过域名的运营商修改对应的 NS 记录，这里每个运营商的修改方式都不一样，我这里是用的阿里云的</p>
+<p><img src="/images/image-20240716102131911.png" alt="image-20240716102131911"></p>
+<p>这里可以参考阿里云官方文档操作：<a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dns/change-the-dns-server/?spm=a2c1d.8251892.help.dexternal.30a75b76t02QI3">如何修改DNS服务器及解析生效时间_云解析DNS(DNS)-阿里云帮助中心 (aliyun.com)</a></p>
+<p><img src="/images/image-20240716102337357.png" alt="image-20240716102337357"></p>
+<pre><code class="bash">cy@cy-virtual-machine:~/Desktop$ dig 666cy666.top +noall +answer
+666cy666.top.		5	IN	A	104.21.56.138
+666cy666.top.		5	IN	A	172.67.152.122
+</code></pre>
+<p>修改好了之后可以去浏览器<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>访问运行，也可以在虚拟机上进行解析。</p>
+<h2><span id="后续问题解决">后续问题解决</span></h2><h3><span id="ssl证书问题">ssl证书问题</span></h3><p><img src="/images/image-20240716103648632.png" alt="image-20240716103648632"></p>
+<p>https访问的时候如果说没有ssl证书拒绝访问，还是那个页面把这enforce https勾上，勾上之后会颁发ssl证书</p>
+<h3><span id="重定向次数过多问题">重定向次数过多问题</span></h3><p><img src="/images/image-20240716103847098.png" alt="image-20240716103847098"></p>
+<p>在cloudflare中ssl概述，将Flexible（灵活）修改为Full（完全）</p>
+<p>好了，现在恭喜你，已经完成了全部的博客教程，快将你的第一篇博客链接发给小伙伴吧！</p>
+<h2><span id="本文参考链接">本文参考链接</span></h2><p><a target="_blank" rel="noopener" href="https://monkeywie.cn/2020/08/20/fast-github-page-with-cloudflare/">使用cloudflare免费加速github page | MonkeyWie’s Blog</a></p>
+<p>【cloudflare如何解决https报错太多重定向的问题】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?spm_id_from=333.337.search-card.all.click&vd_source=9f79f0aa531775705e272c4b4a946dcc">cloudflare如何解决https报错太多重定向的问题_哔哩哔哩_bilibili</a></p>
 
     </div>
     

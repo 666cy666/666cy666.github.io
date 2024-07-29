@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug | cy’s Blog</title>
+    <title>github博客搭建（一）—— 环境配置 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug</h1>
+        <h1>github博客搭建（一）—— 环境配置</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/6/23
+            2024/7/13
         </span>
         
         <span class="category">
-            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/">
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                智慧树脚本
+                博客
             </a>
         </span>
         
@@ -197,15 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/" style="color: #03a9f4">
-                    智慧树脚本
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">
+                    博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/selenium/" style="color: #ff7d73">
-                    selenium
+                <a href="/tags/%E7%8E%AF%E5%A2%83/" style="color: #00bcd4">
+                    环境
                 </a>
             </span>
             
@@ -216,50 +216,59 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">selenium抓取不到元素src属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.1.1.</span> <span class="toc-text">修改xpath解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.1.2.</span> <span class="toc-text">修改等待方案（推荐！）</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">github博客搭建（一）—— 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">node环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">git环境搭建与github注册</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 查看所有 Git 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 查看特定配置项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 更改 Git 配置</span></a></li></ol></li></ol></li></ol>
     
     <div class="content" v-pre>
-        <h2><span id="基于pywebview与selenium的智慧树脚本系统开发日志一-修复selenium抓取不到元素src属性的bug">基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素<em><strong>src</strong></em>属性的bug</span></h2><p>笔者后续的代码为个人封装的selenium工具库，我自己用着挺顺手的，开源在个人仓库中<a target="_blank" rel="noopener" href="https://github.com/666cy666/Selenium_Util">https://github.com/666cy666/Selenium_Util</a></p>
-<h3><span id="selenium抓取不到元素src属性">selenium抓取不到元素<em><strong>src</strong></em>属性</span></h3><p><img src="/images/image-20240623200131933.png" alt="image-20240623200131933"></p>
-<pre><code class="py">yidun_broken_url = edge_driver.get_element_attribute(xpath_kind=By.CLASS_NAME,xpath=&#39;yidun_jigsaw&#39;,attribute=&quot;src&quot;)
-yidun_bg_img_url,yidun_broken_url
-</code></pre>
-<p>在使用jupyter测试代码的时候十分顺利，毕竟是从老项目移植过来的，但是移植到pywebview上面抓取元素的时候一直抓不到，元素始终返回None，经多方查证在stackoverflow（<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium">python - Getting src from element using selenium - Stack Overflow</a>）找到详细解决方案：</p>
-<ul>
-<li><p>Using your method, I’ve ran into another problem. It possible to call EC.visibility_of_element_located without the @alt parameter? Can I get the src by just using the class name? </p>
-</li>
-<li><p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
-</li>
-<li><p>I just used the absolute xpath instead of “&#x2F;&#x2F;img[@class&#x3D;’irc_mi’ and @alt&#x3D;’Image result for snowman’]” and it works now. Great! </p>
-<p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
-<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium#comment100430421_56930374">CommentedJul 9, 2019 at 4:40</a></p>
-</li>
+        <h1><span id="github博客搭建一-环境配置">github博客搭建（一）—— 环境配置</span></h1><p>大一的时候在csdn上写博客，后面发现就我那写的小教程竟然也有人盗，后面就把账号注销了，虽然说csdn上好教程确实不少，但是史里淘金的过程真得很难评，痛定思痛，大二大三就一直在本地写markdown文档了，现在大三暑假我的电脑终于撑不住了，正好准备重装系统，干脆把之前踩坑写的md整理一下搞个博客算了。</p>
+<p>原先准备是在云服务器上搭个动态博客的，后面想想动态的无非多了个统计还有动态修改功能，我个人不是很在意这些，反正在本地写已经习惯了，大不了修改了再上传呗，多大点事。</p>
+<p>于是从头跟着b站还有一些网站教学搞了一个下午终于搞定了，搞完之后真的成就满满，那些教程有些都是几年前的了，虽然说避免了很多坑，但是也踩了不少新坑，感觉还是有必要写一下博客的。</p>
+<h2><span id="环境准备">环境准备</span></h2><ul>
+<li><strong>Node.js</strong>：JavaScript 运行时环境，用于构建和运行博客相关的应用程序。</li>
+<li><strong>Git</strong>：版本控制工具，用来上传和管理博客文件。</li>
+<li><strong>Typora</strong>：Markdown 编辑器，用于书写和编辑博客内容。</li>
+<li><strong>一个域名</strong>：为你的博客提供一个独立的访问地址。</li>
+<li><strong>Python 环境</strong>：用于批量处理 Markdown 图片格式。如果没有 Python 环境，后续的步骤中我会提供一个可执行文件（exe），但不同主题模板可能需要自行调试。</li>
+<li><strong>CDN 加速（Cloudflare）</strong>：由于 GitHub 的服务器位于国外，直接访问可能会比较慢。我们可以使用 Cloudflare 提供的免费 CDN 服务来加速博客的访问速度。前往 Cloudflare 官网注册账号并添加你的域名，按照提示完成设置</li>
 </ul>
-<p>通过上面的信息分析，碰到类似的问题多半能经过下面的方法解决</p>
-<p><strong>下面是能成功抓取到的代码</strong></p>
-<pre><code class="py">print(WebDriverWait(edge_driver.driver, 20).until(EC.visibility_of_element_located(
-            (By.XPATH, &quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;]&quot;))).get_attribute(&quot;src&quot;))
+<h2><span id="node环境搭建">node环境搭建</span></h2><p>由于前人已经讲的非常详细了，这里我就不多谈了，我在这里给大家放几个链接大家去配环境就行，y1s1，csdn上这种主流框架的基本用法还是非常详细了，遇到再难一点的问题就很难找到解答了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nicolecocol/article/details/136788200">Node.js安装及环境配置超详细教程【Windows系统】_windows 安装nodejs-CSDN博客</a></p>
+<p>【Node.js安装及环境变量配置】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p>安装完成后可以用下面的指令测试一下环境</p>
+<pre><code class="bash">#测试node版本
+node -v
+#测试npm版本
+npm -v
+#测试node镜像源，建议换为淘宝
+npm config get registry
+#查看全局安装目录，建议不要装在c盘，实在装c盘也没关系
+npm config get prefix
+#将镜像源换为国内镜像源
+npm config set registry https://registry.npmmirror.com
 </code></pre>
-<h4><span id="修改xpath解决方案">修改xpath解决方案</span></h4><p>上面提到修改xpath为：<code>//img[@class=&#39;irc_mi&#39; and @alt=&#39;Image result for snowman&#39;]</code>即可，笔者也按照页面元素调整：</p>
-<pre><code class="py">yidun_bg_img_url=edge_driver.get_element_attribute(xpath=&quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;&quot;,attribute=&quot;src&quot;)
+<p><img src="/images/image-20240714150953068.png" alt="image-20240714150953068"></p>
+<p>没有报错证明node环境配好了，恭喜你，已经成功2%了！</p>
+<h2><span id="git环境搭建与github注册">git环境搭建与github注册</span></h2><p>老规矩，上教程，我不多bb</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/secretstarlyp/article/details/106576882">超详细的Git下载安装、环境变量配置教程_安装好git之后如何配置-CSDN博客</a></p>
+<p>【【GeekHour】一小时Git教程】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HM411377j/?p=2&share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1HM411377j/?p=2&amp;share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a><br>只要看第2，10，11就行，其余的你们有兴趣可以全看完，搭博客看这三集足够了</p>
+<p><img src="/images/image-20240714152456358.png" alt="image-20240714152456358"></p>
+<p>安装完成后在文件夹中对空白区域右键应该有个git bash here如上图，点击后与注册号的GitHub关联之后应该是这样的</p>
+<h3><span id="1-查看所有-git-配置">1. 查看所有 Git 配置</span></h3><p>要查看包括系统级别在内的所有配置，可以使用：</p>
+<pre><code class="bash">git config --list
 </code></pre>
-<p>解决方案：<br>只要将xpath改为能够唯一标识此元素路径即可，比如这里的alt属性</p>
-<p>解决完毕！下面是问题可能出现的原因：</p>
-<p><img src="/images/image-20240623201155305.png" alt="image-20240623201155305"></p>
-<p>如上图所示，笔者猜测页面中应该有一个非显示的元素与被抓取元素重名（我在全局搜索中发现在css样式引入的过程中确实有重名的部分），有可能是抓到引入css样式去了（我甚至觉得更有可能是selenium的bug，等日后有机会拆开内核看看）</p>
-<h4><span id="修改等待方案推荐">修改等待方案（推荐！）</span></h4><p><strong>之前的等待方案(presence_of_element_located)</strong></p>
-<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
-                        EC.presence_of_element_located((xpath_kind, xpath))
-                    )
+<p>这将展示所有层面上的 Git 配置，包括全局、系统、和本地。</p>
+<h3><span id="2-查看特定配置项">2. 查看特定配置项</span></h3><p>如果你只想查看特定的配置项，如用户名，可以使用：</p>
+<pre><code class="bash">git config user.name
 </code></pre>
-<p>presence_of_element_located是用来确认元素是否已被加载到 DOM 中</p>
-<p><strong>修改后的等待方案(visibility_of_element_located)</strong></p>
-<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
-                        EC.visibility_of_element_located((xpath_kind, xpath))
-                    )
+<p>或者查看与远程仓库相关的 URL：</p>
+<pre><code class="bash">git config remote.origin.url
 </code></pre>
-<p> <code>visibility_of_element_located</code> 方法比 <code>presence_of_element_located</code> 更严格，它确保元素不仅存在于 DOM 中，而且必须对用户可见。</p>
-<p>两种方法各有利弊，有时候有些元素对用户不可见的时候就需要用加载dom中的抓取方法，笔者写的工具类中默认使用presence_of_element_located</p>
+<p>这些命令分别显示了用户名和当前仓库的默认远程仓库 URL。</p>
+<h3><span id="3-更改-git-配置">3. 更改 Git 配置</span></h3><p>如果你需要修改某项配置，例如改变用户名或邮箱，可以使用：</p>
+<pre><code class="cpp">git config --global user.name &quot;新用户名&quot;
+git config --global user.email &quot;新邮箱地址&quot;
+</code></pre>
+<p><img src="/images/image-20240714153255135.png" alt="image-20240714153255135"></p>
+<p>与github关联后可以使用上面的指令查看是否成功，若看到账号邮箱与注册好的github账号关联成功，恭喜你，已经成功5%了！</p>
 
     </div>
     
