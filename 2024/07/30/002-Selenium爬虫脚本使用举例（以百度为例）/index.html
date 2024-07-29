@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>Selenium爬虫脚本使用举例（以百度为例） | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Selenium爬虫脚本使用举例（以百度为例）</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/30
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%9D%82/" style="color: #ff7d73">
+                    杂
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Selenium爬虫脚本使用举例（以百度为例）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">初始化驱动和加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">几种通过xpath找元素的形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">批量抓取页面中信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+    
+    <div class="content" v-pre>
+        <h2><span id="selenium爬虫脚本使用举例以百度为例">Selenium爬虫脚本使用举例（以百度为例）</span></h2><p>该文章为脚本示例代码解释，具体代码及接口参数请参考<a target="_blank" rel="noopener" href="https://github.com/666cy666/Selenium_Util">666cy666&#x2F;Selenium_Util: 本仓库为selenium脚本封装库，利用python装饰器以及闭包思想，致力于更好的调试自动化爬虫，让爬虫技术更好入门 (github.com)</a></p>
+<h3><span id="初始化驱动和加载器">初始化驱动和加载器</span></h3><p>初次使用请在参数中加入 update&#x3D;True更新驱动，该参数将自动匹配适合本机的selenium驱动  </p>
+<pre><code class="python">from Selenium_Util import Selenium_Edge
+from selenium.webdriver.common.by import By
+edge_driver = Selenium_Edge(update=True)
+</code></pre>
+<p>爬取相应文字和图片，这里我们以百度为例      </p>
+<pre><code class="python"># 打开相应网址
+edge_driver.get_driver(&#39;https://www.baidu.com&#39;)
+</code></pre>
+<h3><span id="几种通过xpath找元素的形式">几种通过xpath找元素的形式</span></h3><p>函数名中带element下标的皆为用装饰器装饰的函数，可只传入xpath，无element下标的函数与原selenium函数无异，需要先获取元素再将参数传入，具体请看如下示例 </p>
+<p><img src="/images/image-20240729234031135.png" alt="image-20240729234031135"></p>
+<pre><code class="python"># 直接输入xpath
+edge_driver.input_element_text(&#39;//*[@id=&quot;kw&quot;]&#39;,text=&quot;selenium&quot;)
+</code></pre>
+<pre><code class="python"># 通过指定xpath_kind，这里以id为例
+edge_driver.input_element_text(xpath_kind=By.ID, xpath=&#39;kw&#39;,text=&quot;ID&quot;)
+</code></pre>
+<pre><code class="python"># 通过指定xpath_kind，这里以CLASS_NAME为例
+edge_driver.input_element_text(xpath_kind=By.CLASS_NAME, xpath=&#39;s_ipt&#39;,text=&quot;CLASS_NAME&quot;)
+</code></pre>
+<pre><code class="python"># 通过先抓取父元素,再指定父元素相对定位（在页面有弹窗时可以避免xpath绝对定位时导致的偏移，可以和xpath_kind复用，一般都是先找class_name抓到父元素，再在父元素下找对应的子元素）
+father_element = edge_driver.get_element(&#39;//*[@id=&quot;form&quot;]/span[1]&#39;)
+edge_driver.input_element_text(father_element=father_element,xpath=&#39;./input&#39;,text=&quot;father_element&quot;)
+</code></pre>
+<pre><code class="python"># 通过批量抓取元素
+elements = edge_driver.get_elements(xpath_kind=By.CLASS_NAME, xpath=&#39;s_ipt&#39;)
+# 注意这里时不带element下标的函数，意味着需要提前抓取元素
+edge_driver.input_text(elements[0],text=&quot;elements&quot;)
+</code></pre>
+<p>以上抓取方法可自由组合，在批量抓取的时候推荐先抓父元素。</p>
+<h3><span id="批量抓取页面中信息">批量抓取页面中信息</span></h3><p><img src="/images/image-20240729234426653.png" alt="image-20240729234426653"></p>
+<p>百度搜索按钮xpath如上图所示</p>
+<p><img src="/images/image-20240729234555518.png" alt="image-20240729234555518"></p>
+<pre><code class="python">edge_driver.click_element(&#39;//*[@id=&quot;su&quot;]&#39;)
+</code></pre>
+<p>执行上面的代码可以获得如图所示的运行结果</p>
+<pre><code class="py"># 初步提取信息
+for info in info_list[3:]:
+    container = edge_driver.get_element(father_element=info,xpath_kind=By.CLASS_NAME,xpath=&#39;c-container&#39;,timeout=1)
+    # 这里可以打印一下看看结果，由于页面中结构不一样，有部分结构爬取不到出现false是正常的，这个时候可以过滤
+    # print(container)
+    if container:
+        # 同样可以打印一下看看结果
+        # print(edge_driver.get_text(container))
+        href_text = edge_driver.get_element_text(father_element=container,xpath=&#39;./div[1]/h3/a&#39;,timeout=1)
+        href = edge_driver.get_element_attribute(father_element=container,xpath=&#39;./div[1]/h3/a&#39;,attribute=&#39;href&#39;,timeout=1)
+        print(href_text,href)
+</code></pre>
+<pre><code class="部分运行结果">False False
+Selenium http://www.baidu.com/link?url=mSw9v0U3-70ku75zyu8qhoQ7z0gKEfDpZHGbBATYimDZNCypJ7xlNuQIuLAElMkf
+selenium是什么意思_selenium的翻译_音标_读音_用法_例句... http://www.baidu.com/link?url=XWnVq8s_a3vvjgdhseeAqoDEA16JGNdsQjZa4k4Flhh2JstwdXQDyLzP4KdiqSG3
+</code></pre>
+<p>在上面的运行结果中可以看到由于页面中结构不一样，有部分结构爬取不到出现false是正常的，在初步时候可以打印看看效果</p>
+<pre><code class="py"># 精细化爬取封装合并
+selenium_info_list = []
+for info in info_list:
+    container = edge_driver.get_element(father_element=info,xpath_kind=By.CLASS_NAME,xpath=&#39;c-container&#39;,timeout=1)
+    if container:
+        title = edge_driver.get_element_text(father_element=container,xpath=&#39;./div[1]/h3/a&#39;,timeout=1)
+        href = edge_driver.get_element_attribute(father_element=container,xpath=&#39;./div[1]/h3/a&#39;,attribute=&#39;href&#39;,timeout=1)
+        #过滤元素
+        if title or href:
+            selenium_info = &#123;
+                &#39;title&#39;:title,
+                &#39;href&#39;:href
+            &#125;
+            selenium_info_list.append(selenium_info)
+print(selenium_info_list)
+</code></pre>
+<p>在确定好了爬取的元素后，进行精细化爬取封装合并，对爬取不到的元素进行过滤，具体问题具体分析，这里我简单给个例子直接过滤了</p>
+<pre><code class="运行结果">[&#123;&#39;title&#39;: &#39;Selenium&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=mSw9v0U3-70ku75zyu8qhoQ7z0gKEfDpZHGbBATYimDZNCypJ7xlNuQIuLAElMkf&#39;&#125;, &#123;&#39;title&#39;: &#39;selenium是什么意思_selenium的翻译_音标_读音_用法_例句...&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=XWnVq8s_a3vvjgdhseeAqoDEA16JGNdsQjZa4k4Flhh2JstwdXQDyLzP4KdiqSG3&#39;&#125;, &#123;&#39;title&#39;: &#39;Python爬虫基础之Selenium详解_python selenium-CSDN博客&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=_eqn5LDPPuCjccWFHnxPbBXiykn08xawnnDiv-KZqRIYe-IxOSp0zR_YI8o0EaTehtoG_XN0RXzndJPoSVBUD9sNaZQ56cVz2JOhqTsusKi&#39;&#125;, &#123;&#39;title&#39;: &#39;selenium详解(完整版)-CSDN博客&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=rivhW_6iVT5BmVKT4zoga4vpfNYF0aNg1NDBHkjk8rCmnVOKUYJVlZ217CAkMMI2ss1j5-vRpVU1Pbta0TKW3zdga2xncGA2Wbg2JNYo99m&#39;&#125;, &#123;&#39;title&#39;: &#39;介绍| Selenium 中文文档&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=69ppUte2o9fACN0MNeaNzQuQvIodCxXNjMxtYxLlzZe6WBpylUzq5yNfFhMNvy-KAdC63klBTYngfph7QZLH1n2dLmFp9T3Q-3txuTJr9mUUEo7Jp2otzvPKEdaNR5Bb&#39;&#125;, &#123;&#39;title&#39;: &#39;自动化测试工具:Selenium详解-CSDN博客&#39;, &#39;href&#39;: &#39;http://www.baidu.com/link?url=rivhW_6iVT5BmVKT4zogaGjj8vp3_liQqG4OVLnKjaVjladUedjTgAAXRRKoCFVMJbB-Zn8Hkwsh8K31vgOcFs1lzs9y8eiOndT309evF73&#39;&#125;]
+</code></pre>
+<h3><span id="总结">总结</span></h3><p>优点：简单易上手，对于新手或者是在机器学习获取数据方面遇到困难但不想在爬虫深入的同学及其友好，在爬取少量样本或网页没有反爬时十分好用——使用selenium爬取的时候，可以使用jupyter一步一步调试，直接通过开发者模式抓取网页中元素，对收集网页文本中的任务比如微博情感分析，简单地抓取图片等比较方便，拿来即用，调试的过程中直接就保存结果了，可以绕过一些普通的反爬。</p>
+<p>缺点：速度较慢（远远没有js逆向来得快，js逆向是直接破解接口获取信息，是请求接口，selenium是抓取渲染页面元素，是请求dom），遇到boos直聘、天眼查这种需要查ip的时候一般爬个几百条就会被封（虽然说过个几个小时就能解封），</p>
+<p>对比传统selenium与ltree：ltree其实原理和selenium差不多，都是用xpath抓元素，但是没有可视化，有时候一个bug查一下午发现是解码或者xpath找错了的问题，对于新手可能不太友好；而传统selenium，很多时候页面没有加载成功找不到元素就报错给你看，非常难绷，虽然有WebDriverWait函数，但是太难加了，不如封装为工具类，全部都是WebDriverWait，这样就能避免抓不到元素报错的问题。</p>
+<p>PS：没有绝对好用的技术，要具体问题具体分析，爬取的任务量、网站的反爬措施、网站的数据结构等等都是应该考虑的问题，我一般都是selenium和ltree还有js逆向合起来用，先用selenium获取和注入即时cookie，然后直接解密接口，反正就是一句话——什么好用用什么。</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<style>
+  /* 目录容器样式 */
+
+</style>
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
