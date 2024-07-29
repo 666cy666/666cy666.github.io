@@ -976,3 +976,31 @@ ol li {
         padding-left: 20px;
     }
 }
+.toc {
+    position: fixed; /* 固定位置 */
+    top: 100px; /* 从顶部开始的距离 */
+    left: 20px; /* 从左边界开始的距离 */
+    max-width: 200px; /* 最大宽度 */
+    height: auto; /* 自动高度 */
+    overflow-y: auto; /* 超出部分滚动 */
+    padding: 15px; /* 内边距 */
+    margin: 0; /* 边距 */
+    background-color: #ffffff; /* 背景色 */
+    border: 1px solid #ddd; /* 边框 */
+    border-radius: 4px; /* 边框圆角 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 盒子阴影 */
+    z-index: 1000; /* 确保不会被其他元素覆盖 */
+  }
+
+  /* 目录链接样式 */
+  .toc-link {
+    color: #3366cc; /* 链接颜色 */
+    text-decoration: none; /* 去除下划线 */
+    display: block; /* 块级显示，使每个链接独占一行 */
+    margin-bottom: 5px; /* 链接之间的距离 */
+  }
+
+  .toc-link:hover {
+    text-decoration: underline; /* 鼠标悬停时下划线 */
+    color: #2a4b8d; /* 鼠标悬停时颜色变化 */
+  }

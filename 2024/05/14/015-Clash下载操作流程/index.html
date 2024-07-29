@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>Clash 下载操作教程 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+<script src="/js/lib/crypto.js"></script>
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Clash 下载操作教程</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/5/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%95%99%E7%A8%8B/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/clash/" style="color: #ffa2c4">
+                    clash
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="color: #ff7d73">
+                    科学上网
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%95%99%E7%A8%8B/" style="color: #03a9f4">
+                    教程
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Clash 下载操作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">1.打开该链接进行注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">2.点击下载和教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">3.以win版为例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">4.更换节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">5.开启代理（请重点查看该注意事项）</span></a></li></ol></li></ol>
+    
+    
+    <input
+        id="crypto"
+        :class="['input', cryptoStatus]"
+        :disabled="cryptoStatus === 'success'"
+        ref="crypto"
+        placeholder="文章被加密，请输入密码"
+        data-encrypted="U2FsdGVkX18o9tktVGLPPygzw5gmer/a5mSUhBduGOA7TNhWD1fFxM4SGjYpccSxuXcCR2s7aur5Iou8o7MjlYv8VYud9cU+zix2TUVMu4zYhsxwjVLmA+M5qXn5Cxsy2iz2KD62K5fROPlObQXingz5rxyyTQyRpM164yFIRJawYiprfUrZzseWaJ/QR/KBUvtjAj5tNG1Z0XT5cAAe1biAl9PcUMJAq7tbDZ4Hulf0H1ys65HQnDbWa8jgwzla6zJRpz4ZKQIzj9fafouts6vBrV6JcWMY07YoJvzrchl0LyDbfCy7XGqFMJt5HwAklg50dJvSbzJq7EfdXYa2C0zirGFQNLunHAA4qIZlffrIFd14gTPRQfHoclF7Un5c+1dnZSCyk1eXrvWJtcaG/8CVR/xHOi3nyyYvkeHj23+qkgcKuOFxwcqGvoj3Mt2zPWwUpQG90xX20/IJDDChbGSl8LijoDdoTI4bI8OZQOJXQinyAj3JLy3NVdT897lPXgRWukSLhpvRnp2PswrufDajgOw76UoHdy397A5pyh2f6Jc+lQuIw2D5GWMm3BOPRrPpGPgvf82JWUCy1x4D/0ErGwZBrBy5PlRXRYF3zzA5MnAEOZtm2i07aFEx6kFBU7CN3iPJb7dRO6t7J6NElH6CKDxK/SPoxOAOeuIhmVfdV8u+buDmLB17bwC8qpv2J5PCcymGWqYt7EsZnwZlS8+jiHYCSIP5/t5Dda3si/N2+lNTByFGW9b3hJeOJkWv8C5WnEZS5lSBxfCC/b7LdGaYtJsxptyq8CIzGBqSFMpx5Coo0JQO1t9wNiT6iBcX1DtHtstVPUXzMBi2yxw8tAbq85q9qS33QgZV5DA7rzpuD8uXqrfNy3L9tkt12OXDX4pzSQypwjQFaKcFJVRh1L32RoX2Pn8A10FHj9AZrKS0ZfnAf9djHMAC6JU16Mzkd5GNJVS8Zgq7116TdfxHMvtto/CCJPZnSxpbKPbk8F2WOAQt2bVAnriqd1BOKMCJeHrVZ+Oncu74KEwqA6sWZD6GuoY8dz37oQLyHebRvCpkPiAjO9Ri7TS1w2wlBsx8MtFPGkfSnzq3yohxsUoV9X1p4NVv1sQjFA9aIN8H5yPkdKtdv9QH/9u5j5PgS00Ra0TUgj84iF9YB0WaraaFplu7jNapS/OV/hkl7U/Ojoeo2tzsd809uP3uIfbG7z/jwakJZgxTc6eYaxsabH2AOkRCtq35c18L3tPEeo5Wr/nr63/FwgRljWk8jizp0tI3x3oLG0wo92XrT5IGjT3nRikLYZ0sIL6P/1V1gsjRRMJ6aAY2KvkG8EKEmcJOvKM0PufFj3Gy9FR6bzFh65YrD5NjmIb1jEuBfsn31VQf0S4OU+CS51kSKoLB5SLS7716DZF2c7WSuZS1PqnieH57qH9fn3mEVE9j3vYNXa8kk5ZYM8pjXsgCsCQklXy97/SAY3C4rdroI5hqyOhXOvUjNxu+S4NqfowMVTW0Dr0c2KZIDWEiOgWCo8g5U7MMNx0mUfq52mafpdw1jBx7eB2x3hJTE5JDLQ8Zg5eHo31wbl52i1KRqGB4eb7Cn9qig7eDKnlrWb54cn1cb3dMMIQbZvRLxGLqaRHnj1HidZWhwRuHfuT5naSovrdTDXxfr/KyIKu/yrLrikd/Q+sUE+yibBhupDiQuIdLnNqnM0TBn93UT1/GHz06b/wWT3j5c8oxdqNpctmaIb4mVLuAj/FCxjyxUKpto6ZA8M4Md90B3KiHmAkab+UKn3VWTjGhZuKbX0mg5K3Veit9G0k+iLqSV/wdtBV2UW298OjbTfpbVHKE6iPZ3alvpSCY691wKWwV1tCKmCtOi+rsu8i9/GeG905fj2AKccSBrSJfSDnOwd9fznAXCzzNrIrQsoJxV6Z3UeLtLpNPHuSvKytKKGoqfQ=="
+        data-shasum="8e5107036f7865fa6c7e4e772d587cb22db4044b7420d71ae81e2fbf8edb246c"
+        v-model="crypto"
+    />
+    <transition name="fade">
+        <div class="content" ref="content" v-show="cryptoStatus === 'success'"></div>
+    </transition>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<style>
+  /* 目录容器样式 */
+
+</style>
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>

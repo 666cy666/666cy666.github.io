@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>github博客搭建（六）—— cdn加速 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>github博客搭建（六）—— cdn加速</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                博客
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #03a9f4">
+                    博客
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/cdn/" style="color: #00a596">
+                    cdn
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">github博客搭建（六）—— cdn加速</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">域名准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">域名解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">利用cloudflare进行cdn加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">后续问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.1.</span> <span class="toc-text">ssl证书问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.2.</span> <span class="toc-text">重定向次数过多问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">本文参考链接</span></a></li></ol></li></ol>
+    
+    <div class="content" v-pre>
+        <h1><span id="github博客搭建六-cdn加速">github博客搭建（六）—— cdn加速</span></h1><p>经过前面的步骤，相信你已经能够挂访问github.io了，但是分享链接给别人的时候，访问起来很慢，这个时候就得利用cdn加速，cdn具体原理我就不具体阐述了。</p>
+<h2><span id="域名准备">域名准备</span></h2><p>首先你得准备一个域名，这里推荐腾讯云阿里云都行，不需要备案，审核信息模板认证估计得要一两个小时，后面就可以买域名了，我这里是12块一年，还行吧</p>
+<p><img src="/images/image-20240716094202166.png" alt="image-20240716094202166"></p>
+<p>在拥有域名之后去该仓库-&gt;Settings-&gt;Pages-&gt;Custom domain，把域名填上</p>
+<p><img src="/images/image-20240716094327689.png" alt="image-20240716094327689"></p>
+<p><img src="/images/image-20240716094427949.png" alt="image-20240716094427949"></p>
+<p>之后github会自动创建一个cname文件，把它下载下来放到source目录下面，注意，这个文件不带后缀，不要用txt。由于hexo打包上传之后会覆盖掉CNAME文件，所以说需要在该目录下把CANME也打包进去。</p>
+<h2><span id="域名解析">域名解析</span></h2><p><img src="/images/image-20240716094853964.png" alt="image-20240716094853964"></p>
+<p><img src="/images/image-20240716094758299.png" alt="image-20240716094758299"></p>
+<p>这里我用的是阿里云的域名，通过 A 记录分别解析到以下 4 个 IP：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<p>上面的这四个ip地址是github的ip地址，然后执行下面的命令</p>
+<pre><code class="bash">$ dig 666cy666.top +noall +answer
+&gt; 666cy666.top     3600    IN A     185.199.108.153
+&gt; 666cy666.top     3600    IN A     185.199.109.153
+&gt; 666cy666.top     3600    IN A     185.199.110.153
+&gt; 666cy666.top     3600    IN A     185.199.111.153
+</code></pre>
+<p>这里注意这个命令是linux命令，我本地有虚拟机，开个虚拟机输入就行，如果没有的话可以去在线网站查询dns解析，这里推荐一个网站：<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>。</p>
+<p>恭喜你，已经完成了90%！！！</p>
+<h2><span id="利用cloudflare进行cdn加速">利用cloudflare进行cdn加速</span></h2><p>首先进入cloudflare官网注册：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloudflare | Web Performance &amp; Security</a></p>
+<p><img src="/images/image-20240716101518033.png" alt="image-20240716101518033"></p>
+<p>点击添加站点将域名添加进去</p>
+<p><img src="/images/image-20240716101611361.png" alt="image-20240716101611361"></p>
+<p>选免费的</p>
+<p><img src="/images/image-20240716101715981.png" alt="image-20240716101715981"></p>
+<p>通过域名的运营商修改对应的 NS 记录，这里每个运营商的修改方式都不一样，我这里是用的阿里云的</p>
+<p><img src="/images/image-20240716102131911.png" alt="image-20240716102131911"></p>
+<p>这里可以参考阿里云官方文档操作：<a target="_blank" rel="noopener" href="https://help.aliyun.com/zh/dns/change-the-dns-server/?spm=a2c1d.8251892.help.dexternal.30a75b76t02QI3">如何修改DNS服务器及解析生效时间_云解析DNS(DNS)-阿里云帮助中心 (aliyun.com)</a></p>
+<p><img src="/images/image-20240716102337357.png" alt="image-20240716102337357"></p>
+<pre><code class="bash">cy@cy-virtual-machine:~/Desktop$ dig 666cy666.top +noall +answer
+666cy666.top.		5	IN	A	104.21.56.138
+666cy666.top.		5	IN	A	172.67.152.122
+</code></pre>
+<p>修改好了之后可以去浏览器<a target="_blank" rel="noopener" href="https://toolbox.googleapps.com/apps/dig/#A/">Dig（DNS 查询） (googleapps.com)</a>访问运行，也可以在虚拟机上进行解析。</p>
+<h2><span id="后续问题解决">后续问题解决</span></h2><h3><span id="ssl证书问题">ssl证书问题</span></h3><p><img src="/images/image-20240716103648632.png" alt="image-20240716103648632"></p>
+<p>https访问的时候如果说没有ssl证书拒绝访问，还是那个页面把这enforce https勾上，勾上之后会颁发ssl证书</p>
+<h3><span id="重定向次数过多问题">重定向次数过多问题</span></h3><p><img src="/images/image-20240716103847098.png" alt="image-20240716103847098"></p>
+<p>在cloudflare中ssl概述，将Flexible（灵活）修改为Full（完全）</p>
+<p>好了，现在恭喜你，已经完成了全部的博客教程，快将你的第一篇博客链接发给小伙伴吧！</p>
+<h2><span id="本文参考链接">本文参考链接</span></h2><p><a target="_blank" rel="noopener" href="https://monkeywie.cn/2020/08/20/fast-github-page-with-cloudflare/">使用cloudflare免费加速github page | MonkeyWie’s Blog</a></p>
+<p>【cloudflare如何解决https报错太多重定向的问题】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1Jv4y1872m/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jv4y1872m/?spm_id_from=333.337.search-card.all.click&vd_source=9f79f0aa531775705e272c4b4a946dcc">cloudflare如何解决https报错太多重定向的问题_哔哩哔哩_bilibili</a></p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<style>
+  /* 目录容器样式 */
+
+</style>
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>

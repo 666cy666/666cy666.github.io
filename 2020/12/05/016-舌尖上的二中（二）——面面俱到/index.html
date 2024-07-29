@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>舌尖上的二中（二）—— 面面俱到 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>舌尖上的二中（二）—— 面面俱到</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2020/12/5
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%91%A8%E8%AE%B0/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                周记
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%AB%98%E4%B8%AD/" style="color: #00a596">
+                    高中
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%91%A8%E8%AE%B0/" style="color: #ffa2c4">
+                    周记
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">舌尖上的二中（二）—— “面面”俱到</span></a></li></ol>
+    
+    <div class="content" v-pre>
+        <h1><span id="舌尖上的二中二-面面俱到">舌尖上的二中（二）—— “面面”俱到</span></h1><p>​		“快快快,别买早餐了要迟到了…”</p>
+<p>​		班上总有那么一两个同学,亦或家离学校太近,亦或冬日的被窝太温暖，总能看见他们在教室钟的最后通碟下,踩点气喘吁吁地来到教室,开始了一天的学习。清晨一二节课往往是学生“钓鱼执法”的最好时机，但对于这位早上差点迟到长大后却励志想当太空人的同学来说,星期六的早上,是他精神最好的时候，有着第二节课下课30分钟的吃饭时间，上课怎么能不兴奋起来呢?</p>
+<p>​		随着下课铃响，萋靡不振的空腹学生赴奔早餐战场,各家早餐店也在紧张准备着。“老板，大碗粉打包但在这里吃。”</p>
+<p>​		“……”</p>
+<p>​		邵阳米粉不同于桂林米粉与其它米粉,它是由陈米与新米按照一定比例碾压制作出来的。口感较硬,不同于桂林米粉,桂林米粉丝滑柔顺，汤汁附着在上一带吃下。而那阳粉因其特殊的制作工艺,表面较粗糙，正宗的邵阳粉,每一根粉都能与每家特色的汤底融入其中,做到真正的入味。二中学姐刘乙如在参加《十三亿分见》时用邵阳话将邵阳米粉融入歌曲中：“脾酒哈打开;胃夜放肆呷,邵阳粉我爱,mylife is beauty. 木耳肉丝生炒牛肉生炒排骨大片牛肉酸辣肉末三鲜蛋饺还要加杂煎蛋.朝天椒,小米栋,剁辣椒干辣椒通通里面放！”</p>
+<p>​		豆腐木耳是各大粉店最畅销的系列了，豆腐吸收汤汁过后饱满而爽口，木耳与辣椒油混合一起,木耳便有了灵魂,清香清脆之中略带有一丝辣意。大片牛肉屈居第二,牛肉煮过的汤底和牛油,更让粉具有了神韵,吃牛肉粉,不在于牛肉，而在于粉，粉中夹杂着车油的味道。牛肉之中混着米香的味道，好不过瘾。酸辣肉丝是最近几年才大规模流行的，一碗真正的酸辣肉丝面,要能吃每一口面都有酸辣的味道，猪瘦肉配合着酸豆角,一唱一和一主一配，让人感受到来自面的味蕾冲击。</p>
+<p>​		细数二中周边各大粉店,因其各家店面,调味品,汤底,制法不同,相同的米粉在不同的店家不同的厨师的手里,绽放出不同的色彩与灵魂内涵。二中对面的苏记回民店最址人上瘾的,还是酸辣肉丝面,与北方不同，南方土地偏酸性且气候较温热，醒面过程中难免会有发酵变酸的现象，因此碱面成了不二之选，它的吃法也是最多的。眼镜粉面店因为面的独特口感以及菜品臊子的多样性,吸引了不同年龄段的顾客；老邵阳粉店开在十字路口,来来往住的人群和伏越地理区位以及时间的冲刷，让这家老字号店仍然屹立于此…</p>
+<p>​		南方碱面,北方宽面,西北手工面也是一道不可多得的美食，油泼面是灵魂,酸汤面是招牌，干拌面是精华。宽面的杰出代表就是油泼面，手工柔制，手工拉画，拉出来的面除面头以外宽窄粗细都差不多，以沸水烹饪,意制过程中将植物油放至电磁炉上温热,同时不断搅拌水中的宽面，待面煮至透明时，加以小青菜,约半分钟后出锅,晾干水分,装碗,加以葱蒜，辣椒,白菜,将温热好的油浇在上面。“嗞啦”一声，这是生命的碰撞,它们的声音就是灵魂的喜悦，面上跳动的辣椒粉便是生命的舞蹈，灵魂与生命交织,便构造出了一碗油泼面。在吃时也有讲究，先将面均匀搅拌过后可选择将油倒出来避免太腻，第一口下去,先是丝滑柔顺,与想象的粗糙大相径庭,再然后是葱蒜的油爆香,最后竟是辣椒的甜。一口下去,回味无穷。</p>
+<p>​		中国的美食，仅一个邵阳米粉与手工面便有十几种做法,南咸北甜,南碱北宽。可以说,每家店铺一点点调味的不同,便可造成舌尖上的味蕾上的感受千差万别,正因为这种差异,才造就了中华美食文化博大精深。</p>
+<p>​		吃粉前，我是邵阳的<br>​		吃粉后，邵阳是我的</p>
+<p>特别鸣谢罗泽南大佬</p>
+<p><img src="/images/image-20240714132230755.png" alt="image-20240714132230755"></p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<style>
+  /* 目录容器样式 */
+
+</style>
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
