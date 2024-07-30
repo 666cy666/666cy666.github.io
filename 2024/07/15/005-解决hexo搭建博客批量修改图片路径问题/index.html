@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>解决hexo搭建博客批量修改图片路径问题.md | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>解决hexo搭建博客批量修改图片路径问题.md</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        <span class="category">
+            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                hexo__bug解决
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/hexo-bug/" style="color: #00a596">
+                    hexo__bug
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
+                    博客
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #00a596">
+                    已解决bug
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">解决hexo搭建博客批量修改图片路径问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.InitTitle_and_UpdateImageurl 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. Rename_md 函数</span></a></li></ol></li></ol></li></ol>
+    
+    <div class="content" v-pre>
+        <h1><span id="解决hexo搭建博客批量修改图片路径问题">解决hexo搭建博客批量修改图片路径问题</span></h1><h2><span id="背景">背景</span></h2><p>我不想用图床，但是一个一个修改处理图片路径太麻烦了，有这时间我都可以去搞个图床了，因此我想用python帮我批量处理一下，同时还有初始化，废话不多说，直接上代码</p>
+<h2><span id="解决方案">解决方案</span></h2><pre><code class="python">import os
+import re
+import shutil
+from datetime import datetime
+
+# 定义当前目录和 images 目录
+current_directory = os.getcwd()
+md_directory = os.path.join(current_directory, &quot;source&quot;, &quot;_posts&quot;).replace(&quot;\\&quot;, &#39;/&#39;)
+local_images_directory = os.path.join(md_directory, &quot;images&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+github_images_directory = os.path.join(current_directory, &quot;source&quot;, &quot;images&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+backup_directory = os.path.join(current_directory, &quot;source&quot;, &quot;_posts_backup&quot;).replace(&#39;\\&#39;, &#39;/&#39;)
+
+print(&quot;保存图片路径：&quot;, local_images_directory)
+print(&quot;Markdown 文件路径：&quot;, md_directory)
+print(&quot;备份路径：&quot;, backup_directory)
+
+# 如果 images 目录不存在，则创建
+if not os.path.exists(local_images_directory):
+    os.makedirs(local_images_directory)
+
+# 如果备份目录不存在，则创建
+if not os.path.exists(backup_directory):
+    os.makedirs(backup_directory)
+
+# 若github_images_directory目录存在，则删除
+if os.path.exists(github_images_directory):
+    shutil.rmtree(github_images_directory)
+
+# 生成以当前时间命名的备份文件夹
+current_time_str = datetime.now().strftime(&quot;%Y%m%d%H%M%S&quot;)
+backup_subdir = os.path.join(backup_directory, current_time_str, &quot;_posts&quot;)
+# 备份 _posts 目录到以当前时间命名的文件夹
+shutil.copytree(md_directory, backup_subdir)
+print(f&quot;已备份 _posts 目录到 &#123;backup_subdir&#125;&quot;)
+
+# 获取当前日期和时间
+current_datetime = datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)
+
+# 定义模板字符串
+template = &#39;&#39;&#39;---
+title: &#123;title&#125;
+date: &#123;date&#125;
+tags: 
+  - &#123;tags&#125;
+  - &#123;tags&#125;
+categories: &#123;categories&#125;
+---
+&#39;&#39;&#39;
+
+# 定义匹配图片路径的正则表达式
+image_pattern = re.compile(r&#39;!\[(.*?)\]\((.*?)\)&#39;)
+
+def InitTitle_and_UpdateImageurl():
+    # 遍历md_directory目录下的所有 Markdown 文件
+    for root, _, files in os.walk(md_directory):
+        for file in files:
+            if file.endswith(&quot;.md&quot;):
+                print(&quot;正在处理文件: &quot;, file)
+                file_path = os.path.join(root, file)
+                with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:
+                    content = f.read()
+
+                # 检查文件是否包含模板
+                if not content.startswith(&#39;---&#39;):
+                    # 添加模板
+                    title = os.path.splitext(file)[0]
+                    new_content = template.format(
+                        title=title,
+                        date=current_datetime,
+                        tags=&quot;杂&quot;,
+                        categories=&quot;杂&quot;
+                    ) + content
+                else:
+                    new_content = content
+
+                # 查找并替换本地图片路径
+                def replace_image_path(match):
+                    alt_text = match.group(1)
+                    old_path = match.group(2)
+                    filename = os.path.basename(old_path)
+                    if old_path.startswith(&#39;http&#39;):
+                        # 网络图片保持原样
+                        return match.group(0)
+                    elif &#39;../images&#39; not in old_path:
+                        try:
+                            shutil.copy2(old_path, local_images_directory)
+                            # images / image - 20240715163648965.png
+                            md_image_path = f&#39;![&#123;alt_text&#125;](images/&#123;filename&#125;)&#39;
+                            return md_image_path
+                        except FileNotFoundError:
+                            print(f&quot;Local image not found: &#123;old_path&#125;&quot;)
+                            return match.group(0)
+                        except shutil.SameFileError:
+                            md_image_path = f&#39;![&#123;alt_text&#125;](images/&#123;filename&#125;)&#39;
+                            print(md_image_path)
+                            return md_image_path
+                    else:
+                        return match.group(0)
+                updated_content = re.sub(image_pattern, replace_image_path, new_content)
+                # 将修改后的内容写回文件
+                with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:
+                    f.write(updated_content)
+
+    # 将本地访问图片路径复制到github访问图片路径
+    shutil.copytree(local_images_directory, github_images_directory)
+
+def Rename_md(index_len = 3, sort_desc = True):
+    # 定义提取日期的正则表达式
+    date_pattern = re.compile(r&#39;date: (\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125; \d&#123;2&#125;:\d&#123;2&#125;:\d&#123;2&#125;)&#39;)
+
+    # 获取所有 Markdown 文件
+    md_files = [file for file in os.listdir(md_directory) if file.endswith(&quot;.md&quot;)]
+
+    # 函数以提取日期并根据需要返回适合排序的值
+    def extract_date(file_path, sort_desc=False):
+        with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:
+            content = f.read()
+        match = date_pattern.search(content)
+        if match:
+            date = datetime.strptime(match.group(1), &#39;%Y-%m-%d %H:%M:%S&#39;)
+        else:
+            date = datetime.now()  # 如果没有日期，则使用当前日期
+        return -date.timestamp() if sort_desc else date.timestamp()
+
+    # 用户指定排序方向，True 为降序，False 为升序
+      # 修改这里来控制排序方向
+    # 对文件进行排序
+    md_files.sort(key=lambda file: extract_date(os.path.join(md_directory, file), sort_desc))
+
+    # 遍历排序后的文件，并重命名
+    for index, file in enumerate(md_files, start=1):
+        file_path = os.path.join(md_directory, file)
+
+        # 检查文件名是否已经有序号
+        match = re.match(r&#39;^(\d+)-&#39;, file)
+        match_len = len(match.group(0)) if match else 0
+        if re.match(r&#39;^(\d+)-&#39;, file):
+            # 如果已有序号，则去掉原有的序号
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file[match_len:]&#125;&quot;  # 假设原序号长度为三位数字加连字符
+        else:
+            # 如果没有序号，直接添加新序号
+            new_file_name = f&quot;&#123;index:0&#123;index_len&#125;d&#125;-&#123;file&#125;&quot;
+        print(new_file_name)
+        # 消除空格
+        new_file_name = new_file_name.replace(&#39; &#39;, &#39;&#39;)
+        new_file_path = os.path.join(md_directory, new_file_name)
+        os.rename(file_path, new_file_path)  # 重命名文件
+
+if __name__ == &quot;__main__&quot;:
+    InitTitle_and_UpdateImageurl()
+    # index_len为序号长度例如3为001，4为0001, sort_desc为排序，默认为True降序
+    Rename_md(index_len=3 , sort_desc = True)
+</code></pre>
+<p>gpt对上面代码的解释，我觉得反正比我写的好：</p>
+<h3><span id="1inittitle_and_updateimageurl-函数">1.<strong><code>InitTitle_and_UpdateImageurl</code> 函数</strong></span></h3><p>这个函数负责初始化Markdown文件的标题和更新文件中的图片路径。</p>
+<ul>
+<li><strong>功能</strong>：<ul>
+<li>遍历指定目录下的所有Markdown文件。</li>
+<li>检查每个文件是否包含YAML头部模板，如果不存在则添加一个标准模板。</li>
+<li>检查并更新文件中的本地图片路径，确保图片链接指向正确的位置，并处理网络图片和本地图片的不同情况。</li>
+<li>复制图片到GitHub可访问的目录，支持在线预览。</li>
+</ul>
+</li>
+<li><strong>图片处理</strong>：<ul>
+<li>如果图片是本地存储的，会尝试将图片复制到一个统一的目录下，并更新Markdown文件中的引用路径。</li>
+<li>对于网络图片，保持原有的URL不变。</li>
+<li>使用正则表达式来匹配Markdown中的图片链接。</li>
+</ul>
+</li>
+<li><strong>异常处理</strong>：<ul>
+<li>处理文件找不到的情况和尝试复制相同文件的问题（<code>shutil.SameFileError</code>）。</li>
+</ul>
+</li>
+</ul>
+<h3><span id="2-rename_md-函数">2. <strong><code>Rename_md</code> 函数</strong></span></h3><p>这个函数负责根据文件中的日期信息对Markdown文件进行排序并重命名，支持按日期升序或降序。</p>
+<ul>
+<li><strong>功能</strong>：<ul>
+<li>提取每个Markdown文件的日期信息，并根据这些日期对文件进行排序。</li>
+<li>根据排序结果，重命名文件，文件名包括一个序号，这个序号根据排序结果动态生成。</li>
+<li>序号的长度可以动态指定，支持未来的扩展（例如，从三位数到四位数）。</li>
+</ul>
+</li>
+<li><strong>日期提取</strong>：<ul>
+<li>使用正则表达式从Markdown文件的YAML头部提取日期。</li>
+<li>如果没有找到日期，则假定为当前日期。</li>
+</ul>
+</li>
+</ul>
+<p>当然还有备份功能，在_posts同级目录下会创建一个_posts_backup的备份文件夹，每启动运行一次脚本就会获取当前时间戳同时以该时间戳命名，再把_posts备份到这里</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<style>
+  /* 目录容器样式 */
+
+</style>
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
