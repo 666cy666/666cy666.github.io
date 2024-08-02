@@ -197,15 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ff7d73">
-                    博客
+                <a href="/tags/%E4%B8%8D%E8%92%9C%E5%AD%90/" style="color: #00a596">
+                    不蒜子
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E4%B8%8D%E8%92%9C%E5%AD%90/" style="color: #ffa2c4">
-                    不蒜子
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
+                    博客
                 </a>
             </span>
             
@@ -216,7 +216,6 @@
           </span>
     </div>
     <!-- Add a new div for the table of contents -->
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">不蒜子-hexo博客文章添加阅读次数统计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">引入js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.3.</span> <span class="toc-text">不蒜子使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">1、显示站点总访问量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">2、显示单页面访问量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
     
     <div class="content" v-pre>
         <h1><span id="不蒜子-hexo博客文章添加阅读次数统计">不蒜子-hexo博客文章添加阅读次数统计</span></h1><h2><span id="背景">背景</span></h2><p>满足一下小小的虚荣心，想看看有多少人来访问我的博客，一开始用的百度统计，然后发现它…….确实能统计，但是也只能统计，应该是有api给我接入的，但是找了这么多教程没看到，我也没在百度统计的官方文档中找到，可能因为我是免费版吧——第二天发现是有api的，这下尴尬了，但是也不好用。后面看了其他教程发现不蒜子这个库还行，便用这个试了以下，效果还行</p>
@@ -268,10 +267,74 @@
     
 </div>
 
-<style>
-  /* 目录容器样式 */
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
 
-</style>
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
 
 
     
