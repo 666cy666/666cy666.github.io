@@ -197,21 +197,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #ffa2c4">
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
                     博客
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/hexo-bug/" style="color: #03a9f4">
+                <a href="/tags/hexo-bug/" style="color: #ffa2c4">
                     hexo__bug
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #ffa2c4">
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #00bcd4">
                     已解决bug
                 </a>
             </span>
@@ -250,9 +250,12 @@ if not os.path.exists(local_images_directory):
 if not os.path.exists(backup_directory):
     os.makedirs(backup_directory)
 
-# 若github_images_directory目录存在，则删除
+# 若github_images_directory目录存在，则删除并重新创建
 if os.path.exists(github_images_directory):
     shutil.rmtree(github_images_directory)
+
+if not os.path.exists(github_images_directory):
+    os.mkdir(github_images_directory)
 
 # 生成以当前时间命名的备份文件夹
 current_time_str = datetime.now().strftime(&quot;%Y%m%d%H%M%S&quot;)
@@ -280,6 +283,8 @@ description: |
 
 # 定义匹配图片路径的正则表达式
 image_pattern = re.compile(r&#39;!\[(.*?)\]\((.*?)\)&#39;)
+# 初始化一个集合用于存储需要复制的图片文件名
+images_to_copy = set()
 
 def InitTitle_and_UpdateImageurl():
     # 遍历md_directory目录下的所有 Markdown 文件
@@ -329,12 +334,60 @@ def InitTitle_and_UpdateImageurl():
                     else:
                         return match.group(0)
                 updated_content = re.sub(image_pattern, replace_image_path, new_content)
+
+                image_paths = re.findall(r&#39;!\[.*?\]\((.*?)\)&#39;, updated_content)
+                for image_path in image_paths:
+                    # 如果图片路径不是网络路径，加入集合
+                    image_path = image_path.replace(&#39;images/&#39;, &#39;&#39;)
+                    if not image_path.startswith(&#39;http&#39;):
+                        # 处理可能的相对路径
+                        storage_image_path = os.path.join(local_images_directory, image_path)
+                        copy_image_path = os.path.join(github_images_directory, image_path)
+                        images_to_copy.add((storage_image_path, copy_image_path))
                 # 将修改后的内容写回文件
                 with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:
                     f.write(updated_content)
 
-    # 将本地访问图片路径复制到github访问图片路径
-    shutil.copytree(local_images_directory, github_images_directory)
+                # print(&quot;1:&quot;,os.path.exists(github_images_directory))
+    #
+    # # 收集 GitHub 目录中的所有图片文件名
+    # github_images = set(os.listdir(github_images_directory))
+    #
+    # print(os.path.exists(github_images_directory))
+    #
+    # 将本地访问图片路径复制到 GitHub 访问图片路径
+    for storage_image_path, copy_image_path in images_to_copy:
+        try:
+            shutil.copy2(storage_image_path, copy_image_path)
+            print(f&quot;复制 &#123;os.path.basename(copy_image_path)&#125; 于 &#123;github_images_directory&#125;&quot;)
+        except FileNotFoundError:
+            print(f&quot;Image not found: &#123;storage_image_path&#125;&quot;)
+        except Exception as e:
+            print(f&quot;Error copying image &#123;storage_image_path&#125;: &#123;e&#125;&quot;)
+    #     filename = os.path.basename(copy_image_path)
+    #
+    #     if filename in github_images:
+    #         print(f&quot;图片 &#123;filename&#125; 已有，跳过&quot;)
+    #         # 移除已有图片名以便于之后删除不再使用的图片
+    #         github_images.remove(filename)
+    #     else:
+    #         try:
+    #             shutil.copy2(storage_image_path, copy_image_path)
+    #             print(f&quot;复制 &#123;filename&#125; 于 &#123;github_images_directory&#125;&quot;)
+    #         except FileNotFoundError:
+    #             print(f&quot;Image not found: &#123;storage_image_path&#125;&quot;)
+    #         except Exception as e:
+    #             print(f&quot;Error copying image &#123;storage_image_path&#125;: &#123;e&#125;&quot;)
+    #
+    # # 删除 GitHub 目录中未在 images_to_copy 集合中的图片
+    # for unused_image in github_images:
+    #     unused_image_path = os.path.join(github_images_directory, unused_image)
+    #     try:
+    #         os.remove(unused_image_path)
+    #         print(f&quot;Deleted unused image &#123;unused_image&#125; from GitHub directory.&quot;)
+    #     except Exception as e:
+    #         print(f&quot;Error deleting image &#123;unused_image&#125;: &#123;e&#125;&quot;)
+
 
 def Rename_md(index_len = 3, sort_desc = True):
     # 定义提取日期的正则表达式
@@ -400,12 +453,12 @@ def Rename_by_date():
         else:
             # 如果没有日期，则使用当前日期
             date_prefix = datetime.now().strftime(&quot;%y-%m-%d&quot;)
-        # 如果文件名已经包含日期前缀同时与md文件内容中的日期一致，则跳过重命名
+        # 如果文件名已经包含日期前缀同时与md文件内容中的日期一致，则跳过重命名,若不一致则删除日期前缀
         match_name = file_date_pattern.match(file)
         if match_name == match_content:
             print(f&quot;跳过文件（已有日期前缀）: &#123;file&#125;&quot;)
             continue
-        else:
+        elif match_name:
             file = file.replace(match_name.group(0), &#39;&#39;)
         # 构建新文件名
         new_file_name = f&quot;&#123;date_prefix&#125;-&#123;file&#125;&quot;
