@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>解决hexo_command_not_found环境问题 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>解决hexo_command_not_found环境问题</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/15
+        </span>
+        
+        <span class="category">
+            <a href="/categories/hexo-bug%E8%A7%A3%E5%86%B3/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                hexo__bug解决
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00a596">
+                    博客
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/hexo-bug/" style="color: #ff7d73">
+                    hexo__bug
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%B2%E8%A7%A3%E5%86%B3bug/" style="color: #00bcd4">
+                    已解决bug
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    
+    <div class="content" v-pre>
+        <h1><span id="解决hexo-command-not-found环境问题">解决hexo: command not found环境问题</span></h1><pre><code class="bash">cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
+$ npm install -g hexo-cli
+npm WARN config global --global, --local are deprecated. Use --location=global instead.
+npm WARN config global --global, --local are deprecated. Use --location=global instead.
+
+changed 53 packages in 3s
+
+14 packages are looking for funding
+  run npm fund for details
+
+cy@LAPTOP-9FBJIH64 MINGW64 /f/杂/markdown/博客
+$ hexo init myblog
+bash: hexo: command not found
+</code></pre>
+<p>当我们使用 <code>npm install -g hexo-cli</code> 命令时，由于使用了 <code>-g</code>（全局）参数，包会被安装到全局包目录下。这意味着一旦安装完成，任何项目都可以直接使用它，而无需再次进行安装。这对于频繁需要使用的工具特别有用，因为你可以在任何地方运行它们而不需要重复安装。</p>
+<p>相比之下，使用 <code>-i</code> 参数或不使用任何参数安装包（如 <code>npm install hexo-cli</code>），将只会在当前项目目录下安装该包。这意味着如果你在另一个项目中也需要同样的包，你需要在那个项目的目录下再次执行安装命令。</p>
+<p>如果在安装 <code>hexo-cli</code> 后出现 <code>hexo: command not found</code> 的错误，这通常意味着 npm 的全局安装路径没有被正确添加到你的系统环境变量中，或者在配置过程中存在其他问题。可以先通过运行 <code>npm config get prefix</code>来查看全局安装路径。同时运行<code>npm list -g --depth=0</code> 来检查是否正确安装了 <code>hexo-cli</code> 并且位于预期的目录中。如果不是，可能需要调整环境变量或重新安装。</p>
+<pre><code class="bash">npm config get prefix
+</code></pre>
+<pre><code class="bash">npm list -g --depth=0
+</code></pre>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>

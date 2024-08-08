@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素src属性的bug</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/6/24
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                智慧树脚本
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/" style="color: #00bcd4">
+                    智慧树脚本
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/selenium/" style="color: #ff7d73">
+                    selenium
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    
+    <div class="content" v-pre>
+        <h2><span id="基于pywebview与selenium的智慧树脚本系统开发日志一-修复selenium抓取不到元素src属性的bug">基于PyWebview与Selenium的智慧树脚本系统开发日志（一）—— 修复selenium抓取不到元素<em><strong>src</strong></em>属性的bug</span></h2><p>笔者后续的代码为个人封装的selenium工具库，我自己用着挺顺手的，开源在个人仓库中<a target="_blank" rel="noopener" href="https://github.com/666cy666/Selenium_Util">https://github.com/666cy666/Selenium_Util</a></p>
+<h3><span id="selenium抓取不到元素src属性">selenium抓取不到元素<em><strong>src</strong></em>属性</span></h3><p><img src="/images/image-20240623200131933.png" alt="image-20240623200131933"></p>
+<pre><code class="py">yidun_broken_url = edge_driver.get_element_attribute(xpath_kind=By.CLASS_NAME,xpath=&#39;yidun_jigsaw&#39;,attribute=&quot;src&quot;)
+yidun_bg_img_url,yidun_broken_url
+</code></pre>
+<p>在使用jupyter测试代码的时候十分顺利，毕竟是从老项目移植过来的，但是移植到pywebview上面抓取元素的时候一直抓不到，元素始终返回None，经多方查证在stackoverflow（<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium">python - Getting src from element using selenium - Stack Overflow</a>）找到详细解决方案：</p>
+<ul>
+<li><p>Using your method, I’ve ran into another problem. It possible to call EC.visibility_of_element_located without the @alt parameter? Can I get the src by just using the class name? </p>
+</li>
+<li><p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
+</li>
+<li><p>I just used the absolute xpath instead of “&#x2F;&#x2F;img[@class&#x3D;’irc_mi’ and @alt&#x3D;’Image result for snowman’]” and it works now. Great! </p>
+<p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/users/4724765/charles-zhang">Charles Zhang</a></p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56928281/getting-src-from-element-using-selenium#comment100430421_56930374">CommentedJul 9, 2019 at 4:40</a></p>
+</li>
+</ul>
+<p>通过上面的信息分析，碰到类似的问题多半能经过下面的方法解决</p>
+<p><strong>下面是能成功抓取到的代码</strong></p>
+<pre><code class="py">print(WebDriverWait(edge_driver.driver, 20).until(EC.visibility_of_element_located(
+            (By.XPATH, &quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;]&quot;))).get_attribute(&quot;src&quot;))
+</code></pre>
+<h4><span id="修改xpath解决方案">修改xpath解决方案</span></h4><p>上面提到修改xpath为：<code>//img[@class=&#39;irc_mi&#39; and @alt=&#39;Image result for snowman&#39;]</code>即可，笔者也按照页面元素调整：</p>
+<pre><code class="py">yidun_bg_img_url=edge_driver.get_element_attribute(xpath=&quot;//img[@class=&#39;yidun_jigsaw&#39; and @alt=&#39;验证码滑块&#39;&quot;,attribute=&quot;src&quot;)
+</code></pre>
+<p>解决方案：<br>只要将xpath改为能够唯一标识此元素路径即可，比如这里的alt属性</p>
+<p>解决完毕！下面是问题可能出现的原因：</p>
+<p><img src="/images/image-20240623201155305.png" alt="image-20240623201155305"></p>
+<p>如上图所示，笔者猜测页面中应该有一个非显示的元素与被抓取元素重名（我在全局搜索中发现在css样式引入的过程中确实有重名的部分），有可能是抓到引入css样式去了（我甚至觉得更有可能是selenium的bug，等日后有机会拆开内核看看）</p>
+<h4><span id="修改等待方案推荐">修改等待方案（推荐！）</span></h4><p><strong>之前的等待方案(presence_of_element_located)</strong></p>
+<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
+                        EC.presence_of_element_located((xpath_kind, xpath))
+                    )
+</code></pre>
+<p>presence_of_element_located是用来确认元素是否已被加载到 DOM 中</p>
+<p><strong>修改后的等待方案(visibility_of_element_located)</strong></p>
+<pre><code class="py">element = WebDriverWait(father_element, timeout).until(
+                        EC.visibility_of_element_located((xpath_kind, xpath))
+                    )
+</code></pre>
+<p> <code>visibility_of_element_located</code> 方法比 <code>presence_of_element_located</code> 更严格，它确保元素不仅存在于 DOM 中，而且必须对用户可见。</p>
+<p>两种方法各有利弊，有时候有些元素对用户不可见的时候就需要用加载dom中的抓取方法，笔者写的工具类中默认使用presence_of_element_located</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>

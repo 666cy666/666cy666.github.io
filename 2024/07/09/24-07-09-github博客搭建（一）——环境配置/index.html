@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>github博客搭建（一）—— 环境配置 | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>github博客搭建（一）—— 环境配置</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/7/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                博客
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%8E%AF%E5%A2%83/" style="color: #ff7d73">
+                    环境
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="color: #00bcd4">
+                    博客
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    
+    <div class="content" v-pre>
+        <h1><span id="github博客搭建一-环境配置">github博客搭建（一）—— 环境配置</span></h1><p>大一的时候在csdn上写博客，后面发现就我那写的小教程竟然也有人盗，后面就把账号注销了，虽然说csdn上好教程确实不少，但是史里淘金的过程真得很难评，痛定思痛，大二大三就一直在本地写markdown文档了，现在大三暑假我的电脑终于撑不住了，正好准备重装系统，干脆把之前踩坑写的md整理一下搞个博客算了。</p>
+<p>原先准备是在云服务器上搭个动态博客的，后面想想动态的无非多了个统计还有动态修改功能，我个人不是很在意这些，反正在本地写已经习惯了，大不了修改了再上传呗，多大点事。</p>
+<p>于是从头跟着b站还有一些网站教学搞了一个下午终于搞定了，搞完之后真的成就满满，那些教程有些都是几年前的了，虽然说避免了很多坑，但是也踩了不少新坑，感觉还是有必要写一下博客的。</p>
+<h2><span id="环境准备">环境准备</span></h2><ul>
+<li><strong>Node.js</strong>：JavaScript 运行时环境，用于构建和运行博客相关的应用程序。</li>
+<li><strong>Git</strong>：版本控制工具，用来上传和管理博客文件。</li>
+<li><strong>Typora</strong>：Markdown 编辑器，用于书写和编辑博客内容。</li>
+<li><strong>一个域名</strong>：为你的博客提供一个独立的访问地址。</li>
+<li><strong>Python 环境</strong>：用于批量处理 Markdown 图片格式。如果没有 Python 环境，后续的步骤中我会提供一个可执行文件（exe），但不同主题模板可能需要自行调试。</li>
+<li><strong>CDN 加速（Cloudflare）</strong>：由于 GitHub 的服务器位于国外，直接访问可能会比较慢。我们可以使用 Cloudflare 提供的免费 CDN 服务来加速博客的访问速度。前往 Cloudflare 官网注册账号并添加你的域名，按照提示完成设置</li>
+</ul>
+<h2><span id="node环境搭建">node环境搭建</span></h2><p>由于前人已经讲的非常详细了，这里我就不多谈了，我在这里给大家放几个链接大家去配环境就行，y1s1，csdn上这种主流框架的基本用法还是非常详细了，遇到再难一点的问题就很难找到解答了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nicolecocol/article/details/136788200">Node.js安装及环境配置超详细教程【Windows系统】_windows 安装nodejs-CSDN博客</a></p>
+<p>【Node.js安装及环境变量配置】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV19F411t7zX/?share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a></p>
+<p>安装完成后可以用下面的指令测试一下环境</p>
+<pre><code class="bash">#测试node版本
+node -v
+#测试npm版本
+npm -v
+#测试node镜像源，建议换为淘宝
+npm config get registry
+#查看全局安装目录，建议不要装在c盘，实在装c盘也没关系
+npm config get prefix
+#将镜像源换为国内镜像源
+npm config set registry https://registry.npmmirror.com
+</code></pre>
+<p><img src="/images/image-20240714150953068.png" alt="image-20240714150953068"></p>
+<p>没有报错证明node环境配好了，恭喜你，已经成功2%了！</p>
+<h2><span id="git环境搭建与github注册">git环境搭建与github注册</span></h2><p>老规矩，上教程，我不多bb</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/secretstarlyp/article/details/106576882">超详细的Git下载安装、环境变量配置教程_安装好git之后如何配置-CSDN博客</a></p>
+<p>【【GeekHour】一小时Git教程】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HM411377j/?p=2&share_source=copy_web&vd_source=ee823663fa9cae5767c5c114f756834b">https://www.bilibili.com/video/BV1HM411377j/?p=2&amp;share_source=copy_web&amp;vd_source=ee823663fa9cae5767c5c114f756834b</a><br>只要看第2，10，11就行，其余的你们有兴趣可以全看完，搭博客看这三集足够了</p>
+<p><img src="/images/image-20240714152456358.png" alt="image-20240714152456358"></p>
+<p>安装完成后在文件夹中对空白区域右键应该有个git bash here如上图，点击后与注册号的GitHub关联之后应该是这样的</p>
+<h3><span id="1-查看所有-git-配置">1. 查看所有 Git 配置</span></h3><p>要查看包括系统级别在内的所有配置，可以使用：</p>
+<pre><code class="bash">git config --list
+</code></pre>
+<p>这将展示所有层面上的 Git 配置，包括全局、系统、和本地。</p>
+<h3><span id="2-查看特定配置项">2. 查看特定配置项</span></h3><p>如果你只想查看特定的配置项，如用户名，可以使用：</p>
+<pre><code class="bash">git config user.name
+</code></pre>
+<p>或者查看与远程仓库相关的 URL：</p>
+<pre><code class="bash">git config remote.origin.url
+</code></pre>
+<p>这些命令分别显示了用户名和当前仓库的默认远程仓库 URL。</p>
+<h3><span id="3-更改-git-配置">3. 更改 Git 配置</span></h3><p>如果你需要修改某项配置，例如改变用户名或邮箱，可以使用：</p>
+<pre><code class="cpp">git config --global user.name &quot;新用户名&quot;
+git config --global user.email &quot;新邮箱地址&quot;
+</code></pre>
+<p><img src="/images/image-20240714153255135.png" alt="image-20240714153255135"></p>
+<p>与github关联后可以使用上面的指令查看是否成功，若看到账号邮箱与注册好的github账号关联成功，恭喜你，已经成功5%了！</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
