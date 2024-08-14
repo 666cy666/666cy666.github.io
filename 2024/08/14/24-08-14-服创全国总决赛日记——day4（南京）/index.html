@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>服创全国总决赛日记——day4（南京） | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>服创全国总决赛日记——day4（南京）</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/8/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%9D%82/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%9D%82/" style="color: #00a596">
+                    杂
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    
+    <div class="content" v-pre>
+        <h1><span id="服创全国总决赛日记day4南京p1">服创全国总决赛日记——day4（南京）p1</span></h1><p>来都来江苏了，这不去南京玩一圈，又到了南京特种兵环节。不过y1s1，夏天的江苏会平等地对待每一个外地来的游客，真太热了，无锡有一天热晕了，来南京又热晕了。</p>
+<p>在无锡出去玩有经验了，这次我绝对不会下午出去，早上在无锡最后逛了一圈下午来到酒店，刚好是七夕节，选的还是电竞酒店，情侣还是挺多的……直接在酒店睡到五点钟，然后就去河海大学江宁校区找wsw了。</p>
+<p>第二天直接化身皇帝去了玄武湖和鸡鸣寺，途中尝了尝鸭血粉丝汤和南京的小笼包，后面真走废了，又热晕了，还好中午十二点就润了，下午都在高铁和候机场度过，不然真无法想象。后面人生第一次体验坐飞机，感觉挺不错的，一下就到长沙了。</p>
+<h2><span id="河海大学">河海大学</span></h2><p><img src="/images/image-20240813212911119.png" alt="image-20240813212911119"></p>
+<p><img src="/images/image-20240813213003103.png" alt="image-20240813213003103"></p>
+<p>南京的傍晚还是很好看的</p>
+<h2><span id="玄武湖">玄武湖</span></h2><p><img src="/images/image-20240814215930321.png" alt="image-20240814215930321"></p>
+<p>玄武门</p>
+<p><img src="/images/image-20240814215739533.png" alt="image-20240814215739533"></p>
+<p><img src="/images/image-20240814215752072.png" alt="image-20240814215752072"></p>
+<p>荷花</p>
+<p><img src="/images/image-20240814215801551.png" alt="image-20240814215801551"></p>
+<p>荷花广场</p>
+<p><img src="/images/image-20240814215817333.png" alt="image-20240814215817333"></p>
+<p>梧桐大道</p>
+<p>玄武湖公园古时候是皇家陵园，今日我也算是当了一回皇帝了，也带大家当一回赛博皇帝，哥们也当一回赛博奸臣，<br>我的陛下，您上网不是为了消磨时光，而是在洞察天下，您的每一个点击，都是对国家未来的深思熟虑啊！ </p>
+<h2><span id="鸭血粉丝汤">鸭血粉丝汤</span></h2><p><img src="/images/image-20240814215956643.png" alt="image-20240814215956643"></p>
+<p>这个鸭血粉丝汤还挺不错的，有鸭肉、鸭肠、鸭胗、鸭肝、鸭内脏都有，我吃不太习惯鸭内脏，有点腥，但是那个汤还是挺好喝的，还有左边的小笼包，我觉得还不错，比无锡纯甜的好吃，至少这七个我都吃完了，无锡四个我只吃了三个。</p>
+<h2><span id="南京城墙和鸡鸣寺">南京城墙和鸡鸣寺</span></h2><p>详情请看</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
