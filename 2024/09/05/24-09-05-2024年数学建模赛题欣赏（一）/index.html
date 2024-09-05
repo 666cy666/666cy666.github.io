@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <title>2024年数学建模赛题欣赏（一） | cy’s Blog</title>
+    <meta name="author" content="cy" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/miku.jpg" />
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?db9e4c22cf474bfe7b5c9abf49e3af6f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CY’S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;博文</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CY’S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">博文</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>2024年数学建模赛题欣赏（一）</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/9/5
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                数学建模
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" style="color: #ffa2c4">
+                    数学建模
+                </a>
+            </span>
+            
+        </span>
+        
+        <span id="busuanzi_container_page_pv">
+            该文总阅读量<span id="busuanzi_value_page_pv"></span>次
+          </span>
+    </div>
+    <!-- Add a new div for the table of contents -->
+    
+    <div class="content" v-pre>
+        <h1><span id="2024年数学建模赛题欣赏一">2024年数学建模赛题欣赏（一）</span></h1><h2><span id="a题">A题</span></h2><p>如果我是在大二大三，那么我可能会和你讨论一下，但是我已经是fw大四老登了，这种东西懒得看，看也看不懂，直接跳过</p>
+<h2><span id="b题">B题</span></h2><p>没怎么学过专门的统计建模，直接上gpt4</p>
+<h3><span id="问题1抽样检测方案设计">问题1：抽样检测方案设计</span></h3><p>这个问题需要设计一个抽样检测方案，以确定是否接受供应商的零件。检测次数应尽可能少，同时要保证一定的置信度。</p>
+<p>首先，需要设定次品率的标称值，比如设为 p0p_0p0。然后，使用统计抽样方法来检测次品率。可以使用单侧假设检验，计算得到的抽样次品率与标称次品率比较。</p>
+<ul>
+<li><strong>情况1</strong>：如果在 95% 置信度下次品率超过标称值，企业应拒收零件。</li>
+<li><strong>情况2</strong>：如果在 90% 置信度下次品率不超过标称值，企业应接收零件。</li>
+</ul>
+<p>可以使用二项分布的方法来确定需要的样本量。假设检测中发现的次品率为 p^\hat{p}p^，样本量为 nnn，通过求解 P(X≥k)≤αP(X \geq k) \leq \alphaP(X≥k)≤α（拒收）或 P(X≤k)≥1−αP(X \leq k) \geq 1-\alphaP(X≤k)≥1−α（接收），来确定 nnn 和 kkk，其中 XXX 是二项分布。</p>
+<h3><span id="问题2生产过程的决策设计">问题2：生产过程的决策设计</span></h3><p>这个问题涉及到整个生产流程的多个决策点，包括是否对零配件和成品进行检测，以及对不合格成品的处理。</p>
+<h4><span id="决策方案">决策方案：</span></h4><ol>
+<li><strong>零配件检测</strong>：<ul>
+<li>对零配件进行检测可以减少成品不合格的风险。考虑到成品不合格的高成本（如拆解费用、调换损失等），建议对所有零配件进行检测。</li>
+<li>检测后，不合格的零配件应丢弃，以防止不合格成品的产生。</li>
+</ul>
+</li>
+<li><strong>成品检测</strong>：<ul>
+<li>考虑到成品即使零配件合格也不一定合格，建议对所有成品进行检测。</li>
+<li>只有检测合格的成品才能进入市场，这可以最大化减少因质量问题引发的损失。</li>
+</ul>
+</li>
+<li><strong>不合格成品处理</strong>：<ul>
+<li>对于检测出的不合格成品，可以选择拆解再利用零配件，虽然会产生拆解费用，但可以节省成本，比直接丢弃更经济。</li>
+</ul>
+</li>
+<li><strong>不合格成品退回处理</strong>：<ul>
+<li>用户退回的不合格成品应进行拆解，重复使用零配件。</li>
+</ul>
+</li>
+</ol>
+<h3><span id="问题3与问题4更复杂的生产环境与抽样检测确认">问题3与问题4：更复杂的生产环境与抽样检测确认</span></h3><p>对于更复杂的生产环境，涉及多道工序和更多的零配件，决策应基于每个环节的具体次品率、成本和其他经济指标进行定制化调整。问题4则回到了抽样检测的确认，强调了质量控制的重要性和通过抽样确定的不确定性。</p>
+<p>总结来说，这类问题需要综合考虑统计分析、生产管理、成本控制和市场反应，通过科学决策最大化企业的经济效益和市场声誉。</p>
+<h3><span id="对于问题3的理解">对于问题3的理解</span></h3><p>问题3 对 𝑚 道工序 、 𝑛 个零 配 件 ，已知 零 配 件 、半成品 和 成品的 次品率， 重复问题<br>2，给出生产过程的决策方案 。 图 1给出了 2道工序 、 8个零 配 件的情况 具体数值由表 2给<br>出。</p>
+<p>这个一看经典工厂调度问题，当初学算法的时候，依稀记得只有两个工厂、只排时间的时候有最优解（<strong>JOHNSON</strong>算法），3个以上工厂或者两个以上的参数就需要高级一点的算法比如动态规划+贪心了，再多一点的参数只有较优解了，那就需要模拟退火、粒子群这种启发式搜索算法，但是这题目参数明显多得很，只能说曾经写过类似题目经验的队伍可以尝试写一下，没做过就不要来碰瓷了，这种启发式搜索算法没完整写过的话，都不知道怎么收敛，有可能你写的是线性规划求解，那就等到数模打完再出结果吧……</p>
+<h2><span id="c题">C题</span></h2><p><img src="/images/image-20240905185810383.png" alt="image-20240905185810383"></p>
+<p>常识类建模，这个还是可以说一说的，上面标好了一些我认为重要一点的背景和参数</p>
+<h3><span id="第一问">第一问</span></h3><p>首先题设假定各种 农作物 未来 的预期 销售量 、种植成本、 亩产量和销售价格相对于 2023年保持稳定， 每季种植的农作物在当季销售 。</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>作物编号</th>
+<th>作物名称</th>
+<th>地块类型</th>
+<th>种植季次</th>
+<th>亩产量&#x2F;斤</th>
+<th>种植成本&#x2F;(元&#x2F;亩)</th>
+<th>销售单价&#x2F;(元&#x2F;斤)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>黄豆</td>
+<td>平旱地</td>
+<td>单季</td>
+<td>400</td>
+<td>400</td>
+<td>2.50-4.00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>黑豆</td>
+<td>平旱地</td>
+<td>单季</td>
+<td>500</td>
+<td>400</td>
+<td>6.50-8.50</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>红豆</td>
+<td>平旱地</td>
+<td>单季</td>
+<td>400</td>
+<td>350</td>
+<td>7.50-9.00</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>绿豆</td>
+<td>平旱地</td>
+<td>单季</td>
+<td>350</td>
+<td>350</td>
+<td>6.00-8.00</td>
+</tr>
+</tbody></table>
+<p>这表明上面这张表中的亩产、种植成本、销售单价基本不变，那么就可以把他们统一单位，比如说换算成亩产价值，销售单价取平均值写在模型假设中，而且对于第一问，这里的数据可以保持不变，也就是说可以不考虑销量与供求关系的影响。</p>
+<p>然后题目要求算后面六年的种植方案，有两个重要的点需要指出：<br>1.因含有豆类作物含有豆类作物根菌 的土壤的土壤有利于其他作物生长，有利于其他作物生长，从2023年开始年开始要求每个要求每个地块（含大棚）（含大棚）的所有土的所有土地三年内至少种植一次豆类作物三年内至少种植一次豆类作物</p>
+<p>2.作物每季 的种植地不能太分散种植地不能太分散，每种作物在单个地块个地块（含大棚） 种植 的面积不宜太小</p>
+<p>第一点说明农作物需要轮作，目前来说刚好有差不多1&#x2F;3的面积重的是豆类，那么就可以用类似于cpu周期的形式种植</p>
+<p>粮食（豆类）- 蔬菜或食用菌 - 粮食</p>
+<p>​						粮食（豆类）- 蔬菜或食用菌 - 粮食</p>
+<p>​													粮食（豆类）- 蔬菜或食用菌 - 粮食</p>
+<p>一般按常识来说蔬菜更需要根瘤菌一些，粮食对氮的需求没那么大，然后由于是要未来6年的需求，其实可以直接预测3年，然后第二个周期把蔬菜换成食用菌就行</p>
+<p>第二点的意思就是说尽可能的不要浪费土地</p>
+<p>而第一问的题目是：</p>
+<p>(1) 超过 部分 滞销 ，造成浪费 ；</p>
+<p> (2) 超过 部分 按 2023年销售价格的 50%降价 出售。</p>
+<p>这一问就需要列线性规划表达式了，有三个参数</p>
+<p>第一问超过部分滞销 ，造成浪费，那么就意味着要差不多刚好卖完，也就是说哪些亩产价值低的可以稍微重多一点，这个的约束是：<br>1.亩产价值尽可能高<br>2.亩产量尽可能接近去年</p>
+<p>第二问超过 部分 按 2023年销售价格的 50%降价 出售，就意味着在亩产价值和亩产量之间得取舍，可以参考去年的成本加成定价，这个的约束是：<br>1.总价值尽可能高<br>2.亩产量*亩产价值尽可能高<br>对于这个表达式：（单个作物总产量-销售量）x（作物价值）x 0.5 + 销售量x作物价值 &#x3D; （单个作物总产量+销售量）x（作物价值）x 0.5</p>
+<p>这个线性方程代表了单个作物总价值的方程，肯定是越多越好，但是这就失去了它的意义，感觉可以用之前提到的亩产价值当分母去除然后找单位亩产价值，看看哪个高就优先排哪个，至此第一问结束</p>
+
+    </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+<!-- <style>
+/* 主体样式 */
+.toc {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  max-width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  max-height: 70vh;
+}
+
+/* 隐藏在手机端 */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
+/* 标题样式 */
+.toc h2 {
+  margin-top: 0;
+  color: #343a40;
+  border-bottom: 2px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+/* 列表样式 */
+.toc ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.toc li {
+  margin-bottom: 5px;
+}
+
+/* 修改超链接颜色 */
+.toc a {
+  color: #e83e8c; /* 使用鲜艳的粉色 */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+  color: #c82333; /* 悬停时使用更深的红色 */
+}
+
+/* 层级缩进 */
+.toc ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #17a2b8;
+  padding-left: 10px;
+}
+
+.toc ul ul ul {
+  margin-left: 15px;
+  border-left: 2px solid #28a745;
+  padding-left: 10px;
+}
+
+
+
+</style> -->
+
+
+    
+    
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 cy’s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;cy
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liA160ZcBhZU3E6h",
+        clientSecret: "4399c7dea9ad355dd780587c91aa69754901d43b",
+        repo: "666cy666.github.io",
+        owner: "666cy666",
+        admin: "666cy666".split(","),
+        language: "zh-CN",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
+    
+</body>
+</html>
