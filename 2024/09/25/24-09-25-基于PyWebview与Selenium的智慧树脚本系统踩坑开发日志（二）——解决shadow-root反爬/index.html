@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>网易云日推有感-记录好听的歌（chilichill） | cy’s Blog</title>
+    <title>基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（二）—— 解决shadow-root反爬 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>网易云日推有感-记录好听的歌（chilichill）</h1>
+        <h1>基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（二）—— 解决shadow-root反爬</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/8/22
+            2024/9/25
         </span>
         
         <span class="category">
-            <a href="/categories/%E5%A5%BD%E5%90%AC%E7%9A%84%E6%AD%8C/">
+            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                好听的歌
+                智慧树脚本
             </a>
         </span>
         
@@ -197,8 +197,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%A5%BD%E5%90%AC%E7%9A%84%E6%AD%8C/" style="color: #00bcd4">
-                    好听的歌
+                <a href="/tags/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/" style="color: #ffa2c4">
+                    智慧树脚本
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/selenium/" style="color: #ff7d73">
+                    selenium
                 </a>
             </span>
             
@@ -211,38 +218,72 @@
     <!-- Add a new div for the table of contents -->
     
     <div class="content" v-pre>
-        <h1><span id="网易云日推有感-记录好听的歌chilichill">网易云日推有感-记录好听的歌（chilichill）</span></h1><p>哥们开发的时候随手打开私人漫游，一般都是听完第一段副歌直接过，有些听前奏直接过（一听就是批量粗制滥造的作品），有些歌抓耳的（某段旋律很好听，但是一看歌词完全看不了）可能会放完，好听的觉得有意思的倒是会把它放到小红心里面。</p>
-<p>开发的时候正好给我推到了<a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=2617356789">衡山路宛平路（Hengshan Road Wanping Road） - ChiliChill - 单曲 - 网易云音乐 (163.com)</a>这首歌，刚听前奏就惊艳到我了，有点像崔迪《挣脱》的前奏风格（因为歌手上听英子的找到原唱听了一遍，挺好听的就记住了，可惜网易云没有），也不是说像这首歌吧，歌听得少，没什么艺术细胞，能够让我第一首想起来的歌就是这首了……说回歌本身，听完前十几秒，很快啊，我一个闪现打开网易云后台看评论，我测8月17号新出的歌，这么高质量？豪汀豪汀，太豪汀辣！！！</p>
-<p>然后赶紧查看一下这个宝藏小歌手，chilichill，这里放一下他们乐队的主页<a target="_blank" rel="noopener" href="https://www.chilichill-music.com/">ChiliChill Music Official (chilichill-music.com)</a>——比我博客好看多了，我才发现原来《恋爱困难少女》是他们的作品，大三刚开学的时候还单曲循环了很久，后面就是一套流程，直接打开歌手主页，一首一首往下听，然后发现，欸，还真是宝藏歌手（很多歌甚至都没有突破999+，我在这里放个话，这组合不火天理难容，只是缺少一个机会罢了，但是讲实话，这个组合风格很多变，主唱的女生我听歌的时候音色很多变，有时候唱抒情歌像张韶涵，有时候像黄霄云，有时候又很古灵精怪很像那种网络歌手的音色——就是很难第一耳听出来是这个组合的歌，也可能是我听得太少了吧哈哈哈），最近还在发新专辑，新歌质量也挺高的，一听就不是那种批量制作的歌，有自己的小心思在里面。</p>
-<p>而且这个歌手很多歌都是那种轻音乐（light-music），和ACG那种类似的（原神2021百年祭《让风告诉你》就是这个乐队做的歌，还有其他很多歌都有二次元的影子，这下不得不喜欢了），而且我还在其中听到了future bass的曲风，高中的时候一直听千坂的歌（这个鸽子已经鸽了六年没发歌了），在《半梦》《半醒》中的间奏听到了类似的曲风。</p>
-<p>下面就是安利的时候哩！</p>
-<p>首先可以去看一下这个组合的演唱会，推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1NN4y1s7zy/?spm_id_from=333.337.search-card.all.click&vd_source=9f79f0aa531775705e272c4b4a946dcc">「ChiliChill·2023·每到夜里巡演·广州站」全记录_哔哩哔哩_bilibili</a>，现场太稳了（y1s1比歌手中某些歌手稳很多），而且我感觉这场也是状态最好的一场</p>
-<h2><span id="炸场-听了就让人开心-放下包袱的音乐">炸场、听了就让人开心、放下包袱的音乐</span></h2><p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=2051582470">不安灵魂收容所 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>If you don’t wanna fall asleep,<br>then welcome to our party.</p>
-<p>感觉尸体暖暖的，节奏很快的歌，不多说了，跳起来！！！</p>
-<p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=2615403834">屑屑（Thxnks） - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>给我个high five<br>今天也过得很愉快</p>
-<p>声音很傲娇，听着是那种很古灵精怪的歌，一听就让人放下包袱想快乐起来</p>
-<p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=1494812213">神仙说他也不懂 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>他懂还是不懂<br>我不懂他懂不懂<br>敌不动 我也不动<br>敌若动 我就乱激动<br>我动了他不动<br>那就是他没种</p>
-<p>很神经质的歌哈哈哈哈哈，但是讲实话有点夹子音，所以我之前说主唱音色比较”宽”?</p>
-<h2><span id="关于成长的歌">关于成长的歌</span></h2><p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=2617356789">衡山路宛平路（Hengshan Road Wanping Road） - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>撕掉作业本的角落<br>写一句别找我<br>直到肚子空空</p>
-<p>这大概是成长的烦恼吧，有点像阿肆的《成为了这样的大人，并不可耻》专辑，这张专辑也挺不错的。歌中很多歌词最后一个字都带了尾音，还带了键盘有点像星星的破碎音效，这大概就是童年随着星星一起远走了吧。</p>
-<p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=2099318072">别让我担心 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>才发现 我们早已 走了很远很远<br>多少遍 四目相对 感叹幸亏幸亏</p>
-<p>星空也猜不出你要去的方向<br>我许愿 能一直尝 你做的甜甜酿</p>
-<p>毕业的时候可以当作祝福</p>
-<h2><span id="神曲">神曲</span></h2><p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=1439814454">我的悲伤是水做的 - ChiliChill&#x2F;洛天依Official - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>我的悲伤<br>是水做的 是水做的<br>一个巨浪<br>心里凉得透透的</p>
-<p>二次元神曲，歌词很神经质，很轻快很少女的歌</p>
-<p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=1494813207">恋爱困难少女 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>我左牵黄，右擎苍<br>日行千里系沙袋<br>这样的姑娘，你看怎么样</p>
-<p>演唱会吃狗粮就对啦</p>
-<p><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=1969350944">半梦 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a><br><a target="_blank" rel="noopener" href="https://music.163.com/#/song?id=1969350945">半醒 - ChiliChill - 单曲 - 网易云音乐 (163.com)</a></p>
-<p>这两首都是神曲，emo神曲，这个组合就很奇怪，上能二次元、炸场、搞怪样样精通，下能让人emo得直接网抑云启动！</p>
-<p>同时这两首的间奏非常好听，《半梦》纯电子乐非常好听抓耳，感觉回到了高中只听纯音乐的时候，那个时候个人非常喜欢听轻音乐。《半醒》中的间奏是人声哼唱，人声真的是最好的乐器。</p>
-<h2><span id="总结">总结</span></h2><p>这组合必火，但是在火之前，请麻烦多出几首歌屑屑。</p>
+        <h1><span id="基于pywebview与selenium的智慧树脚本系统踩坑开发日志二-解决shadow-root反爬">基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（二）—— 解决shadow-root反爬</span></h1><h2><span id="解决shadow-root反爬2024-9-23">解决shadow-root反爬（2024-9-23）</span></h2><p>直接说最终解决方案，shadow-root鄙人是不可能爬得到了，我还是老老实实用ocr吧，最后找到一个非常不错的轻量级ocr</p>
+<h3><span id="采用cnocr识别题目文字">采用Cnocr识别题目文字</span></h3><h4><span id="配置">配置</span></h4><pre><code class="txt">CnOcr
+onnxruntime
+</code></pre>
+<p><img src="/images/image-20240925222645169.png" alt="image-20240925222645169"></p>
+<p>pip下载这两个包就行，官方包是提供自动下载模型的，但是我这个最后要打包，必不可能让用户自己下载，直接用相对路径改了就行，而且并不是很想下载模型到C盘</p>
+<h4><span id="使用">使用</span></h4><pre><code class="py">base_path = os.getcwd()
+relative_path = &#39;Ocr_Model&#39;
+custom_model_path = os.path.join(base_path, relative_path)
+os.environ[&#39;CNOCR_HOME&#39;] = custom_model_path
+ocr = CnOcr(
+    det_model_name=&#39;naive_det&#39;,
+    rec_root=&#39;/Model/Ocr_Model/cnocr&#39;,  # 自定义识别模型存储目录
+    det_root=&#39;/Model/Ocr_Model/cnstd&#39;  # 自定义检测模型存储目录
+)
+</code></pre>
+<p>用<code>naive_det</code>参数识别这种标准的矩形文字十分快，就是初始化需要一点时间，初始化完成后识别的速度基本上和爬取的速度没什么差别</p>
+<h4><span id="测试">测试</span></h4><p><img src="/images/image-20240925223833962.png" alt="image-20240925223833962"></p>
+<p>基本上不会出很大的问题，而且模型大小只有十几M，非常轻量，最终选择了OCR</p>
+<h2><span id="最初的方案2023-4-23">最初的方案（2023-4-23）</span></h2><p><em><strong>前端“shadow-root（closed)”反爬</strong></em></p>
+<p><img src="/images/image-20240925220736055.png" alt="image-20240925220736055"></p>
+<p>在用自动答章节测试系统中，本想爬取页面中的题目名称，再用题目名称去sqlite对应表中查找对应的题目名称如图所示，但遇到如图的反爬代码</p>
+<p><img src="/images/image-20240925220814046.png" alt="image-20240925220814046"></p>
+<p>在经过无数次的失败后例如执行javascript脚本，访问vue的虚拟dom，暴力破解shadow-root（closed）源码，利用opencv截图导出对应文本…（在github上有大佬有软件可以获取，但版本较老，无法移植）最后查找资料中找到如图4.1.3-3所示，该反爬措施无法被dom挂载，无法修改，无法获取，无法访问…至少以我目前的实力碰到该元素等于 绝望，最后将算法修改为直接从数据库拿出该章节的答案，将答案按顺序将对应的选项勾选。</p>
+<h2><span id="新的方案2024-6-23">新的方案（2024-6-23）</span></h2><p>后面重构代码的时候在stack-overflow上有个解决方案,<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/77242284/how-to-locate-element-in-shadow-root-closed-host">python - How to locate element in shadow-root (closed) host - Stack Overflow</a>,它的思路大概是这样的，既然shadow-root元素已经无法抓取，那么就刷新页面写入js让它能够抓取，想法很美好</p>
+<p><img src="/images/image-20240925221445871.png" alt="image-20240925221445871"></p>
+<p>哈哈，丸辣，官方应该是做了判断，只要shadow-root被打开就意味着有脚本，这个还真挺好检测，但是鄙人也想不出什么解决办法了，另外再提一下这个脚本的使用，虽然对智慧树没用，但是对其他没有反爬的网站应该还是有点用的。</p>
+<h3><span id="injectedjs">injected.js</span></h3><pre><code class="js">Element.prototype._attachShadow = Element.prototype.attachShadow;
+Element.prototype.attachShadow = function () &#123;
+    console.log(&#39;attachShadow&#39;);
+    return this._attachShadow( &#123; mode: &quot;open&quot; &#125; );
+&#125;;
+</code></pre>
+<h3><span id="manifestjson">manifest.json</span></h3><pre><code class="json">&#123;
+    &quot;name&quot;: &quot;SeleniumTesting&quot;,
+    &quot;description&quot;: &quot;Extension to open closed Shadow DOM for selenium testing&quot;,
+    &quot;version&quot;: &quot;1&quot;,
+    &quot;author&quot;: &quot;cy&quot;,
+    &quot;manifest_version&quot;: 2,
+    &quot;permissions&quot;: [
+        &quot;downloads&quot;,
+        &quot;&lt;all_urls&gt;&quot;
+    ],
+    &quot;content_scripts&quot;: [
+        &#123;
+            &quot;matches&quot;: [
+            &quot;https://onlineexamh5new.zhihuishu.com/*&quot;,
+            &quot;https://onlineweb.zhihuishu.com/*&quot;
+        ],
+            &quot;run_at&quot;: &quot;document_start&quot;,
+            &quot;all_frames&quot;: true,
+            &quot;js&quot;: [
+                &quot;shadowInject.js&quot;
+            ]
+        &#125;
+    ],
+    &quot;web_accessible_resources&quot;: [
+        &quot;injected.js&quot;
+    ]
+&#125;
+</code></pre>
+<p>matches里面的内容需要改网络地址的前缀</p>
+<h3><span id="shadowinjectjs">shadowInject.js</span></h3><pre><code class="js">const injectedScript = document.createElement(&#39;script&#39;);
+injectedScript.src = chrome.extension.getURL(&#39;injected.js&#39;);
+(document.head || document.documentElement).appendChild(injectedScript);
+</code></pre>
 
     </div>
     
