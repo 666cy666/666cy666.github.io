@@ -3,7 +3,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
-    <title>基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（二）—— 解决vue3钩子函数mounted初始化问题(2024-6-22) | cy’s Blog</title>
+    <title>Zhihuishu-Script脚本使用——自助答题 | cy’s Blog</title>
     <meta name="author" content="cy" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -169,22 +169,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（二）—— 解决vue3钩子函数mounted初始化问题(2024-6-22)</h1>
+        <h1>Zhihuishu-Script脚本使用——自助答题</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2024/9/25
+            2024/10/9
         </span>
         
         <span class="category">
-            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC/">
+            <a href="/categories/%E6%99%BA%E6%85%A7%E6%A0%91%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                智慧树脚本
+                智慧树脚本使用
             </a>
         </span>
         
@@ -218,51 +218,11 @@
     <!-- Add a new div for the table of contents -->
     
     <div class="content" v-pre>
-        <h1><span id="基于pywebview与selenium的智慧树脚本系统踩坑开发日志四-解决vue3钩子函数mounted初始化问题">基于PyWebview与Selenium的智慧树脚本系统踩坑开发日志（四）—— 解决vue3钩子函数mounted初始化问题</span></h1><h3><span id="vue3钩子函数mounted初始化问题2024-6-22">vue3钩子函数mounted初始化问题(2024-6-22)</span></h3><h4><span id="原来代码">原来代码：</span></h4><pre><code class="js">mounted() &#123;
-    this.$nextTick(() =&gt; &#123;
-        this.fetchUserInfo(); // 确保 DOM 完全更新后调用
-    &#125;);
-&#125;,
-</code></pre>
-<pre><code class="js">async fetchUserInfo() &#123;
-    try &#123;
-        const userInfoList = await req_api.getUserInfo(); 
-        this.userInfoList = userInfoList
-        this.userInfo = userInfoList[this.userIndex]; 
-        // alert(&quot;用户信息已更新:&quot;, this.userIndex);
-        alert(this.userInfoList)
-    &#125; catch (error) &#123;
-        alert(&quot;&quot;,this.userInfoList);
-    &#125;
-&#125;
-</code></pre>
-<p>另一个用于封装接口的js文件</p>
-<pre><code class="js">getUserInfo: function() &#123;
-    alert(&quot;GetUserInfo called&quot;);  // 添加日志
-    return pywebview.api.get_userinfo().then((response) =&gt; &#123;
-        alert(&quot;UserInfo fetched:&quot;, response);
-        return JSON.parse(response);
-    &#125;).catch((error) =&gt; &#123;
-        alert(&#39;Failed to get user info:&#39;, error);
-        throw error;
-    &#125;);
-&#125;
-</code></pre>
-<p>这样写一直会有问题，初始化往往只能到弹出“GetUserInfo called”的提示框，后面任意一条分支都无法打印，后面才理清楚，python启动的服务可能慢于vue3渲染成功的时间，一定要加上监听事件才行</p>
-<h4><span id="后续代码">后续代码</span></h4><pre><code class="js">mounted() &#123;
-    window.addEventListener(&#39;pywebviewready&#39;, this.handlePywebview, true);
-&#125;,
-beforeDestroy() &#123;
-        window.removeEventListener(&#39;pywebviewready&#39;, this.handlePywebview, true);
- &#125;,
-methods: &#123;
-    handlePywebview() &#123;
-        // 这里可以放入 pywebview 就绪后执行的方法
-        alert(&quot;pywebview is ready&quot;);
-        this.fetchUserInfo();
-    &#125;,
-&#125;
-</code></pre>
+        <h1><span id="zhihuishu-script脚本使用自助答题">Zhihuishu-Script脚本使用——自助答题</span></h1><p><img src="/images/image-20241009122618801.png" alt="image-20241009122618801"></p>
+<p><img src="/images/image-20241009122604237.png" alt="image-20241009122604237"></p>
+<p><img src="/images/image-20241009123426026.png" alt="image-20241009123426026"></p>
+<p>有可能出现自动答题的时候匹配不到答案的情况，这个时候请在答案模块下点击上方的网址查找对应的网课答案，找到了请将网址粘贴于上方输入框中，若查找不到请移步其他网址。</p>
+<p>之后再回到主页面登陆后点击自动答题</p>
 
     </div>
     
